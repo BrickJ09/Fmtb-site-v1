@@ -1,6 +1,9 @@
 // --- script.js ---
 
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyYn4Sx2-QSpFxa89H2e3DfHvS0sI55GzCIqlUmagbxeBembHx1wm-Ngg9dZ0n4F6LVsA/exec';
+const SHEET_URL = "/.netlify/functions/reviews"; // Proxy-Endpoint
+
+// loadReviews() & reviewForm.submit() funktionieren jetzt öffentlich
+
 
 // --- Währungsumschaltung ---
 const currencyRates = { USD:1, CHF:1.12, EUR:0.95 };
