@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fingerbike Shop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Fingerbike Shop</h1>
+    <div class="currency-selector">
+      <label for="currency">Währung:</label>
+      <select id="currency">
+        <option value="CHF" selected>CHF</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <section id="products" class="products">
+      <!-- Produkte -->
+      <div class="product" data-price-chf="11.50">
+        <img src="images/fingerbike_classic.jpg" alt="Fingerbike Classic">
+        <h2>Fingerbike Classic</h2>
+        <p>Standard Fingerbike, ideal für Anfänger.</p>
+        <p class="price">CHF 11.50</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="15.00">
+        <img src="images/fingerbike_pro.jpg" alt="Fingerbike Pro">
+        <h2>Fingerbike Pro</h2>
+        <p>Pro-Modell für fortgeschrittene Tricks.</p>
+        <p class="price">CHF 15.00</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="10.00">
+        <img src="images/fingerbike_mini.jpg" alt="Fingerbike Mini">
+        <h2>Fingerbike Mini</h2>
+        <p>Kleines Fingerbike, perfekt für unterwegs.</p>
+        <p class="price">CHF 10.00</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="12.00">
+        <img src="images/fingerbike_ramp.jpg" alt="Fingerbike Ramp">
+        <h2>Fingerbike Ramp</h2>
+        <p>Mini-Rampe für Tricks auf dem Tisch.</p>
+        <p class="price">CHF 12.00</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="13.50">
+        <img src="images/fingerbike_rail.jpg" alt="Fingerbike Rail">
+        <h2>Fingerbike Rail</h2>
+        <p>Mini-Rail für Slides und Grinds.</p>
+        <p class="price">CHF 13.50</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="18.00">
+        <img src="images/fingerbike_quarterpipe.jpg" alt="Fingerbike Quarterpipe">
+        <h2>Fingerbike Quarterpipe</h2>
+        <p>Kleine Quarterpipe für coole Tricks.</p>
+        <p class="price">CHF 18.00</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="35.00">
+        <img src="images/fingerbike_skatepark_set.jpg" alt="Fingerbike Skatepark Set">
+        <h2>Fingerbike Skatepark Set</h2>
+        <p>Set mit Rampen, Rails und Hindernissen.</p>
+        <p class="price">CHF 35.00</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="20.00">
+        <img src="images/fingerbike_finger_mtb.jpg" alt="Finger MTB">
+        <h2>Finger MTB</h2>
+        <p>Mini-Mountainbike für Fingertricks.</p>
+        <p class="price">CHF 20.00</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="25.00">
+        <img src="images/fingerbike_fingerskis.jpg" alt="Fingerskis">
+        <h2>Fingerskis Set</h2>
+        <p>Set mit drei Paar Fingerskis in verschiedenen Größen.</p>
+        <p class="price">CHF 25.00</p>
+        <button>Kaufen</button>
+      </div>
+
+      <div class="product" data-price-chf="22.00">
+        <img src="images/fingerbike_finger_snowboard.jpg" alt="Fingersnowboard">
+        <h2>Fingersnowboard</h2>
+        <p>Mini-Snowboard für Tricks auf dem Tisch.</p>
+        <p class="price">CHF 22.00</p>
+        <button>Kaufen</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const currencySelect = document.getElementById('currency');
+    const products = document.querySelectorAll('.product');
+
+    const rates = {
+      CHF: 1,
+      USD: 1.12,  // Beispielkurs
+      EUR: 0.95   // Beispielkurs
+    };
+
+    currencySelect.addEventListener('change', () => {
+      const selected = currencySelect.value;
+      products.forEach(prod => {
+        const priceCHF = parseFloat(prod.dataset.priceChf);
+        const newPrice = (priceCHF * rates[selected]).toFixed(2);
+        prod.querySelector('.price').textContent = `${selected} ${newPrice}`;
+      });
+    });
+  </script>
+</body>
+</html>
