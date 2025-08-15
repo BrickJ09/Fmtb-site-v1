@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FingerMTB — Mini Bikes · Big Tricks</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header apple-glass">
+        <div class="container flex-between">
+            <div class="brand">
+                <h1>FingerMTB</h1>
+                <p class="tagline">Mini Bikes · Big Tricks</p>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="cart-container">
+                <select id="currencySwitch">
+                    <option value="USD">$ USD</option>
+                    <option value="CHF">CHF</option>
+                    <option value="EUR">€ EUR</option>
+                </select>
+                <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero apple-hero">
+        <div class="container hero-content">
+            <h2>Ride Small. Dream Big.</h2>
+            <p>Premium finger bikes & skis, built for tricks and fun — all year round.</p>
+            <a href="shop.html" class="btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="product-section container">
+        <h3>Our Products</h3>
+        <div class="products-grid">
+            <!-- PRODUCT 1 -->
+            <div class="product-card">
+                <img src="images/downhill1.jpg" alt="Downhill Bike Pro">
+                <h4>Downhill Bike Pro</h4>
+                <p class="price" data-usd="49.99">$49.99</p>
+                <a href="product-downhill1.html" class="btn-secondary">View Details</a>
+            </div>
+            <!-- PRODUCT 2 -->
+            <div class="product-card">
+                <img src="images/downhill2.jpg" alt="Downhill Bike Xtreme">
+                <h4>Downhill Bike Xtreme</h4>
+                <p class="price" data-usd="59.99">$59.99</p>
+                <a href="product-downhill2.html" class="btn-secondary">View Details</a>
+            </div>
+            <!-- PRODUCT 3 -->
+            <div class="product-card">
+                <img src="images/enduro.jpg" alt="Enduro Bike">
+                <h4>Enduro Bike</h4>
+                <p class="price" data-usd="54.99">$54.99</p>
+                <a href="product-enduro.html" class="btn-secondary">View Details</a>
+            </div>
+            <!-- PRODUCT 4 -->
+            <div class="product-card winter">
+                <img src="images/winterski1.jpg" alt="Winter Ski Pro">
+                <h4>Winter Ski Pro</h4>
+                <p class="price" data-usd="39.99">$39.99</p>
+                <a href="product-winterski1.html" class="btn-secondary">View Details</a>
+            </div>
+            <!-- PRODUCT 5 -->
+            <div class="product-card winter">
+                <img src="images/winterski2.jpg" alt="Winter Ski Extreme">
+                <h4>Winter Ski Extreme</h4>
+                <p class="price" data-usd="44.99">$44.99</p>
+                <a href="product-winterski2.html" class="btn-secondary">View Details</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews-section container">
+        <h3>Customer Reviews</h3>
+        <form id="reviewForm">
+            <label>
+                Name:
+                <input type="text" name="name" required>
+            </label>
+            <label>
+                Rating:
+                <select name="rating" required>
+                    <option value="">Select...</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="1">⭐</option>
+                </select>
+            </label>
+            <label>
+                Comment:
+                <textarea name="comment" required></textarea>
+            </label>
+            <button type="submit" class="btn-primary">Submit Review</button>
+        </form>
+        <div id="reviewsList">
+            <!-- Reviews will be loaded from Google Sheets -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 FingerMTB — All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
