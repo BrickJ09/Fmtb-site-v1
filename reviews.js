@@ -1,4 +1,6 @@
 const fetch = require("node-fetch"); // Node.js Fetch für Netlify
+const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+console.log("AKfycbynuln7VxG8tRnektJ3RVdAunANDvXOlCx6Y2e3x7tB:", apiKey);
 
 exports.handler = async function(event, context) {
   const SHEET_URL = "https://script.google.com/macros/s/AKfycbwRBKRnE2iqUO0DBUXObjdMwITDhcezBVWMjHQ6A9NU9YfVXMSJ1XxKwvgKTw0rFytgZw/exec";
