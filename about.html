@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — FingerMTB</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ <header class="site-header">
+  <div class="container flex-between">
+    <div class="brand">
+      <h1>FingerMTB</h1>
+      <p class="tagline">Mini Bikes · Big Tricks</p>
+    </div>
+
+    <!-- Hamburger Button (nur auf Handy sichtbar) -->
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="cart-container">
+      <select id="currencySwitch">
+        <option value="USD">$ USD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR">€ EUR</option>
+      </select>
+      <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+  <main class="container">
+    <section class="about-card">
+      <h2>About BrickJ FMTB</h2>
+      <p>Hi! I'm Jamie from Switzerland. I design and 3D-print finger-sized Downhill & Enduro bikes. Each bike is printed with care and can be customized by color and size.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><span id="year2"></span> BrickJMTB</p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year2').textContent = new Date().getFullYear();</script>
+</body>
+</html>

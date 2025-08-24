@@ -5,61 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fingerbike Shop</title>
   <link rel="stylesheet" href="style.css">
+   
 </head>
 <body>
-  <header>
-    <h1>Fingerbike Shop</h1>
-    <div class="currency-selector">
-      <label for="currency">Währung:</label>
-      <select id="currency">
-        <option value="CHF" selected>CHF</option>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-      </select>
+   <header class="site-header">
+  <div class="container flex-between">
+    <div class="brand">
+      <h1>FingerMTB</h1>
+      <p class="tagline">Mini Bikes · Big Tricks</p>
     </div>
-  </header>
+
+    <!-- Hamburger Button (nur auf Handy sichtbar) -->
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy polocy</a>
+    </nav>
+
+    <div class="cart-container">
+      <select id="currencySwitch">
+        <option value="USD">$ USD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR">€ EUR</option>
+      </select>
+      <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+    </div>
+  </div>
+   <script src="script.js"></script>
+</header>
 
   <main>
+    
     <section id="products" class="products">
       <!-- Produkte -->
-      <div class="product" data-price-chf="11.50">
+      <div class="product" data-price-chf="2.00">
         <img src="images/fingerbike_classic.jpg" alt="Fingerbike Classic">
         <h2>Fingerbike Classic</h2>
         <p>Standard Fingerbike, ideal für Anfänger.</p>
-        <p class="price">CHF 11.50</p>
-        <button>Kaufen</button>
+        <p class="price">CHF 2.00</p>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
-      <div class="product" data-price-chf="15.00">
+      <div class="product" data-price-chf="2.00">
         <img src="images/fingerbike_pro.jpg" alt="Fingerbike Pro">
         <h2>Fingerbike Pro</h2>
         <p>Pro-Modell für fortgeschrittene Tricks.</p>
-        <p class="price">CHF 15.00</p>
-        <button>Kaufen</button>
+        <p class="price">CHF 2.00</p>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
-      <div class="product" data-price-chf="10.00">
+      <div class="product" data-price-chf="2.00">
         <img src="images/fingerbike_mini.jpg" alt="Fingerbike Mini">
         <h2>Fingerbike Mini</h2>
         <p>Kleines Fingerbike, perfekt für unterwegs.</p>
-        <p class="price">CHF 10.00</p>
-        <button>Kaufen</button>
+        <p class="price">CHF 2.00</p>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
-      <div class="product" data-price-chf="12.00">
+      <div class="product" data-price-chf="2.00">
         <img src="images/fingerbike_ramp.jpg" alt="Fingerbike Ramp">
-        <h2>Fingerbike Ramp</h2>
+        <h2>Fingerbike Roll-In</h2>
         <p>Mini-Rampe für Tricks auf dem Tisch.</p>
         <p class="price">CHF 12.00</p>
-        <button>Kaufen</button>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
       <div class="product" data-price-chf="13.50">
-        <img src="images/fingerbike_rail.jpg" alt="Fingerbike Rail">
-        <h2>Fingerbike Rail</h2>
+        <img src="images/fingerbike_kicker_small.jpg" alt="Fingerbike Rail">
+        <h2>Fingerbike Kicker Small</h2>
         <p>Mini-Rail für Slides und Grinds.</p>
         <p class="price">CHF 13.50</p>
-        <button>Kaufen</button>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
       <div class="product" data-price-chf="18.00">
@@ -67,7 +89,7 @@
         <h2>Fingerbike Quarterpipe</h2>
         <p>Kleine Quarterpipe für coole Tricks.</p>
         <p class="price">CHF 18.00</p>
-        <button>Kaufen</button>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
       <div class="product" data-price-chf="35.00">
@@ -75,7 +97,7 @@
         <h2>Fingerbike Skatepark Set</h2>
         <p>Set mit Rampen, Rails und Hindernissen.</p>
         <p class="price">CHF 35.00</p>
-        <button>Kaufen</button>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
       <div class="product" data-price-chf="20.00">
@@ -83,7 +105,7 @@
         <h2>Finger MTB</h2>
         <p>Mini-Mountainbike für Fingertricks.</p>
         <p class="price">CHF 20.00</p>
-        <button>Kaufen</button>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
       <div class="product" data-price-chf="25.00">
@@ -91,7 +113,7 @@
         <h2>Fingerskis Set</h2>
         <p>Set mit drei Paar Fingerskis in verschiedenen Größen.</p>
         <p class="price">CHF 25.00</p>
-        <button>Kaufen</button>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
 
       <div class="product" data-price-chf="22.00">
@@ -99,7 +121,7 @@
         <h2>Fingersnowboard</h2>
         <p>Mini-Snowboard für Tricks auf dem Tisch.</p>
         <p class="price">CHF 22.00</p>
-        <button>Kaufen</button>
+        <button><a href="fingerbike_kicker_small">See More</a></button>
       </div>
     </section>
   </main>
@@ -123,5 +145,6 @@
       });
     });
   </script>
+
 </body>
 </html>

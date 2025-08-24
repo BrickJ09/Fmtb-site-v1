@@ -19,56 +19,10 @@ function updatePrices() {
 }
 currencySelect.addEventListener('change', updatePrices);
 updatePrices();
+// Mobile menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNav = document.querySelector('.main-nav');
 
-// --- Reviews laden ---
-const reviewForm = document.getElementById('reviewForm');
-const reviewsList = document.getElementById('reviewsList');
-
-function loadReviews() {
-  fetch(`${SHEET_URL}?action=get`)
-    .then(res => res.json())
-    .then(data => {
-      if(data.status === 'success') {
-        reviewsList.innerHTML = '';
-        data.reviews.reverse().forEach(r => {
-          const div = document.createElement('div');
-          div.className = 'review-item';
-          div.textContent = `${r.name} - ${'⭐'.repeat(r.rating)}\n${r.comment}`;
-          reviewsList.appendChild(div);
-        });
-      }
-    });
-}
-loadReviews();
-
-// --- Review absenden ---
-reviewForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const formData = new FormData(reviewForm);
-  const params = new URLSearchParams();
-  params.append('action','add');
-  params.append('name', formData.get('name'));
-  params.append('rating', formData.get('rating'));
-  params.append('comment', formData.get('comment'));
-
-  fetch(`${SHEET_URL}?${params.toString()}`)
-    .then(res => res.json())
-    .then(data => {
-      const msg = document.createElement('div');
-      msg.className = data.status === 'success' ? 'review-success' : 'review-error';
-      msg.textContent = data.message;
-      reviewForm.appendChild(msg);
-      if(data.status === 'success') {
-        loadReviews();
-        reviewForm.reset();
-      }
-      setTimeout(()=>msg.remove(),3000);
-    })
-    .catch(err => {
-      const msg = document.createElement('div');
-      msg.className = 'review-error';
-      msg.textContent = 'Fehler beim Senden. Bitte später erneut versuchen.';
-      reviewForm.appendChild(msg);
-      setTimeout(()=>msg.remove(),3000);
-    });
+menuToggle.addEventListener('click', () => {
+  mainNav.classList.toggle('active');
 });

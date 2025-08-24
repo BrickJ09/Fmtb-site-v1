@@ -9,35 +9,42 @@
 </head>
 <body>
     <!-- HEADER -->
-    <header class="site-header apple-glass">
-        <div class="container flex-between">
-            <div class="brand">
-                <h1>FingerMTB</h1>
-                <p class="tagline">Mini Bikes · Big Tricks</p>
-            </div>
-            <nav class="main-nav">
-                <a href="index.html" class="active">Home</a>
-                <a href="shop.html">Shop</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-            <div class="cart-container">
-                <select id="currencySwitch">
-                    <option value="USD">$ USD</option>
-                    <option value="CHF">CHF</option>
-                    <option value="EUR">€ EUR</option>
-                </select>
-                <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
-            </div>
-        </div>
-    </header>
+   <header class="site-header">
+  <div class="container flex-between">
+    <div class="brand">
+      <h1>FingerMTB</h1>
+      <p class="tagline">Mini Bikes · Big Tricks</p>
+    </div>
+
+    <!-- Hamburger Button (nur auf Handy sichtbar) -->
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="cart-container">
+      <select id="currencySwitch">
+        <option value="USD">$ USD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR">€ EUR</option>
+      </select>
+      <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
 
     <!-- HERO -->
     <section class="hero apple-hero">
         <div class="container hero-content">
             <h2>Ride Small. Dream Big.</h2>
-            <p>Premium finger bikes & skis, built for tricks and fun — all year round.</p>
+            <p>Finger bikes & skis, built for tricks and fun — all year round.</p>
             <a href="shop.html" class="btn-primary">Shop Now</a>
         </div>
     </section>
@@ -48,30 +55,30 @@
         <div class="products-grid">
             <!-- PRODUCT 1 -->
             <div class="product-card">
-                <img src="images/downhill1.jpg" alt="Downhill Bike Pro">
-                <h4>Downhill Bike Pro</h4>
-                <p class="price" data-usd="49.99">$49.99</p>
+                <img src="images/pink bike.JPG" alt="Downhill Bike Pro">
+                <h4>Pink Sender CFR</h4>
+                <p class="price" data-usd="2.00">$2</p>
                 <a href="product-downhill1.html" class="btn-secondary">View Details</a>
             </div>
             <!-- PRODUCT 2 -->
             <div class="product-card">
-                <img src="images/downhill2.jpg" alt="Downhill Bike Xtreme">
-                <h4>Downhill Bike Xtreme</h4>
-                <p class="price" data-usd="59.99">$59.99</p>
+                <img src="images/white_bike.JPG" alt="Downhill Bike Xtreme">
+                <h4>White Sender CFR</h4>
+                <p class="price" data-usd="2">$2</p>
                 <a href="product-downhill2.html" class="btn-secondary">View Details</a>
             </div>
             <!-- PRODUCT 3 -->
             <div class="product-card">
-                <img src="images/enduro.jpg" alt="Enduro Bike">
+                <img src="images/yellow_bike.JPG" alt="Enduro Bike">
                 <h4>Enduro Bike</h4>
-                <p class="price" data-usd="54.99">$54.99</p>
+                <p class="price" data-usd="2">$2</p>
                 <a href="product-enduro.html" class="btn-secondary">View Details</a>
             </div>
             <!-- PRODUCT 4 -->
             <div class="product-card winter">
                 <img src="images/winterski1.jpg" alt="Winter Ski Pro">
                 <h4>Winter Ski Pro</h4>
-                <p class="price" data-usd="39.99">$39.99</p>
+                <p class="price" data-usd="2">$2</p>
                 <a href="product-winterski1.html" class="btn-secondary">View Details</a>
             </div>
             <!-- PRODUCT 5 -->
@@ -83,41 +90,205 @@
             </div>
         </div>
     </section>
-
-    <!-- REVIEWS -->
-    <section class="reviews-section container">
-        <h3>Customer Reviews</h3>
-        <form id="reviewForm">
-            <label>
-                Name:
-                <input type="text" name="name" required>
-            </label>
-            <label>
-                Rating:
-                <select name="rating" required>
-                    <option value="">Select...</option>
-                    <option value="5">⭐⭐⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="1">⭐</option>
-                </select>
-            </label>
-            <label>
-                Comment:
-                <textarea name="comment" required></textarea>
-            </label>
-            <button type="submit" class="btn-primary">Submit Review</button>
-        </form>
-        <div id="reviewsList">
-            <!-- Reviews will be loaded from Google Sheets -->
+    <section class="hero is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Data Entry Form</h1>
         </div>
+      </div>
     </section>
+    <form id="form" class="container m-4 pl-4">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Your Name"
+            name="Client Name"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Upload Document (This function doest work yet)</label>
+        <div class="control">
+          <div class="file has-name is-fullwidth">
+            <label class="file-label">
+              <input
+                class="file-input"
+                type="file"
+                name="theFile"
+                id="fileInput"
+                accept="*/*"
+              />
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label"> Choose a file… </span>
+              </span>
+              <span class="file-name" id="fileNameDisplay">
+                No file selected
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="filename" id="actualFilename" />
+
+      
+      <div class="field">
+        <label class="label">Additional Information</label>
+        <div class="control">
+          <textarea
+            class="textarea"
+            placeholder="Any additional information"
+            name="Notes"
+          ></textarea>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit" id="submit-button">
+            Sign Up
+          </button>
+        </div>
+        <div class="control">
+          <button
+            class="button is-danger"
+            type="button"
+            onclick="document.getElementById('form').reset(); document.getElementById('fileNameDisplay').textContent = 'No file selected';"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+    <div
+      id="message"
+      style="
+        display: none;
+        margin: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: bold;
+      "
+    ></div>
+<script>
+      const form = document.getElementById("form");
+      const submitButton = document.getElementById("submit-button");
+      const messageDiv = document.getElementById("message");
+      const fileInput = document.getElementById("fileInput");
+      const fileNameDisplay = document.getElementById("fileNameDisplay");
+
+      // Update displayed filename on file selection
+      fileInput.addEventListener("change", function () {
+        if (this.files && this.files.length > 0) {
+          fileNameDisplay.textContent = this.files[0].name;
+        } else {
+          fileNameDisplay.textContent = "No file selected";
+        }
+      });
+
+      // Function to handle file upload
+      async function uploadFile(file) {
+        return new Promise((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = (e) => {
+            const data = e.target.result.split(",");
+            const obj = {
+              fileName: file.name,
+              mimeType: data[0].match(/:(\w.+);/)[1],
+              data: data[1],
+            };
+            resolve(obj);
+          };
+          fr.onerror = reject;
+          fr.readAsDataURL(file);
+        });
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        messageDiv.textContent = "Submitting...";
+        messageDiv.style.display = "block";
+        messageDiv.style.backgroundColor = "beige";
+        messageDiv.style.color = "black";
+        submitButton.disabled = true;
+        submitButton.classList.add("is-loading");
+
+        try {
+          const formData = new FormData(this);
+          const formDataObj = {};
+
+          // Convert FormData to object
+          for (let [key, value] of formData.entries()) {
+            formDataObj[key] = value;
+          }
+
+          // Handle file upload if a file is selected
+          if (fileInput.files.length > 0) {
+            const fileObj = await uploadFile(fileInput.files[0]);
+            formDataObj.fileData = fileObj; // Add file data to form data
+          }
+
+          // Submit form data
+          const scriptURL =
+            "https://script.google.com/macros/s/AKfycby18XE62EImfZ8FJx_8yT0q-Q-nw-dV5hign-TeANThgP_Sa9xvrpfUoJhZBJIjUpExCQ/exec";
+
+          const response = await fetch(scriptURL, {
+            redirect: "follow",
+            method: "POST",
+            body: JSON.stringify(formDataObj),
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+          });
+
+          const data = await response.json();
+
+          if (data.status === "success") {
+            messageDiv.textContent =
+              data.message || "Data submitted successfully!";
+            messageDiv.style.backgroundColor = "#48c78e";
+            messageDiv.style.color = "white";
+            form.reset();
+            fileNameDisplay.textContent = "No file selected";
+          } else {
+            throw new Error(data.message || "Submission failed");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          messageDiv.textContent = "Error: " + error.message;
+          messageDiv.style.backgroundColor = "#f14668";
+          messageDiv.style.color = "white";
+        } finally {
+          submitButton.disabled = false;
+          submitButton.classList.remove("is-loading");
+
+          setTimeout(() => {
+            messageDiv.textContent = "";
+            messageDiv.style.display = "none";
+          }, 4000);
+        }
+      });
+
+      // Enhance cancel button to reset file input display
+      const cancelButton = form.querySelector("button.is-danger");
+      cancelButton.addEventListener("click", function () {
+        form.reset();
+        fileNameDisplay.textContent = "No file selected";
+        messageDiv.style.display = "none";
+      });
+    </script>
 
     <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container">
-            <p>© 2025 FingerMTB — All rights reserved.</p>
+            <p>BrickJ_mtb  This site was coded by me😊</p>
+            <p>This site doesn't use cookies🍪</p>
+            <p><a href="privacy.html">Privacy Policy ➔</a></p>
         </div>
     </footer>
 </body>
