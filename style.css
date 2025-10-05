@@ -91,7 +91,7 @@ header .brand .tagline {
 
 /* --- HERO --- */
 .hero {
-  background: url('white_and_pink_downhill.JPG') center/cover no-repeat;
+  background: url('images/white_and_pink_downhill.JPG') center/cover no-repeat;
   color: #fff;
   text-align: center;
   padding: 100px 20px 60px;
@@ -316,12 +316,53 @@ footer.site-footer {
   font-size: 1.05rem;
 }
 
-/* --- RESPONSIVE --- */
+
+/* Hamburger Button */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  margin-left: 70vw;
+}
+/* Handy-Menü */
 @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 100;
+    top: 60px;
+    right: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .main-nav.active {
+    display: flex;
+  }
+  .slider button {
+    font-size: 1.5rem;
+    padding: 0.3em 0.5em;
+  }
+  .slider img {
+  display: none;
+  max-width: 10%;
+  height: auto;
+  border-radius: 10px;
+  }
   .main-nav {
     display: none;
   }
-
   header .flex-between, header .container {
     flex-direction: column;
     gap: 15px;
@@ -339,40 +380,132 @@ footer.site-footer {
     font-size: 1rem;
   }
 }
+.slider {
+  position: relative;
+  max-width: 500px; /* auf grossen Screens nicht unendlich breit */
+  width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.slides {
+  width: 100%;
+  text-align: center;
+}
 
-/* Hamburger Button */
-.menu-toggle {
+.slider img {
   display: none;
-  font-size: 1.8rem;
-  background: none;
-  border: none;
-  cursor: pointer;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.slider img.active {
+  display: block;
+}
+
+.slider button {
   position: absolute;
-  margin-left: 70vw;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.4em 0.7em;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s;
 }
 
-/* Handy-Menü */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
+.slider button:hover {
+  background: rgba(0,0,0,0.6);
+}
 
-  .main-nav {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
+.slider .prev {
+  left: 10px;
+}
+.slider .next {
+  right: 10px;
+}
+.footerprod{
     position: absolute;
-    top: 60px;
-    right: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    margin-top: 100%;
   }
-
-  .main-nav.active {
-    display: flex;
-  }
+/* -------- Produkt Layout -------- */
+.product-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 2rem;
 }
 
+/* Bildbereich */
+.productimgbox {
+  flex: 1 1 50%;
+}
+
+.productimgbox img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Textbereich */
+.pricedescription {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.pricedescription h2 {
+  font-size: 2rem;
+}
+
+.pricedescription .price {
+  font-weight: bold;
+  color: #007BFF;
+  font-size: 1.4rem;
+}
+
+.pricedescription a {
+  background-color: #fba802;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.pricedescription b {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* -------- Handy Ansicht -------- */
+@media (max-width: 768px) {
+  .product-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .pricedescription {
+    align-items: center;
+    text-align: center;
+  }
+
+  .pricedescription a {
+    width: auto;
+  }
+}
