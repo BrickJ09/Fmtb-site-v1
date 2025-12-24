@@ -267,6 +267,8 @@ button {
   background-color: #555;
   color: #fff;
   border-radius: 8px;
+  display: block;
+  margin-bottom: 5px;
   transition: background 0.3s, transform 0.2s;
 }
 
@@ -350,16 +352,6 @@ footer.site-footer {
   .main-nav.active {
     display: flex;
   }
-  .slider button {
-    font-size: 1.5rem;
-    padding: 0.3em 0.5em;
-  }
-  .slider img {
-  display: none;
-  max-width: 10%;
-  height: auto;
-  border-radius: 10px;
-  }
   .main-nav {
     display: none;
   }
@@ -431,11 +423,10 @@ footer.site-footer {
 .slider .next {
   right: 10px;
 }
-.footerprod{
-    position: absolute;
-    width: 100%;
-    margin-top: 100%;
-  }
+.footerprod {
+  margin-top: 3rem;
+}
+
 /* -------- Produkt Layout -------- */
 .product-container {
   display: flex;
@@ -461,12 +452,15 @@ footer.site-footer {
 
 /* Textbereich */
 .pricedescription {
+  margin-left: 20%;
   flex: 1 1 45%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 1rem;
+  align-items: flex-start;
 }
+
 
 .pricedescription h2 {
   font-size: 2rem;
@@ -491,6 +485,24 @@ footer.site-footer {
   text-decoration: underline;
   font-weight: bold;
 }
+.pricedescription ul {
+  padding-left: 1.2rem;
+  margin-bottom: 0.8rem;
+  list-style-type: disc; /* Punkte sichtbar */
+}
+
+.pricedescription li {
+  margin-bottom: 0.3rem;
+}
+
+
+.pricedescription .details h3 {
+  font-size: 1.2rem;  /* sichtbare Größe */
+  color: #007BFF;
+  margin: 0.5rem 0;   /* Abstand oben/unten */
+  font-weight: 600;   /* optional, schöner */
+}
+
 
 /* -------- Handy Ansicht -------- */
 @media (max-width: 768px) {
@@ -503,9 +515,57 @@ footer.site-footer {
   .pricedescription {
     align-items: center;
     text-align: center;
+    margin-left: 5%;
   }
 
   .pricedescription a {
     width: auto;
   }
+}
+/* =========================
+   COMING SOON PAGE
+========================= */
+
+.coming-soon-wrapper {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(180deg, #f7f7f7, #eeeeee);
+}
+
+.coming-soon-card {
+  background: white;
+  max-width: 520px;
+  width: 100%;
+  padding: 2.5rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.coming-soon-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.coming-soon-card .subtitle {
+  font-size: 1.05rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.coming-soon-card .info {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.coming-soon-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon – FingerMTB</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container flex-between">
+    <div class="brand">
+      <h1>FingerMTB</h1>
+      <p class="tagline">Mini Bikes · Big Tricks</p>
+    </div>
+
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy policy</a>
+    </nav>
+
+    <div class="cart-container">
+      <select id="currencySwitch">
+        <option value="USD">$ USD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR">€ EUR</option>
+      </select>
+      <button id="cartBtn">🛒 <span id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="coming-soon-wrapper">
+  <div class="coming-soon-card">
+    <h2>🚧 Product in Development</h2>
+    <p class="subtitle">
+      This product is currently being designed, tested and refined.
+    </p>
+
+    <p class="info">
+      We want it to be <strong>perfect</strong> before release.<br>
+      Check back later or follow us for updates.
+    </p>
+
+    <div class="coming-soon-actions">
+      <a href="shop.html" class="btn-secondary">← Back to Shop</a>
+      <a href="projects.html" class="btn-primary">See Projects</a>
+    </div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
