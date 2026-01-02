@@ -3,7 +3,7 @@
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyYn4Sx2-QSpFxa89H2e3DfHvS0sI55GzCIqlUmagbxeBembHx1wm-Ngg9dZ0n4F6LVsA/exec';
 
 // --- Währungsumschaltung ---
-const currencyRates = { USD:1.26, CHF:1.00, EUR:1.07 };
+const currencyRates = { USD:1, CHF:0.79, EUR:0.85 };
 const currencySelect = document.getElementById('currencySwitch');
 
 function updatePrices() {
