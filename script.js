@@ -6,6 +6,14 @@ const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyYn4Sx2-QSpFxa89H2e3
 const currencyRates = { USD:1, CHF:0.79, EUR:0.85 };
 const currencySelect = document.getElementById('currencySwitch');
 
+window.onload = function () {
+  document.getElementById("popup").style.display = "flex";
+};
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
 function updatePrices() {
   const selected = currencySelect.value;
   document.querySelectorAll('.price').forEach(p => {

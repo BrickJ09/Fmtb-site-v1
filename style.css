@@ -16,6 +16,55 @@
   box-shadow: 5px 15px 15px #00000014;
 }
 
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.popup-box .btn2{
+  margin-top: 10px;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: #ff9100;
+  color: #fff;
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+}
+.popup-box img{
+  width: 250px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.popup-box .btn1{
+  margin-top: 20px;
+  padding: 12px 50px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: black;
+  background-color: #00000019;
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.popup-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 300px;
+  text-align: center;
+}
 body {
   background-color: #f9f9f9;
   color: #111;
