@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product · FingerMTB</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
+  <style>
+    /* ── Status badges ── */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .status-available { background: #d4edda; color: #155724; }
+    .status-sold-out  { background: #f8d7da; color: #721c24; }
+    .status-soon      { background: #fff3cd; color: #856404; }
+
+    /* ── Buy button disabled state ── */
+    .btn-buy-disabled {
+      background-color: #ccc !important;
+      color: #666 !important;
+      cursor: not-allowed !important;
+      pointer-events: none;
+    }
+
+    /* ── Specs list ── */
+    .details ul {
+      list-style: disc;
+      padding-left: 1.4rem;
+      margin: 0.4rem 0;
+    }
+    .details li {
+      margin-bottom: 0.25rem;
+      font-size: 0.95rem;
+    }
+
+    /* ── Note box ── */
+    .product-note {
+      background: #fff8e1;
+      border-left: 3px solid #fba802;
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    /* ── Not found ── */
+    .not-found {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .not-found h2 { font-size: 2rem; margin-bottom: 12px; }
+    .not-found p  { color: #666; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container flex-between">
+      <div class="brand">
+        <h1>FingerMTB</h1>
+        <p class="tagline">Mini Bikes · Big Tricks</p>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="index.html#entryform">Contact</a>
+      </nav>
+      <div class="cart-container">
+        <select id="currencySwitch">
+          <option value="USD">$ USD</option>
+          <option value="CHF">CHF</option>
+          <option value="EUR">€ EUR</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- PRODUCT CONTENT -->
+  <main id="productMain">
+    <!-- Wird per JS befüllt -->
+  </main>
+
+  <!-- FOOTER -->
+  <section class="footerprod">
+    <footer class="site-footer">
+      <div class="container">
+        <p>BrickJ_mtb · This site was coded by me 😊</p>
+        <p>This site doesn't use cookies 🍪</p>
+        <p><a href="privacy.html">Privacy Policy ➔</a></p>
+      </div>
+    </footer>
+  </section>
+
+  <!-- Produktdaten laden -->
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+  <script>
+    (function () {
+      const params  = new URLSearchParams(location.search);
+      let   id      = params.get('id');
+      const main    = document.getElementById('productMain');
+
+      // Kein ID → 404
+      if (!id) {
+        showNotFound();
+        return;
+      }
+
+      // Produkt suchen
+      let product = PRODUCTS.find(p => p.id === id);
+
+      // Nicht gefunden → 404
+      if (!product) {
+        showNotFound();
+        return;
+      }
+
+      // Seiten-Titel setzen
+      document.title = `${product.name} · FingerMTB`;
+
+      // Preis je nach Währung
+      function getPrice(p) {
+        const sel = document.getElementById('currencySwitch')?.value || 'USD';
+        if (sel === 'CHF') return `CHF ${p.priceCHF.toFixed(2)}`;
+        if (sel === 'EUR') return `€${p.priceEUR.toFixed(2)}`;
+        return `$${p.priceUSD.toFixed(2)}`;
+      }
+
+      // Status Badge
+      const badgeClass = { available: 'status-available', 'sold-out': 'status-sold-out', soon: 'status-soon' }[product.status];
+      const badgeLabel = { available: 'In Stock', 'sold-out': 'Sold Out', soon: 'Coming Soon' }[product.status];
+
+      // Bilder
+      const slides = product.images.map((src, i) =>
+        `<img src="${src}" alt="${product.name}" class="slide${i === 0 ? ' active' : ''}" loading="${i === 0 ? 'eager' : 'lazy'}">`
+      ).join('');
+
+      // Specs
+      const specItems = product.specs.length
+        ? `<ul>${product.specs.map(s => `<li>${s}</li>`).join('')}</ul>`
+        : '';
+
+      // Note
+      const noteHTML = product.note
+        ? `<div class="product-note">ℹ️ ${product.note}</div>`
+        : '';
+
+      // Buy Button
+      const canBuy = product.status === 'available' && product.etsyLink;
+      const buyBtn = canBuy
+        ? `<a href="${product.etsyLink}" target="_blank" rel="noopener">${product.etsyLabel}</a>`
+        : `<a class="btn-buy-disabled">${badgeLabel}</a>`;
+
+      // HTML zusammenbauen
+      main.innerHTML = `
+        <section class="product-container">
+          <section class="productimgbox">
+            <div class="slider">
+              <button class="prev" aria-label="Previous">⟨</button>
+              ${slides}
+              <button class="next" aria-label="Next">⟩</button>
+            </div>
+          </section>
+
+          <section class="pricedescription">
+            <span class="status-badge ${badgeClass}">${badgeLabel}</span>
+            <h2>${product.name}</h2>
+            <p class="price" data-usd="${product.priceUSD}" data-chf="${product.priceCHF}" data-eur="${product.priceEUR}">
+              $${product.priceUSD.toFixed(2)}
+            </p>
+            <p style="color:#555; font-size:0.95rem; line-height:1.6">${product.description}</p>
+            ${buyBtn}
+            <div class="details">
+              <h3>Specs</h3>
+              ${specItems}
+            </div>
+            ${noteHTML}
+          </section>
+        </section>
+      `;
+
+      // Slider initialisieren
+      initSlider();
+
+      // Währungsswitch
+      document.getElementById('currencySwitch').addEventListener('change', function () {
+        const priceEl = main.querySelector('.price');
+        if (!priceEl) return;
+        const sel = this.value;
+        if (sel === 'CHF') priceEl.textContent = `CHF ${parseFloat(priceEl.dataset.chf).toFixed(2)}`;
+        else if (sel === 'EUR') priceEl.textContent = `€${parseFloat(priceEl.dataset.eur).toFixed(2)}`;
+        else priceEl.textContent = `$${parseFloat(priceEl.dataset.usd).toFixed(2)}`;
+      });
+
+      function showNotFound() {
+        document.title = 'Product not found · FingerMTB';
+        main.innerHTML = `
+          <div class="not-found">
+            <h2>Product not found 🤷</h2>
+            <p>This product doesn't exist or has been removed.</p>
+            <a href="shop.html" class="btn-primary">Back to Shop</a>
+          </div>`;
+      }
+
+      function initSlider() {
+        const slides  = main.querySelectorAll('.slide');
+        const prevBtn = main.querySelector('.prev');
+        const nextBtn = main.querySelector('.next');
+        if (!slides.length || !prevBtn) return;
+
+        let current = 0;
+
+        function show(idx) {
+          slides[current].classList.remove('active');
+          current = (idx + slides.length) % slides.length;
+          slides[current].classList.add('active');
+        }
+
+        nextBtn.addEventListener('click', () => show(current + 1));
+        prevBtn.addEventListener('click', () => show(current - 1));
+
+        document.addEventListener('keydown', e => {
+          if (e.key === 'ArrowRight') show(current + 1);
+          if (e.key === 'ArrowLeft')  show(current - 1);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,362 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FingerMTB — Mini Bikes · Big Tricks</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
-    <script defer src="script.js"></script>
-    <meta property="og:title" content="BrickJ MTB – Mini Bikes">
-    <meta property="og:description" content="Mini Bikes · Big Tricks – 3D-Printed Mini-MTBs & Files">
-    <meta property="og:image" content="https://brickj-mtb.netlify.app/V10side1.JPEG">
-    <meta property="og:url" content="https://brickj-mtb.netlify.app/">
-    <meta property="og:type" content="website">
-    <meta name="google-site-verification" content="aNF-TgNQgJ67cJHaotOHZY3JBdhou-I6kVrIkcdjWww" />
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FingerMTB — Mini Bikes · Big Tricks</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
+  <script defer src="script.js"></script>
+  <meta property="og:title" content="FingerMTB – Mini Bikes">
+  <meta property="og:description" content="Mini Bikes · Big Tricks – 3D-Printed Mini-MTBs & Files">
+  <meta property="og:image" content="https://brickj-mtb.netlify.app/v10/V10side1.JPEG">
+  <meta property="og:url" content="https://brickj-mtb.netlify.app/">
+  <meta property="og:type" content="website">
+  <meta name="google-site-verification" content="aNF-TgNQgJ67cJHaotOHZY3JBdhou-I6kVrIkcdjWww" />
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
 </head>
-<!-- 
-  ========================================
-  ADMIN BUTTON — einfach vor </body> einfügen
-  ========================================
-  Dieser Button ist absichtlich klein und dezent.
-  Nur sichtbar wenn man weiss wo man hinschaut.
--->
-
-<style>
-  .admin-entry {
-    position: fixed;
-    bottom: 12px;
-    left: 14px;
-    z-index: 999;
-    opacity: 0.18;
-    transition: opacity 0.3s;
-  }
-  .admin-entry:hover {
-    opacity: 0.65;
-  }
-  .admin-entry a {
-    display: block;
-    width: 22px;
-    height: 22px;
-    background: #fff;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 11px;
-    line-height: 22px;
-    text-align: center;
-    color: #000;
-    font-family: monospace;
-  }
-</style>
-
-<div class="admin-entry" title="Admin">
-  <a href="admin-login.html">⚙</a>
-</div>
-
 <body>
-    <!-- HEADER -->
-   <header class="site-header">
-  <div class="container flex-between">
-    <div class="brand">
-      <h1>FingerMTB</h1>
-      <p class="tagline">Mini Bikes · Big Tricks</p>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container flex-between">
+      <div class="brand">
+        <h1>FingerMTB</h1>
+        <p class="tagline">Mini Bikes · Big Tricks</p>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="main-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="#entryform">Contact</a>
+      </nav>
+      <div class="cart-container">
+        <select id="currencySwitch">
+          <option value="USD">$ USD</option>
+          <option value="CHF">CHF</option>
+          <option value="EUR">€ EUR</option>
+        </select>
+      </div>
     </div>
+  </header>
 
-    <!-- Hamburger Button (nur auf Handy sichtbar) -->
-    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="#entryform">Contact</a>
-    </nav>
-
-    <div class="cart-container">
-      <select id="currencySwitch">
-        <option value="USD">$ USD</option>
-        <option value="CHF">CHF</option>
-        <option value="EUR">€ EUR</option>
-      </select>
+  <!-- POPUP -->
+  <div id="popup" class="popup-overlay">
+    <div class="popup-box">
+      <h2>Special Offer</h2>
+      <p>Fingerski Starter Set</p>
+      <p>now available exclusively in Switzerland.</p>
+      <img src="fingerski_starterkit/starterset_view_img.JPG" alt="Fingerski Starter Set product photo">
+      <a class="btn2" href="https://www.ricardo.ch/de/a/fingerski-set-1310687260/" target="_blank">
+        Buy now on ricardo.ch
+      </a>
+      <button class="btn1" onclick="closePopup()">Close</button>
     </div>
   </div>
-</header>
 
-<div id="popup" class="popup-overlay">
-  <div class="popup-box">
-    <h2>Special Offer</h2>
-    <p>Fingerski Starter Set</p>
-    <p> now available exclusively in Switzerland.</p>
-    <img src="fingerski_starterkit/starterset_view_img.JPG" alt="Fingerski Starter Set product photo">
-    <a class="btn2" href="https://www.ricardo.ch/de/a/fingerski-set-1310687260/" target="_blank">
-      Buy now on ricardo.ch
-    </a>
-    <button class="btn1" onclick="closePopup()">
-      Close
-    </button>
-  </div>
-</div>
+  <!-- HERO -->
+  <section class="hero apple-hero">
+    <div class="container hero-content">
+      <h2>Ride Small. Dream Big.</h2>
+      <p>Finger bikes & skis, built for tricks and fun — all year round.</p>
+      <a href="shop.html" class="btn-primary">Shop Now</a>
+    </div>
+  </section>
 
-    <!-- HERO -->
-    <section class="hero apple-hero">
-        <div class="container hero-content">
-            <h2>Ride Small. Dream Big.</h2>
-            <p>Finger bikes & skis, built for tricks and fun — all year round.</p>
-            <a href="shop.html" class="btn-primary">Shop Now</a>
-        </div>
-    </section>
+  <!-- PRODUCT GRID -->
+  <section class="product-section container">
+    <h3>Our Products</h3>
+    <div class="products-grid" id="featuredGrid">
+      <!-- Wird per JS aus products.js befüllt -->
+    </div>
+  </section>
 
-    <!-- PRODUCT GRID -->
-    <section class="product-section container">
-        <h3>Our Products</h3>
-        <div class="products-grid">
-            <!-- PRODUCT 1 -->
-             <div class="product-card">
-                <img src="fingerski_starterkit/starterset_view_img.JPG" alt="fingerski_starterset">
-                <h4>BrickJ Fingerski Starter Set</h4>
-                <p class="price" data-usd="15.00">$15</p>
-                <a href="fingerski_starterset.html" class="btn-secondary">View Details</a>
-            </div>
+  <!-- CONTACT FORM -->
+  <section id="entryform" class="hero is-primary is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Data Entry Form</h1>
+      </div>
+    </div>
+  </section>
 
-            <div class="product-card">
-                <img src="sender/Sendersidewide.JPEG" alt="Downhill Bike Pro">
-                <h4>BrickJ_MTB Sender</h4>
-                <p>not sold yet</p>
-                <a href="Pink_bike_productpage.html" class="btn-secondary">View Details</a>
-            </div>
-            <!-- PRODUCT 2 -->
-            <div class="product-card">
-                <img src="v10/V10sideback.JPEG" alt="Downhill Bike Xtreme">
-                <h4>BrickJ_MTB V10</h4>
-                <p>not sold yet</p>
-                <a href="V10.html" class="btn-secondary">View Details</a>
-            </div>
-            <!-- PRODUCT 5 -->
-            <div class="product-card winter">
-                <img src="blueski/blueskiV3_side.JPG" alt="Winter Ski Pro">
-                <h4>BrickJ Fingerskiis</h4>
-                <p>comes included with Starter Set</p>
-                <div style="display: block;">
-                  <a href="FingerskiV2_blue.html" class="btn-secondary">Color: blue</a>
-                  <!--<a href="FingerskiV2_black.html" class="btn-secondary">Color: black</a>
-                  <a href="FingerkiV2_pink.html" class="btn-secondary">Color: pink</a>-->
-                </div>
-            </div>
-            <div class="product-card winter">
-                <img src="bluekink/kinkrail_sideback.JPG" alt="Winter Ski Pro">
-                <h4>Kinkrail</h4>
-                <p>comes included with Starter Set</p>
-                <div style="display: block;">
-                  <a href="kinkrail_blue.html" class="btn-secondary">Color: blue</a>
-                  <!--<a href="kinkrail_black.html" class="btn-secondary">Color: black</a>
-                  <a href="kinkrail_pink.html" class="btn-secondary">Color: pink</a>-->
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="entryform" class="hero is-primary is-bold">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Data Entry Form</h1>
+  <form id="form" class="container m-4 pl-4">
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Instagram or TikTok handle" name="Client Name" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Upload Document (This function doesn't work yet)</label>
+      <div class="control">
+        <div class="file has-name is-fullwidth">
+          <label class="file-label">
+            <input class="file-input" type="file" name="theFile" id="fileInput" accept="*/*" />
+            <span class="file-cta">
+              <span class="file-icon"><i class="fas fa-upload"></i></span>
+              <span class="file-label"> Choose a file… </span>
+            </span>
+            <span class="file-name" id="fileNameDisplay">No file selected</span>
+          </label>
         </div>
       </div>
-    </section>
-    <form id="form" class="container m-4 pl-4">
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Instagram or TikTok handle"
-            name="Client Name"
-          />
-        </div>
+    </div>
+    <input type="hidden" name="filename" id="actualFilename" />
+    <div class="field">
+      <label class="label">Additional Information</label>
+      <div class="control">
+        <textarea class="textarea" placeholder="project or product ideas and reviews" name="Notes"></textarea>
       </div>
-      <div class="field">
-        <label class="label">Upload Document (This function doest work yet)</label>
-        <div class="control">
-          <div class="file has-name is-fullwidth">
-            <label class="file-label">
-              <input
-                class="file-input"
-                type="file"
-                name="theFile"
-                id="fileInput"
-                accept="*/*"
-              />
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label"> Choose a file… </span>
-              </span>
-              <span class="file-name" id="fileNameDisplay">
-                No file selected
-              </span>
-            </label>
-          </div>
-        </div>
+    </div>
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-primary" type="submit" id="submit-button">Submit</button>
       </div>
-      <input type="hidden" name="filename" id="actualFilename" />
+      <div class="control">
+        <button class="button is-danger" type="button"
+          onclick="document.getElementById('form').reset(); document.getElementById('fileNameDisplay').textContent = 'No file selected';">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
 
-      
-      <div class="field">
-        <label class="label">Additional Information</label>
-        <div class="control">
-          <textarea
-            class="textarea"
-            placeholder="project or product ideas and reviews"
-            name="Notes"
-          ></textarea>
-        </div>
-      </div>
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">
-            Submit
-          </button>
-        </div>
-        <div class="control">
-          <button
-            class="button is-danger"
-            type="button"
-            onclick="document.getElementById('form').reset(); document.getElementById('fileNameDisplay').textContent = 'No file selected';"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </form>
-    <div
-      id="message"
-      style="
-        display: none;
-        margin: 20px;
-        padding: 10px;
-        border-radius: 4px;
-        font-weight: bold;
-      "
-    ></div>
-<script>
-      const form = document.getElementById("form");
-      const submitButton = document.getElementById("submit-button");
-      const messageDiv = document.getElementById("message");
-      const fileInput = document.getElementById("fileInput");
-      const fileNameDisplay = document.getElementById("fileNameDisplay");
+  <div id="message" style="display:none; margin:20px; padding:10px; border-radius:4px; font-weight:bold;"></div>
 
-      // Update displayed filename on file selection
-      fileInput.addEventListener("change", function () {
-        if (this.files && this.files.length > 0) {
-          fileNameDisplay.textContent = this.files[0].name;
-        } else {
-          fileNameDisplay.textContent = "No file selected";
-        }
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>BrickJ_mtb · This site was coded by me 😊</p>
+      <p>This site doesn't use cookies 🍪</p>
+      <p><a href="privacy.html">Privacy Policy ➔</a></p>
+    </div>
+  </footer>
+
+  <!-- Admin Button (dezent, unten links) -->
+  <style>
+    .admin-entry { position:fixed; bottom:14px; left:16px; z-index:999; opacity:0.15; transition:opacity 0.3s; }
+    .admin-entry:hover { opacity:0.6; }
+    .admin-entry a { display:flex; align-items:center; justify-content:center; width:24px; height:24px; background:#333; border-radius:50%; text-decoration:none; font-size:13px; color:#fff; }
+  </style>
+  <div class="admin-entry" title="Admin"><a href="admin-login.html">⚙</a></div>
+
+  <!-- Produktdaten + Grid befüllen -->
+  <script src="products.js"></script>
+  <script>
+    // Featured Produkte auf der Startseite
+    // Einfach die IDs hier anpassen um andere Produkte zu zeigen
+    const FEATURED_IDS = [
+      'fingerski-starter-set',
+      'sender',
+      'v10',
+      'fingerski-v2-blue',
+      'kinkrail-blue',
+    ];
+
+    const grid = document.getElementById('featuredGrid');
+
+    FEATURED_IDS.forEach(id => {
+      const p = PRODUCTS.find(x => x.id === id);
+      if (!p) return;
+
+      const statusLabel = { available: '', 'sold-out': 'not sold yet', soon: 'coming soon' }[p.status] || '';
+      const priceHTML = p.status === 'available'
+        ? `<p class="price" data-usd="${p.priceUSD}" data-chf="${p.priceCHF}" data-eur="${p.priceEUR}">$${p.priceUSD.toFixed(2)}</p>`
+        : `<p>${statusLabel}</p>`;
+
+      grid.innerHTML += `
+        <div class="product-card">
+          <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
+          <h4>${p.name}</h4>
+          ${priceHTML}
+          <a href="product.html?id=${p.id}" class="btn-secondary">View Details</a>
+        </div>`;
+    });
+
+    // Währungsswitch für Featured Grid
+    document.getElementById('currencySwitch').addEventListener('change', function () {
+      const sel = this.value;
+      document.querySelectorAll('#featuredGrid .price').forEach(el => {
+        if (sel === 'CHF') el.textContent = `CHF ${parseFloat(el.dataset.chf).toFixed(2)}`;
+        else if (sel === 'EUR') el.textContent = `€${parseFloat(el.dataset.eur).toFixed(2)}`;
+        else el.textContent = `$${parseFloat(el.dataset.usd).toFixed(2)}`;
       });
+    });
 
-      // Function to handle file upload
-      async function uploadFile(file) {
-        return new Promise((resolve, reject) => {
-          const fr = new FileReader();
-          fr.onload = (e) => {
-            const data = e.target.result.split(",");
-            const obj = {
-              fileName: file.name,
-              mimeType: data[0].match(/:(\w.+);/)[1],
-              data: data[1],
-            };
-            resolve(obj);
-          };
-          fr.onerror = reject;
-          fr.readAsDataURL(file);
-        });
+    // Popup
+    window.onload = function () {
+      document.getElementById('popup').style.display = 'flex';
+    };
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // Kontaktformular
+    const form = document.getElementById('form');
+    const submitButton = document.getElementById('submit-button');
+    const messageDiv = document.getElementById('message');
+    const fileInput = document.getElementById('fileInput');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+    fileInput.addEventListener('change', function () {
+      fileNameDisplay.textContent = this.files.length > 0 ? this.files[0].name : 'No file selected';
+    });
+
+    async function uploadFile(file) {
+      return new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = (e) => {
+          const data = e.target.result.split(',');
+          resolve({ fileName: file.name, mimeType: data[0].match(/:(\w.+);/)[1], data: data[1] });
+        };
+        fr.onerror = reject;
+        fr.readAsDataURL(file);
+      });
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      messageDiv.textContent = 'Submitting...';
+      messageDiv.style.display = 'block';
+      messageDiv.style.backgroundColor = 'beige';
+      messageDiv.style.color = 'black';
+      submitButton.disabled = true;
+
+      try {
+        const formDataObj = {};
+        for (let [key, value] of new FormData(this).entries()) formDataObj[key] = value;
+        if (fileInput.files.length > 0) formDataObj.fileData = await uploadFile(fileInput.files[0]);
+
+        const response = await fetch(
+          'https://script.google.com/macros/s/AKfycby18XE62EImfZ8FJx_8yT0q-Q-nw-dV5hign-TeANThgP_Sa9xvrpfUoJhZBJIjUpExCQ/exec',
+          { redirect: 'follow', method: 'POST', body: JSON.stringify(formDataObj), headers: { 'Content-Type': 'text/plain;charset=utf-8' } }
+        );
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          messageDiv.textContent = data.message || 'Data submitted successfully!';
+          messageDiv.style.backgroundColor = '#48c78e';
+          messageDiv.style.color = 'white';
+          form.reset();
+          fileNameDisplay.textContent = 'No file selected';
+        } else throw new Error(data.message || 'Submission failed');
+      } catch (error) {
+        messageDiv.textContent = 'Error: ' + error.message;
+        messageDiv.style.backgroundColor = '#f14668';
+        messageDiv.style.color = 'white';
+      } finally {
+        submitButton.disabled = false;
+        setTimeout(() => { messageDiv.textContent = ''; messageDiv.style.display = 'none'; }, 4000);
       }
+    });
 
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
+    form.querySelector('button.is-danger').addEventListener('click', function () {
+      form.reset();
+      fileNameDisplay.textContent = 'No file selected';
+      messageDiv.style.display = 'none';
+    });
+  </script>
 
-        messageDiv.textContent = "Submitting...";
-        messageDiv.style.display = "block";
-        messageDiv.style.backgroundColor = "beige";
-        messageDiv.style.color = "black";
-        submitButton.disabled = true;
-        submitButton.classList.add("is-loading");
-
-        try {
-          const formData = new FormData(this);
-          const formDataObj = {};
-
-          // Convert FormData to object
-          for (let [key, value] of formData.entries()) {
-            formDataObj[key] = value;
-          }
-
-          // Handle file upload if a file is selected
-          if (fileInput.files.length > 0) {
-            const fileObj = await uploadFile(fileInput.files[0]);
-            formDataObj.fileData = fileObj; // Add file data to form data
-          }
-
-          // Submit form data
-          const scriptURL =
-            "https://script.google.com/macros/s/AKfycby18XE62EImfZ8FJx_8yT0q-Q-nw-dV5hign-TeANThgP_Sa9xvrpfUoJhZBJIjUpExCQ/exec";
-
-          const response = await fetch(scriptURL, {
-            redirect: "follow",
-            method: "POST",
-            body: JSON.stringify(formDataObj),
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8",
-            },
-          });
-
-          const data = await response.json();
-
-          if (data.status === "success") {
-            messageDiv.textContent =
-              data.message || "Data submitted successfully!";
-            messageDiv.style.backgroundColor = "#48c78e";
-            messageDiv.style.color = "white";
-            form.reset();
-            fileNameDisplay.textContent = "No file selected";
-          } else {
-            throw new Error(data.message || "Submission failed");
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          messageDiv.textContent = "Error: " + error.message;
-          messageDiv.style.backgroundColor = "#f14668";
-          messageDiv.style.color = "white";
-        } finally {
-          submitButton.disabled = false;
-          submitButton.classList.remove("is-loading");
-
-          setTimeout(() => {
-            messageDiv.textContent = "";
-            messageDiv.style.display = "none";
-          }, 4000);
-        }
-      });
-
-      // Enhance cancel button to reset file input display
-      const cancelButton = form.querySelector("button.is-danger");
-      cancelButton.addEventListener("click", function () {
-        form.reset();
-        fileNameDisplay.textContent = "No file selected";
-        messageDiv.style.display = "none";
-      });
-    </script>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="container">
-            <p>BrickJ_mtb  This site was coded by me😊</p>
-            <p>This site doesn't use cookies🍪</p>
-            <p><a href="privacy.html">Privacy Policy ➔</a></p>
-        </div>
-    </footer>
 </body>
 </html>

@@ -1,0 +1,18 @@
+# _redirects
+# Netlify Redirects — alte Produktseiten → neue product.html
+# Einfach diese Datei im Root deines Projekts ablegen, fertig.
+
+/V10.html                    /product.html?id=v10                     301
+/Pink_bike_productpage.html  /product.html?id=sender                  301
+/FingerskiV2_blue.html       /product.html?id=fingerski-v2-blue       301
+/FingerkiV2_pink.html        /product.html?id=fingerski-v2-pink       301
+/FingerskiV2_black.html      /product.html?id=kinkrail-black          301
+/kinkrail_blue.html          /product.html?id=kinkrail-blue           301
+/kinkrail_pink.html          /product.html?id=kinkrail-pink           301
+/kinkrail_black.html         /product.html?id=kinkrail-black          301
+/fingerski_starterset.html   /product.html?id=fingerski-starter-set   301
+/mtb_rollin.html             /product.html?id=rollin                  301
+/mtb_kicker.html             /product.html?id=hardline-kicker         301
+/Session-9.html              /product.html?id=session-9               301
+/Enduro.html                 /product.html?id=session-9               301
+/soon.html                   /shop.html                               301

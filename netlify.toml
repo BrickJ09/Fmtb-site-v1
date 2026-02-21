@@ -1,0 +1,19 @@
+# netlify.toml
+# Liegt im Root deines Projekts (gleiche Ebene wie index.html)
+
+[build]
+  publish = "."   # Dein Root-Ordner ist der Output
+  # Redirects sind in _redirects Datei definiert
+
+# Edge Function für Admin-Schutz
+[[edge_functions]]
+  path = "/admin.html"
+  function = "admin-auth"
+
+[[edge_functions]]
+  path = "/admin-login"
+  function = "admin-auth"
+
+[[edge_functions]]
+  path = "/admin-logout"
+  function = "admin-logout"
