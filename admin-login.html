@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login · FingerMTB</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --panel: #111;
+      --border: #222;
+      --accent: #e8ff00;
+      --text: #f0f0f0;
+      --muted: #555;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,255,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,255,0,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridMove 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 40px; }
+    }
+
+    .login-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+    }
+
+    button {
+      width: 100%;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      padding: 14px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    button:hover { opacity: 0.88; }
+    button:active { transform: scale(0.99); }
+
+    .error {
+      background: #ff003322;
+      border: 1px solid #ff0033;
+      color: #ff6688;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      margin-bottom: 20px;
+      display: none;
+      letter-spacing: 0.05em;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="brand">FingerMTB</div>
+    <div class="subtitle">Admin Access</div>
+
+    <div class="error" id="error">Falscher Benutzername oder Passwort.</div>
+
+    <form id="loginForm">
+      <label>Benutzername</label>
+      <input type="text" id="username" autocomplete="username" required>
+
+      <label>Passwort</label>
+      <input type="password" id="password" autocomplete="current-password" required>
+
+      <button type="submit">EINLOGGEN →</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Zurück zur Website</a>
+  </div>
+
+  <script>
+    // ⚠️ CHANGE THESE CREDENTIALS BEFORE DEPLOYING
+    const ADMIN_USER = 'brickj';
+    const ADMIN_PASS = 'mtbadmin2025';
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        // Store session (expires in 2 hours)
+        const session = { user: u, expires: Date.now() + 2 * 60 * 60 * 1000 };
+        sessionStorage.setItem('fingermtb_admin', JSON.stringify(session));
+        window.location.href = 'admin.html';
+      } else {
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('password').value = '';
+      }
+    });
+  </script>
+</body>
+</html>

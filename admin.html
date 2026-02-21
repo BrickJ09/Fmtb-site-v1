@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard · FingerMTB</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #161616;
+      --border: #222;
+      --accent: #e8ff00;
+      --accent2: #00ffe0;
+      --danger: #ff3355;
+      --text: #f0f0f0;
+      --muted: #666;
+      --success: #00cc88;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 220px;
+      min-height: 100vh;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+    }
+
+    .sidebar-brand {
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-brand .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .sidebar-brand .role {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .sidebar nav {
+      padding: 20px 0;
+      flex: 1;
+    }
+
+    .nav-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 24px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 24px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+      border-left: 2px solid transparent;
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(232,255,0,0.04);
+    }
+
+    .nav-item .icon { font-size: 1rem; width: 18px; text-align: center; }
+
+    .sidebar-bottom {
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .logout-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 8px 14px;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      width: 100%;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .logout-btn:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: 220px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      padding: 20px 36px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+    }
+
+    .topbar h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+    }
+
+    .status-dot {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 7px; height: 7px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .content {
+      padding: 32px 36px;
+      flex: 1;
+    }
+
+    /* ── TABS ── */
+    .tab-section { display: none; }
+    .tab-section.active { display: block; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+
+    .stat-card.yellow::after { background: var(--accent); }
+    .stat-card.cyan::after { background: var(--accent2); }
+    .stat-card.green::after { background: var(--success); }
+    .stat-card.red::after { background: var(--danger); }
+
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PRODUCT TABLE ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      padding: 9px 20px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-danger {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-danger:hover { color: var(--danger); border-color: var(--danger); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    thead tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      text-align: left;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 16px;
+      font-weight: 400;
+    }
+
+    td {
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: rgba(255,255,255,0.015); }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    .badge-available { background: rgba(0,204,136,0.15); color: var(--success); border: 1px solid rgba(0,204,136,0.3); }
+    .badge-sold-out { background: rgba(255,51,85,0.12); color: var(--danger); border: 1px solid rgba(255,51,85,0.25); }
+    .badge-soon { background: rgba(232,255,0,0.1); color: var(--accent); border: 1px solid rgba(232,255,0,0.25); }
+    .badge-ski { background: rgba(0,255,224,0.1); color: var(--accent2); border: 1px solid rgba(0,255,224,0.2); }
+    .badge-mtb { background: rgba(232,255,0,0.1); color: var(--accent); border: 1px solid rgba(232,255,0,0.2); }
+
+    .actions { display: flex; gap: 6px; align-items: center; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.2s;
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      padding: 4px;
+    }
+
+    .modal-close:hover { color: var(--text); }
+
+    .modal-body {
+      padding: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .modal-footer {
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--surface);
+      border: 1px solid var(--success);
+      color: var(--success);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      padding: 12px 20px;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── EXPORT SECTION ── */
+    .export-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      margin-top: 28px;
+    }
+
+    .export-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    .export-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .code-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 14px;
+      font-size: 0.72rem;
+      color: var(--accent2);
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre;
+      margin-bottom: 14px;
+    }
+
+    /* ── SEARCH ── */
+    .search-bar {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      padding: 9px 14px;
+      outline: none;
+      width: 260px;
+      transition: border-color 0.2s;
+    }
+
+    .search-bar:focus { border-color: var(--accent); }
+
+    .filter-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    select.filter-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      padding: 8px 12px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { width: 60px; }
+      .sidebar .nav-item span, .sidebar-brand .name, .sidebar-brand .role, .nav-label, .sidebar-bottom .logout-btn { display: none; }
+      .main { margin-left: 60px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="name">FingerMTB</div>
+    <div class="role">Admin Panel</div>
+  </div>
+  <nav>
+    <div class="nav-label">Verwaltung</div>
+    <div class="nav-item active" onclick="switchTab('products')">
+      <span class="icon">📦</span>
+      <span>Produkte</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('categories')">
+      <span class="icon">🏷️</span>
+      <span>Kategorien</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('export')">
+      <span class="icon">⬇️</span>
+      <span>Export</span>
+    </div>
+    <div class="nav-label" style="margin-top:12px;">Info</div>
+    <div class="nav-item" onclick="window.open('index.html','_blank')">
+      <span class="icon">🌐</span>
+      <span>Website</span>
+    </div>
+    <div class="nav-item" onclick="window.open('shop.html','_blank')">
+      <span class="icon">🛒</span>
+      <span>Shop</span>
+    </div>
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="logout-btn" onclick="logout()">LOGOUT</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <h1 id="pageTitle">PRODUKTE</h1>
+    <div class="status-dot">
+      <div class="dot"></div>
+      <span>Eingeloggt als <strong id="adminUser">—</strong></span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ── PRODUCTS TAB ── -->
+    <div id="tab-products" class="tab-section active">
+      <div class="stats-row">
+        <div class="stat-card yellow">
+          <div class="stat-label">Produkte Total</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">Verfügbar</div>
+          <div class="stat-value" id="statAvailable">0</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-label">Ausverkauft</div>
+          <div class="stat-value" id="statSoldOut">0</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="stat-label">Bald verfügbar</div>
+          <div class="stat-value" id="statSoon">0</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Alle Produkte</div>
+        <button class="btn-primary" onclick="openModal()">+ NEUES PRODUKT</button>
+      </div>
+
+      <div class="filter-row">
+        <input class="search-bar" type="text" placeholder="Suchen…" id="searchInput" oninput="renderTable()">
+        <select class="filter-select" id="filterCategory" onchange="renderTable()">
+          <option value="">Alle Kategorien</option>
+          <option value="mtb">MTB</option>
+          <option value="ski">Ski</option>
+          <option value="obstacle">Obstacle</option>
+          <option value="kit">Kit</option>
+        </select>
+        <select class="filter-select" id="filterStatus" onchange="renderTable()">
+          <option value="">Alle Status</option>
+          <option value="available">Verfügbar</option>
+          <option value="sold-out">Ausverkauft</option>
+          <option value="soon">Bald</option>
+        </select>
+      </div>
+
+      <table id="productTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Kategorie</th>
+            <th>Preis (USD)</th>
+            <th>Lagerbestand</th>
+            <th>Status</th>
+            <th>Aktionen</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- ── CATEGORIES TAB ── -->
+    <div id="tab-categories" class="tab-section">
+      <div class="section-header">
+        <div class="section-title">Kategorien</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Kategorie</th>
+            <th>Anzahl Produkte</th>
+          </tr>
+        </thead>
+        <tbody id="catTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- ── EXPORT TAB ── -->
+    <div id="tab-export" class="tab-section">
+      <div class="section-header">
+        <div class="section-title">Daten exportieren</div>
+      </div>
+
+      <div class="export-box">
+        <div class="export-title">JSON Export</div>
+        <div class="export-desc">
+          Hier siehst du alle Produktdaten als JSON. Du kannst diesen Code kopieren und in deine <code>script.js</code> oder <code>shop.html</code> einfügen, um die Produkte dynamisch zu laden.
+        </div>
+        <div class="code-block" id="exportCode"></div>
+        <button class="btn-primary" onclick="copyExport()">JSON KOPIEREN</button>
+        &nbsp;
+        <button class="btn-secondary" onclick="downloadJSON()">ALS DATEI SPEICHERN</button>
+      </div>
+
+      <div class="export-box" style="margin-top: 16px;">
+        <div class="export-title">⚠️ Daten zurücksetzen</div>
+        <div class="export-desc">Setzt alle Produkte auf den Standard zurück. Diese Aktion kann nicht rückgängig gemacht werden.</div>
+        <button class="btn-danger" onclick="resetData()" style="border: 1px solid var(--border);">ALLES ZURÜCKSETZEN</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">NEUES PRODUKT</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+
+      <div class="form-group">
+        <label>Produktname *</label>
+        <input type="text" id="fName" placeholder="z.B. BrickJ_MTB V10">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Kategorie</label>
+          <select id="fCategory">
+            <option value="mtb">MTB</option>
+            <option value="ski">Ski</option>
+            <option value="obstacle">Obstacle</option>
+            <option value="kit">Kit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="fStatus">
+            <option value="available">Verfügbar</option>
+            <option value="sold-out">Ausverkauft</option>
+            <option value="soon">Bald verfügbar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preis USD</label>
+          <input type="number" id="fPriceUSD" placeholder="0.00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label>Preis CHF</label>
+          <input type="number" id="fPriceCHF" placeholder="0.00" min="0" step="0.01">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preis EUR</label>
+          <input type="number" id="fPriceEUR" placeholder="0.00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label>Lagerbestand</label>
+          <input type="number" id="fStock" placeholder="0" min="0">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Bilddatei (Pfad oder URL)</label>
+        <input type="text" id="fImage" placeholder="z.B. v10/V10sideback.JPEG">
+      </div>
+
+      <div class="form-group">
+        <label>Detailseite (Link)</label>
+        <input type="text" id="fLink" placeholder="z.B. V10.html">
+      </div>
+
+      <div class="form-group">
+        <label>Beschreibung</label>
+        <textarea id="fDescription" placeholder="Kurze Produktbeschreibung…"></textarea>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">Abbrechen</button>
+      <button class="btn-primary" onclick="saveProduct()">SPEICHERN</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── AUTH CHECK ──
+  (function() {
+    const session = JSON.parse(sessionStorage.getItem('fingermtb_admin') || 'null');
+    if (!session || Date.now() > session.expires) {
+      window.location.href = 'admin-login.html';
+      return;
+    }
+    document.getElementById('adminUser').textContent = session.user;
+  })();
+
+  function logout() {
+    sessionStorage.removeItem('fingermtb_admin');
+    window.location.href = 'admin-login.html';
+  }
+
+  // ── DEFAULT PRODUCTS (from your existing site) ──
+  const defaultProducts = [
+    { id: 1, name: 'BrickJ Fingerski Starter Set', category: 'ski', status: 'available', priceUSD: 15, priceCHF: 13.5, priceEUR: 14, stock: 10, image: 'fingerski_starterkit/starterset_view_img.JPG', link: 'fingerski_starterset.html', description: 'Finger-Ski Starter Set, nur in der Schweiz erhältlich.' },
+    { id: 2, name: 'BrickJ Fingerski V2 Blue', category: 'ski', status: 'available', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 15, image: 'blueski/blueskiV3_side.JPG', link: 'FingerskiV2_blue.html', description: 'Fingerskis in blau.' },
+    { id: 3, name: 'Kinkrail Blue', category: 'obstacle', status: 'available', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 8, image: 'bluekink/kinkrail_sideback.JPG', link: 'kinkrail_blue.html', description: 'Kinkrail in blau, im Starter Set inklusive.' },
+    { id: 4, name: 'BrickJ_MTB Sender BJFR', category: 'mtb', status: 'sold-out', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 0, image: 'sender/Sendersidewide.JPEG', link: 'Pink_bike_productpage.html', description: 'Downhill Fingerbike – Sender.' },
+    { id: 5, name: 'BrickJ_MTB V10', category: 'mtb', status: 'sold-out', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 0, image: 'v10/V10sideback.JPEG', link: 'V10.html', description: 'Fingerbike V10 Style.' },
+    { id: 6, name: 'Roll-In', category: 'obstacle', status: 'available', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 5, image: 'rollin/Rollinwhole.JPEG', link: 'mtb_rollin.html', description: 'Roll-In Obstacle.' },
+    { id: 7, name: 'Hardline Step-Up Kicker', category: 'obstacle', status: 'available', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 5, image: 'mtbkicker/Kickersidetop.JPEG', link: 'mtb_kicker.html', description: 'Hardline Step-Up Kicker.' },
+    { id: 8, name: 'BrickJ_MTB Session 9', category: 'mtb', status: 'soon', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 0, image: 'COMING SOON.png', link: 'soon.html', description: 'Bald verfügbar.' },
+    { id: 9, name: 'BrickJ_MTB Trickshot', category: 'mtb', status: 'soon', priceUSD: 2, priceCHF: 1.8, priceEUR: 1.9, stock: 0, image: 'COMING SOON.png', link: 'soon.html', description: 'Dirtjump Fingerbike.' },
+    { id: 10, name: 'BrickJ_MTB Starterkit', category: 'kit', status: 'soon', priceUSD: 4, priceCHF: 3.6, priceEUR: 3.8, stock: 0, image: 'COMING SOON.png', link: 'soon.html', description: 'Includes one Fingerbike and Hardline Kicker.' },
+    { id: 11, name: 'BrickJ_MTB Advanced-Kit', category: 'kit', status: 'soon', priceUSD: 5, priceCHF: 4.5, priceEUR: 4.7, stock: 0, image: 'COMING SOON.png', link: 'soon.html', description: 'Includes one Fingerbike, Hardline Kicker and Roll-In.' },
+    { id: 12, name: 'BrickJ_MTB Ultimate-Kit', category: 'kit', status: 'soon', priceUSD: 9, priceCHF: 8.1, priceEUR: 8.5, stock: 0, image: 'COMING SOON.png', link: 'soon.html', description: 'Includes all Fingerbikes, Hardline Kicker and Roll-In.' },
+  ];
+
+  function getProducts() {
+    const stored = localStorage.getItem('fingermtb_products');
+    return stored ? JSON.parse(stored) : [...defaultProducts];
+  }
+
+  function saveProducts(products) {
+    localStorage.setItem('fingermtb_products', JSON.stringify(products));
+  }
+
+  let products = getProducts();
+  let nextId = Math.max(...products.map(p => p.id), 0) + 1;
+
+  // ── RENDER TABLE ──
+  function renderTable() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const cat = document.getElementById('filterCategory').value;
+    const status = document.getElementById('filterStatus').value;
+
+    const filtered = products.filter(p => {
+      const matchSearch = p.name.toLowerCase().includes(search) || p.description.toLowerCase().includes(search);
+      const matchCat = !cat || p.category === cat;
+      const matchStatus = !status || p.status === status;
+      return matchSearch && matchCat && matchStatus;
+    });
+
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+
+    filtered.forEach(p => {
+      const statusBadge = {
+        'available': `<span class="badge badge-available">Verfügbar</span>`,
+        'sold-out': `<span class="badge badge-sold-out">Ausverkauft</span>`,
+        'soon': `<span class="badge badge-soon">Bald</span>`,
+      }[p.status] || '';
+
+      const catBadge = {
+        'mtb': `<span class="badge badge-mtb">MTB</span>`,
+        'ski': `<span class="badge badge-ski">Ski</span>`,
+        'obstacle': `<span class="badge badge-available">Obstacle</span>`,
+        'kit': `<span class="badge badge-soon">Kit</span>`,
+      }[p.category] || p.category;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td style="color:var(--muted)">#${p.id}</td>
+        <td><strong>${p.name}</strong></td>
+        <td>${catBadge}</td>
+        <td>$${parseFloat(p.priceUSD).toFixed(2)}</td>
+        <td>${p.stock}</td>
+        <td>${statusBadge}</td>
+        <td>
+          <div class="actions">
+            <button class="btn-secondary" onclick="openModal(${p.id})">Bearbeiten</button>
+            <button class="btn-danger" onclick="deleteProduct(${p.id})">Löschen</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    updateStats();
+    updateCategoryTable();
+    updateExport();
+  }
+
+  function updateStats() {
+    document.getElementById('statTotal').textContent = products.length;
+    document.getElementById('statAvailable').textContent = products.filter(p => p.status === 'available').length;
+    document.getElementById('statSoldOut').textContent = products.filter(p => p.status === 'sold-out').length;
+    document.getElementById('statSoon').textContent = products.filter(p => p.status === 'soon').length;
+  }
+
+  function updateCategoryTable() {
+    const cats = {};
+    products.forEach(p => { cats[p.category] = (cats[p.category] || 0) + 1; });
+    const tbody = document.getElementById('catTableBody');
+    tbody.innerHTML = '';
+    for (const [cat, count] of Object.entries(cats)) {
+      tbody.innerHTML += `<tr><td style="text-transform:capitalize">${cat}</td><td>${count}</td></tr>`;
+    }
+  }
+
+  function updateExport() {
+    document.getElementById('exportCode').textContent = JSON.stringify(products, null, 2);
+  }
+
+  // ── MODAL ──
+  let editingId = null;
+
+  function openModal(id) {
+    editingId = id || null;
+    document.getElementById('modalTitle').textContent = id ? 'PRODUKT BEARBEITEN' : 'NEUES PRODUKT';
+
+    if (id) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('fName').value = p.name;
+      document.getElementById('fCategory').value = p.category;
+      document.getElementById('fStatus').value = p.status;
+      document.getElementById('fPriceUSD').value = p.priceUSD;
+      document.getElementById('fPriceCHF').value = p.priceCHF;
+      document.getElementById('fPriceEUR').value = p.priceEUR;
+      document.getElementById('fStock').value = p.stock;
+      document.getElementById('fImage').value = p.image;
+      document.getElementById('fLink').value = p.link;
+      document.getElementById('fDescription').value = p.description;
+    } else {
+      document.getElementById('fName').value = '';
+      document.getElementById('fCategory').value = 'mtb';
+      document.getElementById('fStatus').value = 'soon';
+      document.getElementById('fPriceUSD').value = '';
+      document.getElementById('fPriceCHF').value = '';
+      document.getElementById('fPriceEUR').value = '';
+      document.getElementById('fStock').value = '0';
+      document.getElementById('fImage').value = 'COMING SOON.png';
+      document.getElementById('fLink').value = 'soon.html';
+      document.getElementById('fDescription').value = '';
+    }
+
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function saveProduct() {
+    const name = document.getElementById('fName').value.trim();
+    if (!name) { showToast('Name ist erforderlich!', true); return; }
+
+    const data = {
+      name,
+      category: document.getElementById('fCategory').value,
+      status: document.getElementById('fStatus').value,
+      priceUSD: parseFloat(document.getElementById('fPriceUSD').value) || 0,
+      priceCHF: parseFloat(document.getElementById('fPriceCHF').value) || 0,
+      priceEUR: parseFloat(document.getElementById('fPriceEUR').value) || 0,
+      stock: parseInt(document.getElementById('fStock').value) || 0,
+      image: document.getElementById('fImage').value.trim() || 'COMING SOON.png',
+      link: document.getElementById('fLink').value.trim() || 'soon.html',
+      description: document.getElementById('fDescription').value.trim(),
+    };
+
+    if (editingId) {
+      const idx = products.findIndex(p => p.id === editingId);
+      products[idx] = { ...products[idx], ...data };
+      showToast('Produkt aktualisiert ✓');
+    } else {
+      products.push({ id: nextId++, ...data });
+      showToast('Produkt hinzugefügt ✓');
+    }
+
+    saveProducts(products);
+    closeModal();
+    renderTable();
+  }
+
+  function deleteProduct(id) {
+    if (!confirm('Dieses Produkt wirklich löschen?')) return;
+    products = products.filter(p => p.id !== id);
+    saveProducts(products);
+    renderTable();
+    showToast('Produkt gelöscht');
+  }
+
+  // ── TAB SWITCHING ──
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    event.currentTarget.classList.add('active');
+
+    const titles = { products: 'PRODUKTE', categories: 'KATEGORIEN', export: 'EXPORT' };
+    document.getElementById('pageTitle').textContent = titles[tab] || tab.toUpperCase();
+  }
+
+  // ── TOAST ──
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.borderColor = isError ? 'var(--danger)' : 'var(--success)';
+    t.style.color = isError ? 'var(--danger)' : 'var(--success)';
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── EXPORT ──
+  function copyExport() {
+    navigator.clipboard.writeText(JSON.stringify(products, null, 2))
+      .then(() => showToast('JSON kopiert ✓'))
+      .catch(() => showToast('Kopieren fehlgeschlagen', true));
+  }
+
+  function downloadJSON() {
+    const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'fingermtb-products.json';
+    a.click();
+  }
+
+  function resetData() {
+    if (!confirm('ACHTUNG: Alle Änderungen werden gelöscht und die Standard-Produkte wiederhergestellt. Fortfahren?')) return;
+    localStorage.removeItem('fingermtb_products');
+    products = getProducts();
+    saveProducts(products);
+    renderTable();
+    showToast('Daten zurückgesetzt');
+  }
+
+  // ── INIT ──
+  renderTable();
+</script>
+</body>
+</html>

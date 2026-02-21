@@ -15,6 +15,45 @@
     <meta name="google-site-verification" content="aNF-TgNQgJ67cJHaotOHZY3JBdhou-I6kVrIkcdjWww" />
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
 </head>
+<!-- 
+  ========================================
+  ADMIN BUTTON — einfach vor </body> einfügen
+  ========================================
+  Dieser Button ist absichtlich klein und dezent.
+  Nur sichtbar wenn man weiss wo man hinschaut.
+-->
+
+<style>
+  .admin-entry {
+    position: fixed;
+    bottom: 12px;
+    left: 14px;
+    z-index: 999;
+    opacity: 0.18;
+    transition: opacity 0.3s;
+  }
+  .admin-entry:hover {
+    opacity: 0.65;
+  }
+  .admin-entry a {
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 11px;
+    line-height: 22px;
+    text-align: center;
+    color: #000;
+    font-family: monospace;
+  }
+</style>
+
+<div class="admin-entry" title="Admin">
+  <a href="admin-login.html">⚙</a>
+</div>
+
 <body>
     <!-- HEADER -->
    <header class="site-header">
