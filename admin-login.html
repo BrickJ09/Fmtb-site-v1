@@ -29,7 +29,6 @@
       overflow: hidden;
     }
 
-    /* Animated grid background */
     body::before {
       content: '';
       position: fixed;
@@ -59,7 +58,7 @@
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .login-box::before {
@@ -95,7 +94,8 @@
       margin-bottom: 8px;
     }
 
-    input {
+    input[type="text"],
+    input[type="password"] {
       width: 100%;
       background: #0a0a0a;
       border: 1px solid var(--border);
@@ -106,13 +106,15 @@
       margin-bottom: 24px;
       outline: none;
       transition: border-color 0.2s;
+      border-radius: 0;
     }
 
-    input:focus {
+    input[type="text"]:focus,
+    input[type="password"]:focus {
       border-color: var(--accent);
     }
 
-    button {
+    button[type="submit"] {
       width: 100%;
       background: var(--accent);
       color: #000;
@@ -122,20 +124,29 @@
       letter-spacing: 0.15em;
       padding: 14px;
       cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
+      transition: opacity 0.2s;
+      margin-top: 0;
     }
 
-    button:hover { opacity: 0.88; }
-    button:active { transform: scale(0.99); }
+    button[type="submit"]:hover { opacity: 0.85; }
 
-    .error {
+    .error-banner {
       background: #ff003322;
       border: 1px solid #ff0033;
       color: #ff6688;
       padding: 10px 14px;
       font-size: 0.78rem;
       margin-bottom: 20px;
-      display: none;
+      letter-spacing: 0.05em;
+    }
+
+    .expired-banner {
+      background: #ff880022;
+      border: 1px solid #ff8800;
+      color: #ffaa44;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      margin-bottom: 20px;
       letter-spacing: 0.05em;
     }
 
@@ -158,41 +169,30 @@
     <div class="brand">FingerMTB</div>
     <div class="subtitle">Admin Access</div>
 
-    <div class="error" id="error">Falscher Benutzername oder Passwort.</div>
+    <!-- Fehlermeldungen aus URL-Params -->
+    <script>
+      const p = new URLSearchParams(location.search);
+      if (p.get('error'))   document.write('<div class="error-banner">Falscher Benutzername oder Passwort.</div>');
+      if (p.get('expired')) document.write('<div class="expired-banner">Session abgelaufen. Bitte erneut einloggen.</div>');
+    </script>
 
-    <form id="loginForm">
-      <label>Benutzername</label>
-      <input type="text" id="username" autocomplete="username" required>
+    <!--
+      action="/admin-login" → geht zur Edge Function
+      method="POST"         → Passwort wird NICHT in der URL sichtbar
+      Das Passwort verlässt den Browser nur als verschlüsselter HTTPS-Request
+      und wird nur auf Netlify's Servern geprüft — nie im JS-Code!
+    -->
+    <form action="/admin-login" method="POST">
+      <label for="username">Benutzername</label>
+      <input type="text"     id="username" name="username" autocomplete="username"         required>
 
-      <label>Passwort</label>
-      <input type="password" id="password" autocomplete="current-password" required>
+      <label for="password">Passwort</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
 
       <button type="submit">EINLOGGEN →</button>
     </form>
 
     <a href="index.html" class="back-link">← Zurück zur Website</a>
   </div>
-
-  <script>
-    // ⚠️ CHANGE THESE CREDENTIALS BEFORE DEPLOYING
-    const ADMIN_USER = 'brickj';
-    const ADMIN_PASS = 'mtbadmin2025';
-
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const u = document.getElementById('username').value;
-      const p = document.getElementById('password').value;
-
-      if (u === ADMIN_USER && p === ADMIN_PASS) {
-        // Store session (expires in 2 hours)
-        const session = { user: u, expires: Date.now() + 2 * 60 * 60 * 1000 };
-        sessionStorage.setItem('fingermtb_admin', JSON.stringify(session));
-        window.location.href = 'admin.html';
-      } else {
-        document.getElementById('error').style.display = 'block';
-        document.getElementById('password').value = '';
-      }
-    });
-  </script>
 </body>
 </html>
