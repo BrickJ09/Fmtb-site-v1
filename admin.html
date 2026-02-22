@@ -416,15 +416,41 @@
 
     <!-- EXPORT -->
     <div id="tab-export" class="tab-section">
-      <div class="section-header"><div class="section-title">Daten exportieren</div></div>
-      <div class="export-box">
-        <div class="export-title">JSON Export</div>
-        <div class="export-desc">Kopiere diesen JSON und füge ihn in deine <code>shop.html</code> oder <code>script.js</code> ein, um Produkte dynamisch zu laden.</div>
-        <div class="code-block" id="exportCode"></div>
-        <button class="btn-primary" onclick="copyExport()">JSON KOPIEREN</button>
+      <div class="section-header"><div class="section-title">Publizieren</div></div>
+
+      <!-- PUBLISH BOX -->
+      <div class="export-box" style="border-color: var(--accent);">
+        <div class="export-title" style="color:var(--accent)">🚀 Auf Website publizieren</div>
+        <div class="export-desc">
+          Pusht <code>products.js</code> direkt zu GitHub → Netlify deployed automatisch innerhalb ~30 Sekunden.<br><br>
+          Voraussetzung: <code>GITHUB_TOKEN</code> und <code>GITHUB_REPO</code> müssen in den Netlify Environment Variables gesetzt sein.
+        </div>
+
+        <!-- Publish Status -->
+        <div id="publishStatus" style="display:none; padding:12px 16px; border-radius:2px; font-size:0.78rem; margin-bottom:16px; letter-spacing:0.05em;"></div>
+
+        <!-- Deploy Progress -->
+        <div id="deployProgress" style="display:none; margin-bottom:16px;">
+          <div style="font-size:0.7rem; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px;">Deploy Status</div>
+          <div id="deploySteps" style="display:flex; flex-direction:column; gap:6px;"></div>
+        </div>
+
+        <button class="btn-primary" id="publishBtn" onclick="publishToGitHub()" style="font-size:1rem; padding:12px 28px;">
+          🚀 JETZT PUBLIZIEREN
+        </button>
         &nbsp;
-        <button class="btn-secondary" onclick="downloadJSON()">ALS DATEI SPEICHERN</button>
+        <button class="btn-secondary" onclick="downloadJSON()">⬇ Als Datei speichern</button>
       </div>
+
+      <!-- JSON PREVIEW -->
+      <div class="export-box">
+        <div class="export-title">Vorschau — products.js</div>
+        <div class="export-desc">Das wird zu GitHub gepusht.</div>
+        <div class="code-block" id="exportCode"></div>
+        <button class="btn-secondary" onclick="copyExport()">KOPIEREN</button>
+      </div>
+
+      <!-- RESET -->
       <div class="export-box" style="margin-top:16px">
         <div class="export-title">⚠️ Daten zurücksetzen</div>
         <div class="export-desc">Setzt alle Produkte auf den Standard zurück. Nicht rückgängig machbar.</div>
@@ -660,6 +686,127 @@
     saveProducts(products);
     renderTable();
     showToast('Daten zurückgesetzt');
+  }
+
+  // ── GITHUB PUBLISH ────────────────────────────────────────────
+
+  async function publishToGitHub() {
+    const btn        = document.getElementById('publishBtn');
+    const statusEl   = document.getElementById('publishStatus');
+    const progressEl = document.getElementById('deployProgress');
+    const stepsEl    = document.getElementById('deploySteps');
+
+    btn.disabled = true;
+    btn.textContent = '⏳ Wird gepusht…';
+    progressEl.style.display = 'block';
+    stepsEl.innerHTML = '';
+    statusEl.style.display = 'none';
+
+    function addStep(text, done = false, isErr = false) {
+      const color = isErr ? 'var(--danger)' : done ? 'var(--success)' : 'var(--muted)';
+      const icon  = isErr ? '✗' : done ? '✓' : '…';
+      const div = document.createElement('div');
+      div.style.cssText = `font-size:0.75rem; color:${color}; letter-spacing:0.05em;`;
+      div.textContent = `${icon} ${text}`;
+      stepsEl.appendChild(div);
+    }
+
+    function setStatus(msg, ok = true) {
+      statusEl.style.display = 'block';
+      statusEl.style.background = ok ? 'rgba(0,204,136,0.12)' : 'rgba(255,51,85,0.12)';
+      statusEl.style.color      = ok ? 'var(--success)' : 'var(--danger)';
+      statusEl.style.border     = `1px solid ${ok ? 'rgba(0,204,136,0.3)' : 'rgba(255,51,85,0.3)'}`;
+      statusEl.textContent = msg;
+    }
+
+    try {
+      // 1. Token + Repo von Netlify Function holen
+      addStep('GitHub Token laden…');
+      const configRes = await fetch('/.netlify/functions/github-config');
+      if (!configRes.ok) throw new Error('Netlify Function nicht erreichbar — ist github-config.js deployed?');
+      const { token, repo } = await configRes.json();
+      if (!token || !repo) throw new Error('GITHUB_TOKEN oder GITHUB_REPO fehlt in Netlify Environment Variables.');
+      stepsEl.lastChild.textContent = '✓ GitHub Token geladen';
+      stepsEl.lastChild.style.color = 'var(--success)';
+
+      // 2. File-Inhalt bauen
+      addStep('products.js generieren…');
+      const fileContent = buildProductsJS();
+      stepsEl.lastChild.textContent = '✓ products.js generiert';
+      stepsEl.lastChild.style.color = 'var(--success)';
+
+      // 3. Aktuellen SHA holen
+      addStep('Aktuelle Version von GitHub holen…');
+      const [owner, repoName] = repo.split('/');
+      const getRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,
+        { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+      );
+      if (!getRes.ok) throw new Error(`GitHub API Fehler ${getRes.status} — existiert products.js im Repo?`);
+      const { sha } = await getRes.json();
+      stepsEl.lastChild.textContent = '✓ Aktuelle Version geladen';
+      stepsEl.lastChild.style.color = 'var(--success)';
+
+      // 4. Pushen
+      addStep('Zu GitHub pushen…');
+      const pushRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/vnd.github+json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: `admin: update products ${new Date().toLocaleString('de-CH')}`,
+            content: btoa(unescape(encodeURIComponent(fileContent))),
+            sha,
+          }),
+        }
+      );
+      if (!pushRes.ok) {
+        const err = await pushRes.json();
+        throw new Error(`Push fehlgeschlagen: ${err.message}`);
+      }
+      stepsEl.lastChild.textContent = '✓ Gepusht!';
+      stepsEl.lastChild.style.color = 'var(--success)';
+
+      addStep('Netlify deployed automatisch in ~30 Sekunden…', true);
+      setStatus('✓ Erfolgreich gepusht! Die Website aktualisiert sich in ~30 Sekunden.');
+      showToast('Gepusht! Website wird gleich aktualisiert ✓');
+
+    } catch (err) {
+      addStep(err.message, false, true);
+      setStatus(`Fehler: ${err.message}`, false);
+      showToast('Fehler beim Pushen', true);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🚀 JETZT PUBLIZIEREN';
+    }
+  }
+
+  function buildProductsJS() {
+    return `// products.js — generiert vom Admin-Panel
+// ${new Date().toLocaleString('de-CH')}
+
+const PRODUCTS = ${JSON.stringify(products, null, 2)};
+
+const LEGACY_MAP = {
+  'V10.html':                   'v10',
+  'Pink_bike_productpage.html': 'sender',
+  'FingerskiV2_blue.html':      'fingerski-v2-blue',
+  'FingerkiV2_pink.html':       'fingerski-v2-pink',
+  'FingerskiV2_black.html':     'fingerski-v2-pink',
+  'kinkrail_blue.html':         'kinkrail-blue',
+  'kinkrail_pink.html':         'kinkrail-pink',
+  'kinkrail_black.html':        'kinkrail-black',
+  'fingerski_starterset.html':  'fingerski-starter-set',
+  'mtb_rollin.html':            'rollin',
+  'mtb_kicker.html':            'hardline-kicker',
+  'Session-9.html':             'session-9',
+};
+`;
   }
 
   renderTable();
