@@ -1,10 +1,10 @@
 // products.js — generiert vom Admin-Panel
-// 22.2.2026, 17:45:36
+// 22.2.2026, 10:25:57
 
 const PRODUCTS = [
   {
     "id": 1,
-    "name": "BrickJ Fingerski kit",
+    "name": "BrickJ Fingerski Starter Set",
     "category": "ski",
     "status": "available",
     "priceUSD": 15,
