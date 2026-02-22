@@ -435,7 +435,7 @@
           <div id="deploySteps" style="display:flex; flex-direction:column; gap:6px;"></div>
         </div>
 
-        <button class="btn-primary" id="publishBtn" onclick="publishToGitHub()" disabled style="opacity:0.4; cursor:not-allowed;">
+        <button class="btn-primary" id="publishBtn" onclick="publishToGitHub()" style="font-size:1rem; padding:12px 28px;">
           🚀 JETZT PUBLIZIEREN
         </button>
         &nbsp;
@@ -513,28 +513,27 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="products.js"></script>
 <script>
-  // Keine client-side Auth mehr nötig — Netlify Edge Function übernimmt das!
-
-  const defaultProducts = [
-    { id: 1,  name: 'BrickJ Fingerski Starter Set',  category: 'ski',      status: 'available', priceUSD: 15, priceCHF: 13.5, priceEUR: 14,  stock: 10, image: 'fingerski_starterkit/starterset_view_img.JPG', link: 'fingerski_starterset.html',  description: 'Finger-Ski Starter Set, nur in der Schweiz erhältlich.' },
-    { id: 2,  name: 'BrickJ Fingerski V2 Blue',       category: 'ski',      status: 'available', priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 15, image: 'blueski/blueskiV3_side.JPG',                   link: 'FingerskiV2_blue.html',        description: 'Fingerskis in blau.' },
-    { id: 3,  name: 'Kinkrail Blue',                   category: 'obstacle', status: 'available', priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 8,  image: 'bluekink/kinkrail_sideback.JPG',               link: 'kinkrail_blue.html',            description: 'Kinkrail in blau, im Starter Set inklusive.' },
-    { id: 4,  name: 'BrickJ_MTB Sender BJFR',          category: 'mtb',      status: 'sold-out',  priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 0,  image: 'sender/Sendersidewide.JPEG',                   link: 'Pink_bike_productpage.html',   description: 'Downhill Fingerbike – Sender.' },
-    { id: 5,  name: 'BrickJ_MTB V10',                  category: 'mtb',      status: 'sold-out',  priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 0,  image: 'v10/V10sideback.JPEG',                          link: 'V10.html',                      description: 'Fingerbike V10 Style.' },
-    { id: 6,  name: 'Roll-In',                          category: 'obstacle', status: 'available', priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 5,  image: 'rollin/Rollinwhole.JPEG',                      link: 'mtb_rollin.html',               description: 'Roll-In Obstacle.' },
-    { id: 7,  name: 'Hardline Step-Up Kicker',          category: 'obstacle', status: 'available', priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 5,  image: 'mtbkicker/Kickersidetop.JPEG',                link: 'mtb_kicker.html',               description: 'Hardline Step-Up Kicker.' },
-    { id: 8,  name: 'BrickJ_MTB Session 9',             category: 'mtb',      status: 'soon',      priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 0,  image: 'COMING SOON.png',                              link: 'soon.html',                     description: 'Bald verfügbar.' },
-    { id: 9,  name: 'BrickJ_MTB Trickshot',             category: 'mtb',      status: 'soon',      priceUSD: 2,  priceCHF: 1.8,  priceEUR: 1.9, stock: 0,  image: 'COMING SOON.png',                              link: 'soon.html',                     description: 'Dirtjump Fingerbike.' },
-    { id: 10, name: 'BrickJ_MTB Starterkit',             category: 'kit',      status: 'soon',      priceUSD: 4,  priceCHF: 3.6,  priceEUR: 3.8, stock: 0,  image: 'COMING SOON.png',                              link: 'soon.html',                     description: 'Includes one Fingerbike and Hardline Kicker.' },
-    { id: 11, name: 'BrickJ_MTB Advanced-Kit',           category: 'kit',      status: 'soon',      priceUSD: 5,  priceCHF: 4.5,  priceEUR: 4.7, stock: 0,  image: 'COMING SOON.png',                              link: 'soon.html',                     description: 'Includes one Fingerbike, Hardline Kicker and Roll-In.' },
-    { id: 12, name: 'BrickJ_MTB Ultimate-Kit',           category: 'kit',      status: 'soon',      priceUSD: 9,  priceCHF: 8.1,  priceEUR: 8.5, stock: 0,  image: 'COMING SOON.png',                              link: 'soon.html',                     description: 'Includes all Fingerbikes, Hardline Kicker and Roll-In.' },
-  ];
+  // Admin lädt Produkte direkt aus products.js (PRODUCTS Array)
+  // localStorage wird nur für ungespeicherte Änderungen genutzt
+  // und automatisch verworfen wenn images fehlen
 
   function getProducts() {
-    const s = localStorage.getItem('fingermtb_products');
-    return s ? JSON.parse(s) : [...defaultProducts];
+    const stored = localStorage.getItem('fingermtb_products');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      // Sicherheitscheck: hat das erste Produkt images? Sonst wegwerfen
+      if (parsed.length > 0 && parsed[0].images && parsed[0].images.length > 0) {
+        return parsed;
+      }
+      localStorage.removeItem('fingermtb_products');
+    }
+    // Direkt aus products.js lesen (muss vor admin.html geladen sein)
+    if (typeof PRODUCTS !== 'undefined') return JSON.parse(JSON.stringify(PRODUCTS));
+    return [];
   }
+
   function saveProducts(p) { localStorage.setItem('fingermtb_products', JSON.stringify(p)); }
 
   let products = getProducts();
