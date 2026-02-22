@@ -690,6 +690,8 @@
   // ── GITHUB PUBLISH ────────────────────────────────────────────
 
   async function publishToGitHub() {
+    alert('Publizieren temporär deaktiviert.');
+    return;
     const btn        = document.getElementById('publishBtn');
     const statusEl   = document.getElementById('publishStatus');
     const progressEl = document.getElementById('deployProgress');
