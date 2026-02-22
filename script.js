@@ -1,68 +1,67 @@
-// --- script.js ---
+// script.js — FingerMTB
+// Alle Elemente werden erst gesucht bevor sie verwendet werden
+// → kein Crash mehr auf Seiten ohne Slider, ohne Menü usw.
 
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyYn4Sx2-QSpFxa89H2e3DfHvS0sI55GzCIqlUmagbxeBembHx1wm-Ngg9dZ0n4F6LVsA/exec';
-
-// --- Währungsumschaltung ---
-const currencyRates = { USD:1, CHF:1, EUR:1 };
-const currencySelect = document.getElementById('currencySwitch');
-
-window.onload = function () {
-  document.getElementById("popup").style.display = "flex";
-};
-
+// ── Popup ──────────────────────────────────────────────
 function closePopup() {
-  document.getElementById("popup").style.display = "none";
+  const popup = document.getElementById('popup');
+  if (popup) popup.style.display = 'none';
 }
 
-function updatePrices() {
-  const selected = currencySelect.value;
-  document.querySelectorAll('.price').forEach(p => {
-    const usd = parseFloat(p.dataset.usd);
-    let symbol = '$';
-    let price = usd * currencyRates[selected];
-    if (selected === 'CHF') symbol = 'CHF';
-    if (selected === 'EUR') symbol = '€';
-    p.textContent = `${symbol}${price.toFixed(2)}`;
+// Popup automatisch öffnen (nur auf index)
+const popup = document.getElementById('popup');
+if (popup) popup.style.display = 'flex';
+
+// ── Mobile Menü ────────────────────────────────────────
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNav    = document.querySelector('.main-nav');
+
+if (menuToggle && mainNav) {
+  menuToggle.addEventListener('click', () => {
+    mainNav.classList.toggle('active');
   });
 }
-currencySelect.addEventListener('change', updatePrices);
-updatePrices();
-// Mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const mainNav = document.querySelector('.main-nav');
 
-menuToggle.addEventListener('click', () => {
-  mainNav.classList.toggle('active');
-});
-const slides = document.querySelectorAll('.slide');
-const prevBtn = document.querySelector('.prev');
-const nextBtn = document.querySelector('.next');
-let currentIndex = 0;
+// ── Währungsswitch ─────────────────────────────────────
+// Funktioniert auf allen Seiten die .price Elemente haben
+const currencySwitch = document.getElementById('currencySwitch');
 
-function showSlide(index) {
-  slides.forEach(slide => slide.classList.remove('active'));
-  slides[index].classList.add('active');
+if (currencySwitch) {
+  currencySwitch.addEventListener('change', function () {
+    const sel = this.value;
+    document.querySelectorAll('.price[data-usd]').forEach(el => {
+      const usd = parseFloat(el.dataset.usd);
+      const chf = parseFloat(el.dataset.chf) || usd;
+      const eur = parseFloat(el.dataset.eur) || usd;
+      if (sel === 'CHF') el.textContent = `CHF ${chf.toFixed(2)}`;
+      else if (sel === 'EUR') el.textContent = `€${eur.toFixed(2)}`;
+      else el.textContent = `$${usd.toFixed(2)}`;
+    });
+  });
 }
 
-// Next / Prev Buttons
-nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
-});
+// ── Bildslider ─────────────────────────────────────────
+// Nur initialisieren wenn ein Slider auf der Seite ist
+const sliderEl = document.querySelector('.slider');
 
-prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-  showSlide(currentIndex);
-});
+if (sliderEl) {
+  const slides  = document.querySelectorAll('.slide');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  let current = 0;
 
-// Mit Pfeiltasten steuern
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight') {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
+  function showSlide(idx) {
+    if (!slides.length) return;
+    slides[current].classList.remove('active');
+    current = (idx + slides.length) % slides.length;
+    slides[current].classList.add('active');
   }
-  if (e.key === 'ArrowLeft') {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
-  }
-});
+
+  if (nextBtn) nextBtn.addEventListener('click', () => showSlide(current + 1));
+  if (prevBtn) prevBtn.addEventListener('click', () => showSlide(current - 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') showSlide(current + 1);
+    if (e.key === 'ArrowLeft')  showSlide(current - 1);
+  });
+}

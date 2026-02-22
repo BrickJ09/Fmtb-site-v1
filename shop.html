@@ -1,186 +1,128 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fingerbike Shop</title>
+  <title>Shop · FingerMTB</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
 </head>
 <body>
-   <header class="site-header">
-  <div class="container flex-between">
-    <div class="brand">
-      <h1>FingerMTB</h1>
-      <p class="tagline">Mini Bikes · Big Tricks</p>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container flex-between">
+      <div class="brand">
+        <h1>FingerMTB</h1>
+        <p class="tagline">Mini Bikes · Big Tricks</p>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html" class="active">Shop</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="index.html#entryform">Contact</a>
+      </nav>
+      <div class="cart-container">
+        <select id="currencySwitch">
+          <option value="USD">$ USD</option>
+          <option value="CHF">CHF</option>
+          <option value="EUR">€ EUR</option>
+        </select>
+      </div>
     </div>
-
-    <!-- Hamburger Button (nur auf Handy sichtbar) -->
-    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-      <a href="index.html">Home</a>
-      <a href="shop.html" class="active">Shop</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="index.html#entryform">Contact</a>
-    </nav>
-
-    <div class="cart-container">
-      <select id="currencySwitch">
-        <option value="USD">$ USD</option>
-        <option value="CHF">CHF</option>
-        <option value="EUR">€ EUR</option>
-      </select>
-    </div>
-  </div>
-   <script src="script.js"></script>
-</header>
+  </header>
 
   <main>
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">Finger Skis</h1>
-    <section id="products" class="products">
+    <!-- FINGER SKIS -->
+    <h1 style="text-align:center; margin-top:50px; margin-bottom:50px;">Finger Skis</h1>
+    <section class="products" id="grid-ski"></section>
 
-      <div class="product" data-price-chf="2.00">
-        <img src="fingerski_starterkit/starterset_view_img.JPG" alt="BrickJ Fingerski Starter Set">
-        <h2>BrickJ Fingerski Starter Set</h2>
-        <p class="price" data-usd="15.00">$15</p>
-        <button><a href="fingerski_starterset.html">See More</a></button>
-      </div>
-      
-      <div class="product" data-price-chf="2.00">
-        <img src="blueski/blueskiV3_side.JPG" alt="BrickJ_MTB Sender v1">
-        <h2>BrickJ_MTB Fingerski V2 Blue</h2>
-        <p>comes included with Starter Set</p>
-        <button><a href="FingerskiV2_blue.html">See More</a></button>
-      </div>
-      
-    <!--
-      <div class="product" data-price-chf="2.00">
-        <img src="pinkski/pinkskiis_front.JPG" alt="BrickJ_MTB Sender v1">
-        <h2>BrickJ_MTB Fingerski V2 Pink</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="FingerkiV2_pink.html">See More</a></button>
-      </div>
+    <!-- OBSTACLES -->
+    <h1 style="text-align:center; margin-top:50px; margin-bottom:50px;">Obstacles & Rails</h1>
+    <section class="products" id="grid-obstacle"></section>
 
-      <div class="product" data-price-chf="2.00">
-        <img src="blackski/blackskiis_frontlefttop.JPG"BrickJ_MTB Sender v1">
-        <h2>BrickJ_MTB Fingerski V2 Black</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="FingerskiV2_black.html">See More</a></button>
-      </div>
-   
-      <div class="product" data-price-chf="2.00">
-        <img src="bluekink/kinkrail_sideback.JPG" alt="BrickJ_MTB Sender v1">
-        <h2>BrickJ_MTB rail with kink blue</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="kinkrail_blue.html">See More</a></button>
-      </div>
-     
-      <div class="product" data-price-chf="2.00">
-        <img src="bluekink/kinkrail_blue_sideback.JPG" alt="BrickJ_MTB Sender v1">
-        <h2>BrickJ_MTB rail with kink pink</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="kinkrail_pink.html">See More</a></button>
-      </div>
+    <!-- FINGER MTB -->
+    <h1 style="text-align:center; margin-top:50px; margin-bottom:50px;">Finger MTB's</h1>
+    <section class="products" id="grid-mtb"></section>
 
-      <div class="product" data-price-chf="2.00">
-        <img src="blackkink/kinkrail_black_backside.JPG" alt="BrickJ_MTB Sender v1">
-        <h2>BrickJ_MTB rail with kink black</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="kinkrail_black.html">See More</a></button>
-      </div>
-      -->
-    </section>
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">Finger MTB's</h1>
-    <section id="products" class="products">
-      <!-- Produkte -->
-      <div class="product" data-price-chf="2.00">
-        <img src="sender/Senderside.JPEG" alt="BrickJ_MTB Sender v1">
-        <h2>BrickJ_MTB Sender BJFR</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="Pink_bike_productpage.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="2.00">
-        <img src="v10/V10sideback.JPEG" alt="BrickJ_MTB V10">
-        <h2>BrickJ_MTB V10</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="V10.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="2.00">
-        <img src="rollin/Rollinwhole.JPEG" alt="Roll-In">
-        <h2>Roll-In</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="mtb_rollin.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="2.00">
-        <img src="mtbkicker/Kickersidetop.JPEG" alt="Hardline Step-Up kicker">
-        <h2>Hardline Step-Up kicker</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="mtb_kicker.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="2.00">
-        <img src="COMING SOON.png" alt="BrickJ_MTB Session 9">
-        <h2>BrickJ_MTB Session 9</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="soon.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="2.00">
-        <img src="COMING SOON.png" alt="BrickJ_MTB Dirtjump">
-        <h2>BrickJ_MTB Trickshot</h2>
-        <p class="price" data-usd="2.00">$2</p>
-        <button><a href="soon.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="4.00">
-        <img src="COMING SOON.png" alt="BrickJ_MTB Starter-Kit">
-        <h2>BrickJ_MTB Starterkit</h2>
-        <p>Includes one Fingerbike and Hardline Kicker</p>
-        <p class="price" data-usd="4.00">$4</p>
-        <button><a href="soon.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="5.00">
-        <img src="COMING SOON.png" alt="BrickJ_MTB Advanced-Kit">
-        <h2>BrickJ_MTB Advanced-Kit</h2>
-        <p>Includes one Fingerbike, Hardline Kicker and Roll-In</p>
-        <p class="price" data-usd="5.00">$5</p>
-        <button><a href="soon.html">See More</a></button>
-      </div>
-
-      <div class="product" data-price-chf="9.00">
-        <img src="COMING SOON.png" alt="BrickJ_MTB Ultimate-Kit">
-        <h2>BrickJ_MTB Ultimate-Kit</h2>
-        <p>Includes all Fingerbikes, Hardline kicker and Roll-In</p>
-        <p class="price" data-usd="9.00">$9</p>
-        <button><a href="soon.html">See More</a></button>
-      </div>
-    </section>
+    <!-- KITS -->
+    <h1 style="text-align:center; margin-top:50px; margin-bottom:50px;">Kits</h1>
+    <section class="products" id="grid-kit"></section>
   </main>
 
-  <script>
-    const currencySelect = document.getElementById('currency');
-    const products = document.querySelectorAll('.product');
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>BrickJ_mtb · This site was coded by me 😊</p>
+      <p>This site doesn't use cookies 🍪</p>
+      <p><a href="privacy.html">Privacy Policy ➔</a></p>
+    </div>
+  </footer>
 
-    const rates = {
-      CHF: 1,
-      USD: 1,  // Beispielkurs
-      EUR: 1   // Beispielkurs
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+  <script>
+  // shop.html inline — products.js ist bereits geladen
+    // Kategorien → Grid-IDs
+    const GRIDS = {
+      ski:      document.getElementById('grid-ski'),
+      obstacle: document.getElementById('grid-obstacle'),
+      mtb:      document.getElementById('grid-mtb'),
+      kit:      document.getElementById('grid-kit'),
     };
 
-    currencySelect.addEventListener('change', () => {
-      const selected = currencySelect.value;
-      products.forEach(prod => {
-        const priceCHF = parseFloat(prod.dataset.priceChf);
-        const newPrice = (priceCHF * rates[selected]).toFixed(2);
-        prod.querySelector('.price').textContent = `${selected} ${newPrice}`;
+    // Status Label + Badge Farbe
+    function statusHTML(status) {
+      const map = {
+        available: ['In Stock', '#d4edda', '#155724'],
+        'sold-out': ['Sold Out', '#f8d7da', '#721c24'],
+        soon:       ['Coming Soon', '#fff3cd', '#856404'],
+      };
+      const [label, bg, color] = map[status] || ['', '#eee', '#333'];
+      return `<span style="display:inline-block; padding:2px 10px; border-radius:20px; font-size:0.75rem; font-weight:600; background:${bg}; color:${color}; margin-bottom:6px;">${label}</span>`;
+    }
+
+    // Produktkarte bauen
+    function buildCard(p) {
+      const priceHTML = p.status === 'available'
+        ? `<p class="price" data-usd="${p.priceUSD}" data-chf="${p.priceCHF}" data-eur="${p.priceEUR}">$${p.priceUSD.toFixed(2)}</p>`
+        : '';
+
+      return `
+        <div class="product">
+          <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
+          <h2>${p.name}</h2>
+          ${statusHTML(p.status)}
+          ${priceHTML}
+          <button><a href="product.html?id=${p.id}">See More</a></button>
+        </div>`;
+    }
+
+    // Alle Produkte in die richtigen Grids
+    PRODUCTS.forEach(p => {
+      const grid = GRIDS[p.category];
+      if (grid) grid.innerHTML += buildCard(p);
+    });
+
+    // Leere Sektionen verstecken
+    Object.entries(GRIDS).forEach(([cat, el]) => {
+      if (!el.innerHTML.trim()) {
+        el.previousElementSibling.style.display = 'none';
+        el.style.display = 'none';
+      }
+    });
+
+    // Währungsswitch
+    document.getElementById('currencySwitch').addEventListener('change', function () {
+      const sel = this.value;
+      document.querySelectorAll('.price').forEach(el => {
+        if (!el.dataset.usd) return;
+        if (sel === 'CHF') el.textContent = `CHF ${parseFloat(el.dataset.chf).toFixed(2)}`;
+        else if (sel === 'EUR') el.textContent = `€${parseFloat(el.dataset.eur).toFixed(2)}`;
+        else el.textContent = `$${parseFloat(el.dataset.usd).toFixed(2)}`;
       });
     });
   </script>
