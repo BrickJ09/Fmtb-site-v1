@@ -568,8 +568,8 @@
         <td>${p.stock}</td>
         <td><span class="badge ${statusBadge}">${statusLabel}</span></td>
         <td><div class="actions">
-          <button class="btn-secondary" onclick="openModal(${p.id})">Bearbeiten</button>
-          <button class="btn-danger" onclick="deleteProduct(${p.id})">Löschen</button>
+          <button class="btn-secondary" onclick="openModal('${p.id}')">Bearbeiten</button>
+          <button class="btn-danger" onclick="deleteProduct('${p.id}')">Löschen</button>
         </div></td>`;
       tbody.appendChild(tr);
     });
