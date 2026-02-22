@@ -690,8 +690,6 @@
   // ── GITHUB PUBLISH ────────────────────────────────────────────
 
   async function publishToGitHub() {
-    alert('Publizieren temporär deaktiviert.');
-    return;
     const btn        = document.getElementById('publishBtn');
     const statusEl   = document.getElementById('publishStatus');
     const progressEl = document.getElementById('deployProgress');
@@ -788,10 +786,19 @@
   }
 
   function buildProductsJS() {
+    // Sicherstellen dass jedes Produkt images[] hat (nie singular image)
+    const safeProducts = products.map(p => {
+      // Falls images Array fehlt, aus image (singular) oder Fallback bauen
+      if (!p.images || p.images.length === 0) {
+        p.images = p.image ? [p.image] : ['COMING SOON.png'];
+      }
+      return p;
+    });
+
     return `// products.js — generiert vom Admin-Panel
 // ${new Date().toLocaleString('de-CH')}
 
-const PRODUCTS = ${JSON.stringify(products, null, 2)};
+const PRODUCTS = ${JSON.stringify(safeProducts, null, 2)};
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
