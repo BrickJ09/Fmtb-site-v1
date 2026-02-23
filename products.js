@@ -1,21 +1,21 @@
 // products.js — generiert vom Admin-Panel
-// 23.2.2026, 11:26:49
+// 23.2.2026, 12:02:47
 
 const PRODUCTS = [
   {
     "id": "fingerski-starter-set",
     "name": "BrickJ Fingerski kit",
-    "category": "ski",
+    "category": "kit",
     "status": "sold-out",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
-    "stock": 10,
-    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1310687260/",
+    "stock": 2,
+    "etsyLink": "",
     "etsyLabel": "Buy on Etsy",
     "description": "Finger-Ski Starter Set — only available in Switzerland.",
     "specs": [
-      "Includes: 2x Fingerskis + 1x Kinkrail",
+      "Includes: 1x pair of Fingerskis + 1x Kinkrail + 1 park shaper tool",
       "Color: Blue",
       "Material: PLA (3D-Printed)"
     ],
@@ -31,20 +31,24 @@ const PRODUCTS = [
   },
   {
     "id": "fingerski-v2-blue",
-    "name": "BrickJ Fingerski V2 — Blue",
+    "name": "BrickJ Fingerski V3 — Blue",
     "category": "ski",
     "status": "sold-out",
-    "priceUSD": 2,
-    "priceCHF": 1.8,
-    "priceEUR": 1.9,
-    "stock": 15,
+    "priceUSD": 5,
+    "priceCHF": 5,
+    "priceEUR": 5,
+    "stock": 5,
     "etsyLink": "",
     "etsyLabel": "Buy on Etsy",
     "description": "Comes included with the Starter Set.",
     "specs": [
       "Length: 9.5 cm",
-      "Width: 2.8 cm",
-      "Files: STL + 3MF included"
+      "Width: 1.5 cm",
+      "Skiboot sizes:",
+      "xs = 13 mm",
+      "s = 14 mm",
+      "m = 15 mm",
+      "l = 16 mm"
     ],
     "note": "comes included with the fingerski starterset",
     "images": [
@@ -60,21 +64,20 @@ const PRODUCTS = [
     "id": "kinkrail-blue",
     "name": "Kinkrail — Blue",
     "category": "obstacle",
-    "status": "available",
-    "priceUSD": 2,
-    "priceCHF": 1.8,
-    "priceEUR": 1.9,
-    "stock": 8,
+    "status": "sold-out",
+    "priceUSD": 5,
+    "priceCHF": 5,
+    "priceEUR": 5,
+    "stock": 2,
     "etsyLink": "",
-    "etsyLabel": "Buy STL Files on Etsy",
+    "etsyLabel": "Buy on Etsy",
     "description": "Ski rail with kink — blue. Comes included with the Starter Set.",
     "specs": [
       "Length: 17.8 cm",
       "Height: 4.9 – 7.3 cm",
-      "Width: 5 cm",
-      "Files: STL + 3MF included"
+      "Width: 5 cm"
     ],
-    "note": "This product contains 3MF and STL files only — no physical product.",
+    "note": "This product comes included with the fingerski starterset",
     "images": [
       "bluekink/kinkrail_sideback.JPG",
       "bluekink/kinkrail_blue_sideback.JPG",
@@ -134,13 +137,13 @@ const PRODUCTS = [
     "id": "rollin",
     "name": "Roll-In",
     "category": "obstacle",
-    "status": "available",
+    "status": "soon",
     "priceUSD": 2,
     "priceCHF": 1.8,
     "priceEUR": 1.9,
     "stock": 5,
     "etsyLink": "",
-    "etsyLabel": "Buy STL Files on Etsy",
+    "etsyLabel": "Buy on Etsy",
     "description": "Roll-In ramp obstacle for your finger MTB setup.",
     "specs": [
       "Files: STL + 3MF included"
@@ -157,13 +160,13 @@ const PRODUCTS = [
     "id": "hardline-kicker",
     "name": "Hardline Step-Up Kicker",
     "category": "obstacle",
-    "status": "available",
+    "status": "soon",
     "priceUSD": 2,
     "priceCHF": 1.8,
     "priceEUR": 1.9,
     "stock": 5,
     "etsyLink": "",
-    "etsyLabel": "Buy STL Files on Etsy",
+    "etsyLabel": "Buy on Etsy",
     "description": "Hardline Step-Up Kicker — perfect for big tricks.",
     "specs": [
       "Files: STL + 3MF included"
@@ -261,6 +264,26 @@ const PRODUCTS = [
     "description": "Includes all Fingerbikes, Hardline Kicker and Roll-In.",
     "specs": [],
     "note": "",
+    "images": [
+      "COMING SOON.png"
+    ]
+  },
+  {
+    "id": "fingerski-set-pro",
+    "name": "Fingerski Set Pro",
+    "category": "kit",
+    "status": "soon",
+    "priceUSD": 20,
+    "priceCHF": 20,
+    "priceEUR": 20,
+    "stock": 2,
+    "etsyLink": "",
+    "etsyLabel": "Buy on Etsy",
+    "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
+    "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
+    "specs": [
+      "The Fingerski Starter Set comes with everything you need to shred — indoors or outside. The rail measures 18.7 × 5 × 5.5 cm and the ski boots come in four sizes (XS–L, measured by circumference: 4.1 / 4.5 / 4.7 / 5.0 cm). Also included: a mini kicker for indoor use and a park shaper tool for building your own outdoor spots."
+    ],
     "images": [
       "COMING SOON.png"
     ]
