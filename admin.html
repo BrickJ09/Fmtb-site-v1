@@ -6,315 +6,159 @@
   <title>Admin Dashboard · FingerMTB</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap');
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0a0a0a;
-      --surface: #111;
-      --surface2: #161616;
-      --border: #222;
-      --accent: #e8ff00;
-      --accent2: #00ffe0;
-      --danger: #ff3355;
-      --text: #f0f0f0;
-      --muted: #666;
-      --success: #00cc88;
+      --bg: #0a0a0a; --surface: #111; --border: #222;
+      --accent: #e8ff00; --accent2: #00ffe0; --danger: #ff3355;
+      --text: #f0f0f0; --muted: #555; --success: #00cc88;
     }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      min-height: 100vh;
-      display: flex;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; display: flex; }
 
     /* ── SIDEBAR ── */
-    .sidebar {
-      width: 220px;
-      min-height: 100vh;
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      top: 0; left: 0; bottom: 0;
-    }
-
-    .sidebar-brand {
-      padding: 28px 24px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .sidebar-brand .name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-    }
-
-    .sidebar-brand .role {
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .sidebar nav { padding: 20px 0; flex: 1; }
-
-    .nav-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 8px 24px 6px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 24px;
-      color: var(--muted);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: color 0.15s, background 0.15s;
-      border-left: 2px solid transparent;
-      user-select: none;
-    }
-
+    .sidebar { width: 220px; min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
+    .sidebar-brand { padding: 24px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-brand .name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--accent); letter-spacing: 0.08em; }
+    .sidebar-brand .role { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; }
+    .sidebar nav { padding: 16px 0; flex: 1; overflow-y: auto; }
+    .nav-label { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); padding: 8px 20px 5px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; color: var(--muted); font-size: 0.78rem; cursor: pointer; transition: color 0.15s, background 0.15s; border-left: 2px solid transparent; user-select: none; }
     .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
     .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(232,255,0,0.04); }
     .nav-item .icon { font-size: 1rem; width: 18px; text-align: center; }
-
-    .sidebar-bottom {
-      padding: 20px 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    .logout-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      padding: 8px 14px;
-      cursor: pointer;
-      letter-spacing: 0.1em;
-      width: 100%;
-      transition: border-color 0.2s, color 0.2s;
-      margin-top: 0;
-    }
+    .sidebar-bottom { padding: 16px 20px; border-top: 1px solid var(--border); }
+    .logout-form { margin: 0; }
+    .logout-btn { background: none; border: 1px solid var(--border); color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.73rem; padding: 7px 14px; cursor: pointer; letter-spacing: 0.1em; width: 100%; transition: border-color 0.2s, color 0.2s; margin-top: 0; }
     .logout-btn:hover { border-color: var(--danger); color: var(--danger); }
 
     /* ── MAIN ── */
-    .main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; }
-
-    .topbar {
-      padding: 20px 36px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--surface);
-    }
-
-    .topbar h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.1em;
-    }
-
-    .status-dot { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--muted); }
-    .dot { width: 7px; height: 7px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    .content { padding: 32px 36px; flex: 1; }
-
+    .main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar { padding: 18px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); position: sticky; top: 0; z-index: 50; }
+    .topbar h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .status-dot { display: flex; align-items: center; gap: 7px; font-size: 0.7rem; color: var(--muted); }
+    .dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .publish-topbar-btn { background: var(--accent); color: #000; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; padding: 8px 18px; cursor: pointer; transition: opacity 0.2s; margin-top: 0; }
+    .publish-topbar-btn:hover { opacity: 0.85; }
+    .publish-topbar-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .content { padding: 28px 32px; flex: 1; }
     .tab-section { display: none; }
     .tab-section.active { display: block; }
 
     /* ── STATS ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 20px 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; position: relative; overflow: hidden; }
     .stat-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
     .stat-card.yellow::after { background: var(--accent); }
     .stat-card.cyan::after   { background: var(--accent2); }
     .stat-card.green::after  { background: var(--success); }
     .stat-card.red::after    { background: var(--danger); }
-
-    .stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.05em; }
-
-    /* ── SECTION ── */
-    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .section-title  { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.1em;
-      padding: 9px 20px;
-      cursor: pointer;
-      transition: opacity 0.2s;
-      margin-top: 0;
-    }
-    .btn-primary:hover { opacity: 0.85; }
-
-    .btn-secondary {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      padding: 6px 14px;
-      cursor: pointer;
-      transition: border-color 0.2s;
-      margin-top: 0;
-    }
-    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-    .btn-danger {
-      background: none;
-      border: 1px solid transparent;
-      color: var(--muted);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      padding: 6px 12px;
-      cursor: pointer;
-      transition: color 0.2s, border-color 0.2s;
-      margin-top: 0;
-    }
-    .btn-danger:hover { color: var(--danger); border-color: var(--danger); }
+    .stat-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+    .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; }
 
     /* ── TABLE ── */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.1em; }
+    .filter-row { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .search-bar { background: var(--bg); border: 1px solid var(--border); color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.8rem; padding: 8px 12px; outline: none; width: 240px; transition: border-color 0.2s; }
+    .search-bar:focus { border-color: var(--accent); }
+    select.filter-select { background: var(--bg); border: 1px solid var(--border); color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.75rem; padding: 7px 10px; outline: none; cursor: pointer; }
     table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); }
     thead tr { border-bottom: 1px solid var(--border); }
-    th { text-align: left; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding: 12px 16px; font-weight: 400; }
-    td { padding: 12px 16px; font-size: 0.82rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    th { text-align: left; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding: 11px 14px; font-weight: 400; }
+    td { padding: 10px 14px; font-size: 0.8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: rgba(255,255,255,0.015); }
-
-    .badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; }
+    .product-thumb { width: 44px; height: 36px; object-fit: cover; border-radius: 2px; background: #222; }
+    .badge { display: inline-block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; }
     .badge-available { background: rgba(0,204,136,0.15); color: var(--success); border: 1px solid rgba(0,204,136,0.3); }
     .badge-sold-out  { background: rgba(255,51,85,0.12);  color: var(--danger);  border: 1px solid rgba(255,51,85,0.25); }
     .badge-soon      { background: rgba(232,255,0,0.1);   color: var(--accent);  border: 1px solid rgba(232,255,0,0.25); }
-    .badge-ski       { background: rgba(0,255,224,0.1);   color: var(--accent2); border: 1px solid rgba(0,255,224,0.2); }
-    .badge-mtb       { background: rgba(232,255,0,0.1);   color: var(--accent);  border: 1px solid rgba(232,255,0,0.2); }
-    .badge-obstacle  { background: rgba(0,204,136,0.1);   color: var(--success); border: 1px solid rgba(0,204,136,0.2); }
-    .badge-kit       { background: rgba(232,255,0,0.08);  color: #ccd400;        border: 1px solid rgba(232,255,0,0.15); }
-
-    .actions { display: flex; gap: 6px; align-items: center; }
+    .badge-mtb       { background: rgba(232,255,0,0.08);  color: var(--accent);  border: 1px solid rgba(232,255,0,0.15); }
+    .badge-ski       { background: rgba(0,255,224,0.08);  color: var(--accent2); border: 1px solid rgba(0,255,224,0.15); }
+    .badge-obstacle  { background: rgba(0,204,136,0.08);  color: var(--success); border: 1px solid rgba(0,204,136,0.15); }
+    .badge-kit       { background: rgba(150,150,255,0.1); color: #aab; border: 1px solid rgba(150,150,255,0.2); }
+    .actions { display: flex; gap: 5px; }
+    .btn-primary { background: var(--accent); color: #000; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; padding: 8px 18px; cursor: pointer; transition: opacity 0.2s; margin-top: 0; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary { background: none; border: 1px solid var(--border); color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.72rem; padding: 5px 12px; cursor: pointer; transition: border-color 0.2s; margin-top: 0; }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger { background: none; border: 1px solid transparent; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.72rem; padding: 5px 10px; cursor: pointer; transition: color 0.2s, border-color 0.2s; margin-top: 0; }
+    .btn-danger:hover { color: var(--danger); border-color: var(--danger); }
 
     /* ── MODAL ── */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 1000;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.2s;
-    }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      width: 100%; max-width: 560px;
-      max-height: 90vh; overflow-y: auto;
-      transform: translateY(20px);
-      transition: transform 0.2s;
-    }
+    .modal { background: var(--surface); border: 1px solid var(--border); width: 100%; max-width: 720px; max-height: 92vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.2s; }
     .modal-overlay.open .modal { transform: translateY(0); }
-
-    .modal-header {
-      padding: 24px 28px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; }
-    .modal-close { background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; padding: 4px; margin-top: 0; }
+    .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--surface); z-index: 10; }
+    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; }
+    .modal-close { background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; padding: 4px; margin-top: 0; }
     .modal-close:hover { color: var(--text); }
-    .modal-body { padding: 28px; }
-
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%; background: var(--bg); border: 1px solid var(--border);
-      color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.85rem;
-      padding: 10px 14px; outline: none; transition: border-color 0.2s;
+    .modal-body { padding: 24px; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; position: sticky; bottom: 0; background: var(--surface); }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      font-family: 'DM Mono', monospace; font-size: 0.82rem; padding: 9px 12px; outline: none; transition: border-color 0.2s;
     }
-    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .form-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; color: var(--accent); margin: 20px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
 
-    .modal-footer {
-      padding: 20px 28px;
-      border-top: 1px solid var(--border);
-      display: flex; gap: 12px; justify-content: flex-end;
+    /* ── DRAG & DROP IMAGE UPLOAD ── */
+    .image-upload-area {
+      border: 2px dashed var(--border); padding: 24px; text-align: center;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 12px;
     }
+    .image-upload-area:hover, .image-upload-area.dragover {
+      border-color: var(--accent); background: rgba(232,255,0,0.03);
+    }
+    .image-upload-area .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .image-upload-area p { font-size: 0.75rem; color: var(--muted); }
+    .image-upload-area span { color: var(--accent); }
+    .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; margin-top: 10px; }
+    .image-item { position: relative; aspect-ratio: 1; }
+    .image-item img { width: 100%; height: 100%; object-fit: cover; border: 1px solid var(--border); }
+    .image-item .img-remove { position: absolute; top: 3px; right: 3px; background: var(--danger); color: #fff; border: none; width: 18px; height: 18px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-top: 0; padding: 0; }
+    .image-item .img-primary { position: absolute; bottom: 3px; left: 3px; background: var(--accent); color: #000; font-size: 9px; padding: 1px 4px; font-weight: bold; }
+    .upload-progress { margin-top: 8px; font-size: 0.72rem; color: var(--muted); }
+    .upload-progress .bar { height: 3px; background: var(--border); margin-top: 4px; }
+    .upload-progress .bar-fill { height: 100%; background: var(--accent); transition: width 0.3s; width: 0%; }
+
+    /* ── PREVIEW ── */
+    .preview-box { background: #fff; border-radius: 8px; padding: 20px; color: #111; max-width: 380px; }
+    .preview-box img { width: 100%; border-radius: 6px; margin-bottom: 12px; object-fit: cover; max-height: 200px; }
+    .preview-box h2 { font-size: 1.2rem; margin-bottom: 6px; }
+    .preview-box .preview-price { color: #007BFF; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; }
+    .preview-box .preview-desc { font-size: 0.85rem; color: #555; margin-bottom: 12px; }
+    .preview-box .preview-btn { background: #fba802; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; border: none; }
+
+    /* ── PUBLISH ── */
+    .publish-box { background: var(--surface); border: 1px solid var(--accent); padding: 22px 26px; margin-bottom: 20px; }
+    .publish-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); margin-bottom: 8px; }
+    .publish-desc { font-size: 0.73rem; color: var(--muted); margin-bottom: 14px; line-height: 1.6; }
+    .publish-status { display: none; padding: 10px 14px; font-size: 0.75rem; margin-bottom: 14px; letter-spacing: 0.04em; }
+    .deploy-steps { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+    .deploy-step { font-size: 0.72rem; letter-spacing: 0.05em; }
+    .export-box { background: var(--surface); border: 1px solid var(--border); padding: 22px 26px; margin-bottom: 16px; }
+    .export-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; margin-bottom: 8px; }
+    .export-desc { font-size: 0.72rem; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+    .code-block { background: var(--bg); border: 1px solid var(--border); padding: 12px; font-size: 0.7rem; color: var(--accent2); max-height: 180px; overflow-y: auto; white-space: pre; margin-bottom: 12px; }
 
     /* ── TOAST ── */
-    .toast {
-      position: fixed; bottom: 28px; right: 28px;
-      background: var(--surface); border: 1px solid var(--success);
-      color: var(--success); font-size: 0.78rem; letter-spacing: 0.08em;
-      padding: 12px 20px; z-index: 9999;
-      opacity: 0; transform: translateY(10px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none;
-    }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--success); color: var(--success); font-size: 0.75rem; letter-spacing: 0.07em; padding: 10px 18px; z-index: 9999; opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
     .toast.show { opacity: 1; transform: translateY(0); }
 
-    /* ── FILTER ── */
-    .filter-row { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; }
-    .search-bar {
-      background: var(--bg); border: 1px solid var(--border); color: var(--text);
-      font-family: 'DM Mono', monospace; font-size: 0.82rem; padding: 9px 14px;
-      outline: none; width: 260px; transition: border-color 0.2s;
-    }
-    .search-bar:focus { border-color: var(--accent); }
-    select.filter-select {
-      background: var(--bg); border: 1px solid var(--border); color: var(--text);
-      font-family: 'DM Mono', monospace; font-size: 0.78rem; padding: 8px 12px;
-      outline: none; cursor: pointer;
-    }
-
-    /* ── EXPORT ── */
-    .export-box { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; margin-top: 28px; }
-    .export-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; margin-bottom: 10px; }
-    .export-desc { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
-    .code-block {
-      background: var(--bg); border: 1px solid var(--border); padding: 14px;
-      font-size: 0.72rem; color: var(--accent2); max-height: 200px;
-      overflow-y: auto; white-space: pre; margin-bottom: 14px;
-    }
-
     @media (max-width: 900px) {
-      .sidebar { width: 60px; }
-      .sidebar .nav-item span, .sidebar-brand .name, .sidebar-brand .role, .nav-label { display: none; }
-      .main { margin-left: 60px; }
+      .sidebar { width: 56px; }
+      .sidebar .nav-item span, .sidebar-brand .name, .sidebar-brand .role, .nav-label, .logout-btn { display: none; }
+      .main { margin-left: 56px; }
       .stats-row { grid-template-columns: 1fr 1fr; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -327,26 +171,14 @@
   </div>
   <nav>
     <div class="nav-label">Verwaltung</div>
-    <div class="nav-item active" onclick="switchTab('products', this)">
-      <span class="icon">📦</span><span>Produkte</span>
-    </div>
-    <div class="nav-item" onclick="switchTab('categories', this)">
-      <span class="icon">🏷️</span><span>Kategorien</span>
-    </div>
-    <div class="nav-item" onclick="switchTab('export', this)">
-      <span class="icon">⬇️</span><span>Export</span>
-    </div>
-    <div class="nav-label" style="margin-top:12px;">Info</div>
-    <div class="nav-item" onclick="window.open('index.html','_blank')">
-      <span class="icon">🌐</span><span>Website</span>
-    </div>
-    <div class="nav-item" onclick="window.open('shop.html','_blank')">
-      <span class="icon">🛒</span><span>Shop</span>
-    </div>
+    <div class="nav-item active" onclick="switchTab('products',this)"><span class="icon">📦</span><span>Produkte</span></div>
+    <div class="nav-item" onclick="switchTab('publish',this)"><span class="icon">🚀</span><span>Publizieren</span></div>
+    <div class="nav-label" style="margin-top:10px">Info</div>
+    <div class="nav-item" onclick="window.open('index.html','_blank')"><span class="icon">🌐</span><span>Website</span></div>
+    <div class="nav-item" onclick="window.open('shop.html','_blank')"><span class="icon">🛒</span><span>Shop</span></div>
   </nav>
   <div class="sidebar-bottom">
-    <!-- Logout löscht den HttpOnly Cookie über die Edge Function -->
-    <form action="/admin-logout" method="POST" style="margin:0">
+    <form action="/admin-logout" method="POST" class="logout-form">
       <button type="submit" class="logout-btn">LOGOUT</button>
     </form>
   </div>
@@ -355,15 +187,15 @@
 <div class="main">
   <div class="topbar">
     <h1 id="pageTitle">PRODUKTE</h1>
-    <div class="status-dot">
-      <div class="dot"></div>
-      <span>Admin · Session aktiv</span>
+    <div class="topbar-right">
+      <div class="status-dot"><div class="dot"></div><span>Admin · Session aktiv</span></div>
+      <button class="publish-topbar-btn" id="quickPublishBtn" onclick="quickPublish()">🚀 PUBLIZIEREN</button>
     </div>
   </div>
 
   <div class="content">
 
-    <!-- PRODUCTS -->
+    <!-- ── PRODUCTS TAB ── -->
     <div id="tab-products" class="tab-section active">
       <div class="stats-row">
         <div class="stat-card yellow"><div class="stat-label">Produkte Total</div><div class="stat-value" id="statTotal">0</div></div>
@@ -397,71 +229,46 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th><th>Name</th><th>Kategorie</th>
-            <th>Preis USD</th><th>Lagerbestand</th><th>Status</th><th>Aktionen</th>
+            <th>Bild</th><th>Name</th><th>Kat.</th><th>Preis USD</th><th>Lager</th><th>Status</th><th>Aktionen</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
 
-    <!-- CATEGORIES -->
-    <div id="tab-categories" class="tab-section">
-      <div class="section-header"><div class="section-title">Kategorien</div></div>
-      <table>
-        <thead><tr><th>Kategorie</th><th>Anzahl Produkte</th></tr></thead>
-        <tbody id="catTableBody"></tbody>
-      </table>
-    </div>
-
-    <!-- EXPORT -->
-    <div id="tab-export" class="tab-section">
-      <div class="section-header"><div class="section-title">Publizieren</div></div>
-
-      <!-- PUBLISH BOX -->
-      <div class="export-box" style="border-color: var(--accent);">
-        <div class="export-title" style="color:var(--accent)">🚀 Auf Website publizieren</div>
-        <div class="export-desc">
-          Pusht <code>products.js</code> direkt zu GitHub → Netlify deployed automatisch innerhalb ~30 Sekunden.<br><br>
-          Voraussetzung: <code>GITHUB_TOKEN</code> und <code>GITHUB_REPO</code> müssen in den Netlify Environment Variables gesetzt sein.
+    <!-- ── PUBLISH TAB ── -->
+    <div id="tab-publish" class="tab-section">
+      <div class="publish-box">
+        <div class="publish-title">🚀 Auf Website publizieren</div>
+        <div class="publish-desc">
+          Pusht <code>products.js</code> direkt zu GitHub → Netlify deployed automatisch in ~30 Sekunden.<br>
+          Voraussetzung: <code>GITHUB_TOKEN</code> und <code>GITHUB_REPO</code> in Netlify Environment Variables.
         </div>
-
-        <!-- Publish Status -->
-        <div id="publishStatus" style="display:none; padding:12px 16px; border-radius:2px; font-size:0.78rem; margin-bottom:16px; letter-spacing:0.05em;"></div>
-
-        <!-- Deploy Progress -->
-        <div id="deployProgress" style="display:none; margin-bottom:16px;">
-          <div style="font-size:0.7rem; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px;">Deploy Status</div>
-          <div id="deploySteps" style="display:flex; flex-direction:column; gap:6px;"></div>
-        </div>
-
-        <button class="btn-primary" id="publishBtn" onclick="publishToGitHub()" style="font-size:1rem; padding:12px 28px;">
-          🚀 JETZT PUBLIZIEREN
-        </button>
+        <div class="publish-status" id="publishStatus"></div>
+        <div class="deploy-steps" id="deploySteps"></div>
+        <button class="btn-primary" id="publishBtn" onclick="publishToGitHub()" style="font-size:1rem; padding:11px 26px;">🚀 JETZT PUBLIZIEREN</button>
         &nbsp;
         <button class="btn-secondary" onclick="downloadJSON()">⬇ Als Datei speichern</button>
       </div>
 
-      <!-- JSON PREVIEW -->
       <div class="export-box">
         <div class="export-title">Vorschau — products.js</div>
-        <div class="export-desc">Das wird zu GitHub gepusht.</div>
+        <div class="export-desc">Das wird zu GitHub gepusht. Alle Bilder und Beschreibungen sind enthalten.</div>
         <div class="code-block" id="exportCode"></div>
         <button class="btn-secondary" onclick="copyExport()">KOPIEREN</button>
       </div>
 
-      <!-- RESET -->
-      <div class="export-box" style="margin-top:16px">
+      <div class="export-box" style="border-color: var(--danger)33">
         <div class="export-title">⚠️ Daten zurücksetzen</div>
-        <div class="export-desc">Setzt alle Produkte auf den Standard zurück. Nicht rückgängig machbar.</div>
-        <button class="btn-danger" onclick="resetData()" style="border:1px solid var(--border)">ALLES ZURÜCKSETZEN</button>
+        <div class="export-desc">Setzt alle lokalen Änderungen zurück und lädt die Daten neu aus products.js.</div>
+        <button class="btn-danger" onclick="resetData()" style="border:1px solid var(--border)">ZURÜCKSETZEN</button>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- ── PRODUKT MODAL ── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal">
     <div class="modal-header">
@@ -469,6 +276,8 @@
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
+
+      <div class="form-section-title">Grundinfos</div>
       <div class="form-group">
         <label>Produktname *</label>
         <input type="text" id="fName" placeholder="z.B. BrickJ_MTB V10">
@@ -492,21 +301,59 @@
           </select>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Preis USD</label><input type="number" id="fPriceUSD" placeholder="0.00" min="0" step="0.01"></div>
+      <div class="form-group">
+        <label>Beschreibung</label>
+        <textarea id="fDescription" placeholder="Produktbeschreibung…"></textarea>
+      </div>
+
+      <div class="form-section-title">Preise & Lager</div>
+      <div class="form-row-3">
+        <div class="form-group"><label>Preis USD ($)</label><input type="number" id="fPriceUSD" placeholder="0.00" min="0" step="0.01"></div>
         <div class="form-group"><label>Preis CHF</label><input type="number" id="fPriceCHF" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="form-group"><label>Preis EUR (€)</label><input type="number" id="fPriceEUR" placeholder="0.00" min="0" step="0.01"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Preis EUR</label><input type="number" id="fPriceEUR" placeholder="0.00" min="0" step="0.01"></div>
         <div class="form-group"><label>Lagerbestand</label><input type="number" id="fStock" placeholder="0" min="0"></div>
+        <div class="form-group"><label>Etsy / Shop Link</label><input type="text" id="fEtsyLink" placeholder="https://etsy.com/..."></div>
       </div>
-      <div class="form-group"><label>Bilddatei (Pfad oder URL)</label><input type="text" id="fImage" placeholder="z.B. v10/V10sideback.JPEG"></div>
-      <div class="form-group"><label>Detailseite (Link)</label><input type="text" id="fLink" placeholder="z.B. V10.html"></div>
-      <div class="form-group"><label>Beschreibung</label><textarea id="fDescription" placeholder="Kurze Produktbeschreibung…"></textarea></div>
+
+      <div class="form-section-title">Technische Specs</div>
+      <div class="form-group">
+        <label>Specs (eine pro Zeile)</label>
+        <textarea id="fSpecs" placeholder="Length: 17.8 cm&#10;Height: 4.9 – 7.3 cm&#10;Files: STL + 3MF included" style="min-height:80px"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Hinweis (Note)</label>
+        <input type="text" id="fNote" placeholder="z.B. This product contains 3MF and STL files only">
+      </div>
+
+      <div class="form-section-title">Bilder</div>
+      <div class="image-upload-area" id="dropZone">
+        <div class="upload-icon">🖼️</div>
+        <p>Bilder hier reinziehen oder <span>klicken zum Hochladen</span></p>
+        <p style="margin-top:4px; font-size:0.68rem">JPG, PNG, JPEG · Erstes Bild = Hauptbild</p>
+        <input type="file" id="imageFileInput" multiple accept="image/*" style="display:none">
+      </div>
+      <div class="upload-progress" id="uploadProgress" style="display:none">
+        <span id="uploadProgressText">Uploading…</span>
+        <div class="bar"><div class="bar-fill" id="uploadProgressBar"></div></div>
+      </div>
+      <div class="image-grid" id="imageGrid"></div>
+
+      <!-- Live Vorschau -->
+      <div class="form-section-title">Live Vorschau</div>
+      <div class="preview-box" id="previewBox">
+        <img id="previewImg" src="COMING SOON.png" alt="preview">
+        <h2 id="previewName">Produktname</h2>
+        <div class="preview-price" id="previewPrice">$0.00</div>
+        <div class="preview-desc" id="previewDesc">Beschreibung…</div>
+        <button class="preview-btn">Buy on Etsy</button>
+      </div>
+
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" onclick="closeModal()">Abbrechen</button>
-      <button class="btn-primary" onclick="saveProduct()">SPEICHERN</button>
+      <button class="btn-primary" onclick="saveProduct()">💾 SPEICHERN</button>
     </div>
   </div>
 </div>
@@ -515,38 +362,32 @@
 
 <script src="products.js"></script>
 <script>
-  // Admin lädt Produkte direkt aus products.js (PRODUCTS Array)
-  // localStorage wird nur für ungespeicherte Änderungen genutzt
-  // und automatisch verworfen wenn images fehlen
-
+  // ── DATEN ──────────────────────────────────────────────
   function getProducts() {
     const stored = localStorage.getItem('fingermtb_products');
     if (stored) {
       const parsed = JSON.parse(stored);
-      // Sicherheitscheck: hat das erste Produkt images? Sonst wegwerfen
-      if (parsed.length > 0 && parsed[0].images && parsed[0].images.length > 0) {
-        return parsed;
-      }
+      if (parsed.length > 0 && parsed[0].images && parsed[0].images.length > 0) return parsed;
       localStorage.removeItem('fingermtb_products');
     }
-    // Direkt aus products.js lesen (muss vor admin.html geladen sein)
     if (typeof PRODUCTS !== 'undefined') return JSON.parse(JSON.stringify(PRODUCTS));
     return [];
   }
-
   function saveProducts(p) { localStorage.setItem('fingermtb_products', JSON.stringify(p)); }
 
   let products = getProducts();
   let nextId = Math.max(...products.map(p => p.id), 0) + 1;
   let editingId = null;
+  let currentImages = []; // { path, dataURL, isNew, file }
 
+  // ── RENDER TABLE ──────────────────────────────────────
   function renderTable() {
     const search = document.getElementById('searchInput').value.toLowerCase();
     const cat    = document.getElementById('filterCategory').value;
     const status = document.getElementById('filterStatus').value;
 
     const filtered = products.filter(p =>
-      (!search || p.name.toLowerCase().includes(search) || p.description.toLowerCase().includes(search)) &&
+      (!search || p.name.toLowerCase().includes(search) || (p.description||'').toLowerCase().includes(search)) &&
       (!cat    || p.category === cat) &&
       (!status || p.status === status)
     );
@@ -555,17 +396,18 @@
     tbody.innerHTML = '';
 
     filtered.forEach(p => {
-      const statusBadge = { available: 'badge-available', 'sold-out': 'badge-sold-out', soon: 'badge-soon' }[p.status] || '';
-      const statusLabel = { available: 'Verfügbar', 'sold-out': 'Ausverkauft', soon: 'Bald' }[p.status] || p.status;
-      const catBadge    = { mtb: 'badge-mtb', ski: 'badge-ski', obstacle: 'badge-obstacle', kit: 'badge-kit' }[p.category] || '';
+      const img = p.images && p.images.length ? p.images[0] : 'COMING SOON.png';
+      const statusBadge = {available:'badge-available','sold-out':'badge-sold-out',soon:'badge-soon'}[p.status]||'';
+      const statusLabel = {available:'Verfügbar','sold-out':'Ausverkauft',soon:'Bald'}[p.status]||p.status;
+      const catBadge    = {mtb:'badge-mtb',ski:'badge-ski',obstacle:'badge-obstacle',kit:'badge-kit'}[p.category]||'';
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td style="color:var(--muted)">#${p.id}</td>
+        <td><img class="product-thumb" src="${img}" alt="${p.name}" onerror="this.src='COMING SOON.png'"></td>
         <td><strong>${p.name}</strong></td>
         <td><span class="badge ${catBadge}">${p.category}</span></td>
-        <td>$${parseFloat(p.priceUSD).toFixed(2)}</td>
-        <td>${p.stock}</td>
+        <td>$${parseFloat(p.priceUSD||0).toFixed(2)}</td>
+        <td>${p.stock||0}</td>
         <td><span class="badge ${statusBadge}">${statusLabel}</span></td>
         <td><div class="actions">
           <button class="btn-secondary" onclick="openModal('${p.id}')">Bearbeiten</button>
@@ -575,33 +417,38 @@
     });
 
     document.getElementById('statTotal').textContent     = products.length;
-    document.getElementById('statAvailable').textContent = products.filter(p => p.status === 'available').length;
-    document.getElementById('statSoldOut').textContent   = products.filter(p => p.status === 'sold-out').length;
-    document.getElementById('statSoon').textContent      = products.filter(p => p.status === 'soon').length;
-
-    const cats = {};
-    products.forEach(p => { cats[p.category] = (cats[p.category] || 0) + 1; });
-    document.getElementById('catTableBody').innerHTML = Object.entries(cats)
-      .map(([c, n]) => `<tr><td style="text-transform:capitalize">${c}</td><td>${n}</td></tr>`).join('');
-
-    document.getElementById('exportCode').textContent = JSON.stringify(products, null, 2);
+    document.getElementById('statAvailable').textContent = products.filter(p=>p.status==='available').length;
+    document.getElementById('statSoldOut').textContent   = products.filter(p=>p.status==='sold-out').length;
+    document.getElementById('statSoon').textContent      = products.filter(p=>p.status==='soon').length;
+    document.getElementById('exportCode').textContent    = JSON.stringify(products, null, 2);
   }
 
+  // ── MODAL ─────────────────────────────────────────────
   function openModal(id) {
     editingId = id || null;
+    currentImages = [];
     document.getElementById('modalTitle').textContent = id ? 'PRODUKT BEARBEITEN' : 'NEUES PRODUKT';
-    const p = id ? products.find(x => x.id === id) : null;
 
-    document.getElementById('fName').value        = p?.name        ?? '';
-    document.getElementById('fCategory').value    = p?.category    ?? 'mtb';
-    document.getElementById('fStatus').value      = p?.status      ?? 'soon';
-    document.getElementById('fPriceUSD').value    = p?.priceUSD    ?? '';
-    document.getElementById('fPriceCHF').value    = p?.priceCHF    ?? '';
-    document.getElementById('fPriceEUR').value    = p?.priceEUR    ?? '';
-    document.getElementById('fStock').value       = p?.stock       ?? 0;
-    document.getElementById('fImage').value       = p?.image       ?? 'COMING SOON.png';
-    document.getElementById('fLink').value        = p?.link        ?? 'soon.html';
-    document.getElementById('fDescription').value = p?.description ?? '';
+    const p = id ? products.find(x => String(x.id) === String(id)) : null;
+
+    document.getElementById('fName').value        = p?.name        || '';
+    document.getElementById('fCategory').value    = p?.category    || 'mtb';
+    document.getElementById('fStatus').value      = p?.status      || 'soon';
+    document.getElementById('fPriceUSD').value    = p?.priceUSD    || '';
+    document.getElementById('fPriceCHF').value    = p?.priceCHF    || '';
+    document.getElementById('fPriceEUR').value    = p?.priceEUR    || '';
+    document.getElementById('fStock').value       = p?.stock       || 0;
+    document.getElementById('fEtsyLink').value    = p?.etsyLink    || '';
+    document.getElementById('fDescription').value = p?.description || '';
+    document.getElementById('fNote').value        = p?.note        || '';
+    document.getElementById('fSpecs').value       = p?.specs ? p.specs.join('\n') : '';
+
+    // Existing images
+    if (p?.images) {
+      currentImages = p.images.map(path => ({ path, dataURL: null, isNew: false }));
+    }
+    renderImageGrid();
+    updatePreview();
 
     document.getElementById('modalOverlay').classList.add('open');
   }
@@ -609,11 +456,87 @@
   function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
   function closeModalOutside(e) { if (e.target.id === 'modalOverlay') closeModal(); }
 
-  function saveProduct() {
+  // ── IMAGE UPLOAD ──────────────────────────────────────
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('imageFileInput');
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    handleFiles(Array.from(e.dataTransfer.files));
+  });
+  fileInput.addEventListener('change', () => handleFiles(Array.from(fileInput.files)));
+
+  function handleFiles(files) {
+    files = files.filter(f => f.type.startsWith('image/'));
+    if (!files.length) return;
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        // Dateiname sauber machen (keine Leerzeichen)
+        const safeName = file.name.replace(/\s+/g, '_');
+        currentImages.push({ path: `uploads/${safeName}`, dataURL: e.target.result, isNew: true, file });
+        renderImageGrid();
+        updatePreview();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderImageGrid() {
+    const grid = document.getElementById('imageGrid');
+    grid.innerHTML = '';
+    currentImages.forEach((img, i) => {
+      const src = img.dataURL || img.path;
+      const div = document.createElement('div');
+      div.className = 'image-item';
+      div.innerHTML = `
+        <img src="${src}" alt="img ${i+1}" onerror="this.src='COMING SOON.png'">
+        ${i === 0 ? '<div class="img-primary">HAUPT</div>' : ''}
+        <button class="img-remove" onclick="removeImage(${i})">✕</button>`;
+      grid.appendChild(div);
+    });
+  }
+
+  function removeImage(i) {
+    currentImages.splice(i, 1);
+    renderImageGrid();
+    updatePreview();
+  }
+
+  // ── LIVE VORSCHAU ─────────────────────────────────────
+  function updatePreview() {
+    const name  = document.getElementById('fName').value || 'Produktname';
+    const price = parseFloat(document.getElementById('fPriceUSD').value) || 0;
+    const desc  = document.getElementById('fDescription').value || 'Beschreibung…';
+    const img   = currentImages.length ? (currentImages[0].dataURL || currentImages[0].path) : 'COMING SOON.png';
+
+    document.getElementById('previewName').textContent  = name;
+    document.getElementById('previewPrice').textContent = `$${price.toFixed(2)}`;
+    document.getElementById('previewDesc').textContent  = desc;
+    document.getElementById('previewImg').src           = img;
+  }
+
+  // Live-Update bei Tippen
+  ['fName','fPriceUSD','fDescription'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updatePreview);
+  });
+
+  // ── SPEICHERN ─────────────────────────────────────────
+  async function saveProduct() {
     const name = document.getElementById('fName').value.trim();
     if (!name) { showToast('Name ist erforderlich!', true); return; }
 
+    const specsRaw = document.getElementById('fSpecs').value.trim();
+    const specs = specsRaw ? specsRaw.split('\n').map(s=>s.trim()).filter(Boolean) : [];
+
+    const id = editingId || generateId(name);
+
     const data = {
+      id,
       name,
       category:    document.getElementById('fCategory').value,
       status:      document.getElementById('fStatus').value,
@@ -621,18 +544,27 @@
       priceCHF:    parseFloat(document.getElementById('fPriceCHF').value) || 0,
       priceEUR:    parseFloat(document.getElementById('fPriceEUR').value) || 0,
       stock:       parseInt(document.getElementById('fStock').value)      || 0,
-      image:       document.getElementById('fImage').value.trim()  || 'COMING SOON.png',
-      link:        document.getElementById('fLink').value.trim()   || 'soon.html',
+      etsyLink:    document.getElementById('fEtsyLink').value.trim(),
+      etsyLabel:   'Buy on Etsy',
       description: document.getElementById('fDescription').value.trim(),
+      note:        document.getElementById('fNote').value.trim(),
+      specs,
+      images:      currentImages.map(img => img.path),
+      // Neue Bilder merken für den GitHub-Push
+      _newImages:  currentImages.filter(img => img.isNew).map(img => ({
+        path: img.path,
+        dataURL: img.dataURL,
+      })),
     };
 
     if (editingId) {
-      const idx = products.findIndex(p => p.id === editingId);
+      const idx = products.findIndex(p => String(p.id) === String(editingId));
       products[idx] = { ...products[idx], ...data };
       showToast('Produkt aktualisiert ✓');
     } else {
-      products.push({ id: nextId++, ...data });
-      showToast('Produkt hinzugefügt ✓');
+      products.push(data);
+      nextId++;
+      showToast('Produkt hinzugefügt ✓ — jetzt publizieren!');
     }
 
     saveProducts(products);
@@ -640,77 +572,42 @@
     renderTable();
   }
 
+  function generateId(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
   function deleteProduct(id) {
     if (!confirm('Dieses Produkt wirklich löschen?')) return;
-    products = products.filter(p => p.id !== id);
+    products = products.filter(p => String(p.id) !== String(id));
     saveProducts(products);
     renderTable();
     showToast('Produkt gelöscht');
   }
 
-  function switchTab(tab, el) {
-    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById(`tab-${tab}`).classList.add('active');
-    el.classList.add('active');
-    document.getElementById('pageTitle').textContent =
-      { products: 'PRODUKTE', categories: 'KATEGORIEN', export: 'EXPORT' }[tab] || tab.toUpperCase();
-  }
-
-  function showToast(msg, isError = false) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.style.borderColor = isError ? 'var(--danger)' : 'var(--success)';
-    t.style.color       = isError ? 'var(--danger)' : 'var(--success)';
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
-  }
-
-  function copyExport() {
-    navigator.clipboard.writeText(JSON.stringify(products, null, 2))
-      .then(() => showToast('JSON kopiert ✓'))
-      .catch(() => showToast('Kopieren fehlgeschlagen', true));
-  }
-
-  function downloadJSON() {
-    const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = 'fingermtb-products.json'; a.click();
-  }
-
-  function resetData() {
-    if (!confirm('ACHTUNG: Alle Änderungen werden gelöscht. Fortfahren?')) return;
-    localStorage.removeItem('fingermtb_products');
-    products = getProducts();
-    saveProducts(products);
-    renderTable();
-    showToast('Daten zurückgesetzt');
-  }
-
-  // ── GITHUB PUBLISH ────────────────────────────────────────────
-
+  // ── GITHUB PUBLISH ─────────────────────────────────────
   async function publishToGitHub() {
-    const btn        = document.getElementById('publishBtn');
-    const statusEl   = document.getElementById('publishStatus');
-    const progressEl = document.getElementById('deployProgress');
-    const stepsEl    = document.getElementById('deploySteps');
+    const btn      = document.getElementById('publishBtn');
+    const statusEl = document.getElementById('publishStatus');
+    const stepsEl  = document.getElementById('deploySteps');
 
     btn.disabled = true;
     btn.textContent = '⏳ Wird gepusht…';
-    progressEl.style.display = 'block';
+    document.getElementById('quickPublishBtn').disabled = true;
     stepsEl.innerHTML = '';
     statusEl.style.display = 'none';
 
-    function addStep(text, done = false, isErr = false) {
+    function addStep(text, done=false, isErr=false) {
       const color = isErr ? 'var(--danger)' : done ? 'var(--success)' : 'var(--muted)';
       const icon  = isErr ? '✗' : done ? '✓' : '…';
       const div = document.createElement('div');
-      div.style.cssText = `font-size:0.75rem; color:${color}; letter-spacing:0.05em;`;
+      div.className = 'deploy-step';
+      div.style.color = color;
       div.textContent = `${icon} ${text}`;
       stepsEl.appendChild(div);
+      return div;
     }
 
-    function setStatus(msg, ok = true) {
+    function setStatus(msg, ok=true) {
       statusEl.style.display = 'block';
       statusEl.style.background = ok ? 'rgba(0,204,136,0.12)' : 'rgba(255,51,85,0.12)';
       statusEl.style.color      = ok ? 'var(--success)' : 'var(--danger)';
@@ -719,82 +616,88 @@
     }
 
     try {
-      // 1. Token + Repo von Netlify Function holen
-      addStep('GitHub Token laden…');
+      // 1. Token holen
+      let step = addStep('GitHub Token laden…');
       const configRes = await fetch('/.netlify/functions/github-config');
-      if (!configRes.ok) throw new Error('Netlify Function nicht erreichbar — ist github-config.js deployed?');
+      if (!configRes.ok) throw new Error('Netlify Function nicht erreichbar');
       const { token, repo } = await configRes.json();
-      if (!token || !repo) throw new Error('GITHUB_TOKEN oder GITHUB_REPO fehlt in Netlify Environment Variables.');
-      stepsEl.lastChild.textContent = '✓ GitHub Token geladen';
-      stepsEl.lastChild.style.color = 'var(--success)';
-
-      // 2. File-Inhalt bauen
-      addStep('products.js generieren…');
-      const fileContent = buildProductsJS();
-      stepsEl.lastChild.textContent = '✓ products.js generiert';
-      stepsEl.lastChild.style.color = 'var(--success)';
-
-      // 3. Aktuellen SHA holen
-      addStep('Aktuelle Version von GitHub holen…');
+      if (!token || !repo) throw new Error('GITHUB_TOKEN oder GITHUB_REPO fehlt');
+      step.textContent = '✓ GitHub Token geladen'; step.style.color = 'var(--success)';
       const [owner, repoName] = repo.split('/');
-      const getRes = await fetch(
-        `https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,
-        { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
-      );
-      if (!getRes.ok) throw new Error(`GitHub API Fehler ${getRes.status} — existiert products.js im Repo?`);
-      const { sha } = await getRes.json();
-      stepsEl.lastChild.textContent = '✓ Aktuelle Version geladen';
-      stepsEl.lastChild.style.color = 'var(--success)';
 
-      // 4. Pushen
-      addStep('Zu GitHub pushen…');
-      const pushRes = await fetch(
-        `https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,
-        {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/vnd.github+json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            message: `admin: update products ${new Date().toLocaleString('de-CH')}`,
-            content: btoa(unescape(encodeURIComponent(fileContent))),
-            sha,
-          }),
+      // 2. Neue Bilder hochladen
+      const newImages = products.flatMap(p => p._newImages || []);
+      if (newImages.length > 0) {
+        step = addStep(`${newImages.length} neue Bilder hochladen…`);
+        for (let i = 0; i < newImages.length; i++) {
+          const img = newImages[i];
+          const base64 = img.dataURL.split(',')[1];
+          // Prüfen ob Datei schon existiert
+          let sha = null;
+          try {
+            const chk = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/${img.path}`,
+              { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }});
+            if (chk.ok) { const d = await chk.json(); sha = d.sha; }
+          } catch {}
+
+          const body = { message: `admin: upload image ${img.path}`, content: base64 };
+          if (sha) body.sha = sha;
+          const r = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/${img.path}`,
+            { method:'PUT', headers:{ Authorization:`Bearer ${token}`, Accept:'application/vnd.github+json', 'Content-Type':'application/json' }, body: JSON.stringify(body) });
+          if (!r.ok) throw new Error(`Bild ${img.path} konnte nicht hochgeladen werden`);
         }
-      );
-      if (!pushRes.ok) {
-        const err = await pushRes.json();
-        throw new Error(`Push fehlgeschlagen: ${err.message}`);
+        step.textContent = `✓ ${newImages.length} Bilder hochgeladen`; step.style.color = 'var(--success)';
+
+        // _newImages aus products entfernen (nicht in JS-File schreiben)
+        products = products.map(p => { const {_newImages, ...rest} = p; return rest; });
+        saveProducts(products);
       }
-      stepsEl.lastChild.textContent = '✓ Gepusht!';
-      stepsEl.lastChild.style.color = 'var(--success)';
+
+      // 3. products.js SHA holen
+      step = addStep('Aktuelle products.js von GitHub holen…');
+      const getRes = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,
+        { headers: { Authorization:`Bearer ${token}`, Accept:'application/vnd.github+json' }});
+      if (!getRes.ok) throw new Error(`GitHub API Fehler ${getRes.status}`);
+      const { sha } = await getRes.json();
+      step.textContent = '✓ SHA geladen'; step.style.color = 'var(--success)';
+
+      // 4. products.js pushen
+      step = addStep('products.js zu GitHub pushen…');
+      const fileContent = buildProductsJS();
+      const pushRes = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,
+        { method:'PUT', headers:{ Authorization:`Bearer ${token}`, Accept:'application/vnd.github+json', 'Content-Type':'application/json' },
+          body: JSON.stringify({ message:`admin: update products ${new Date().toLocaleString('de-CH')}`, content: btoa(unescape(encodeURIComponent(fileContent))), sha }) });
+      if (!pushRes.ok) { const e = await pushRes.json(); throw new Error(e.message); }
+      step.textContent = '✓ products.js gepusht'; step.style.color = 'var(--success)';
 
       addStep('Netlify deployed automatisch in ~30 Sekunden…', true);
-      setStatus('✓ Erfolgreich gepusht! Die Website aktualisiert sich in ~30 Sekunden.');
-      showToast('Gepusht! Website wird gleich aktualisiert ✓');
+      setStatus('✓ Erfolgreich! Website wird in ~30 Sekunden aktualisiert.');
+      showToast('Gepusht! Website aktualisiert sich gleich ✓');
 
-    } catch (err) {
+    } catch(err) {
       addStep(err.message, false, true);
       setStatus(`Fehler: ${err.message}`, false);
       showToast('Fehler beim Pushen', true);
     } finally {
       btn.disabled = false;
       btn.textContent = '🚀 JETZT PUBLIZIEREN';
+      document.getElementById('quickPublishBtn').disabled = false;
     }
   }
 
-  function buildProductsJS() {
-    // Sicherstellen dass jedes Produkt images[] hat (nie singular image)
-    const safeProducts = products.map(p => {
-      // Falls images Array fehlt, aus image (singular) oder Fallback bauen
-      if (!p.images || p.images.length === 0) {
-        p.images = p.image ? [p.image] : ['COMING SOON.png'];
-      }
-      return p;
-    });
+  async function quickPublish() {
+    switchTab('publish', document.querySelector('.nav-item:nth-child(2)'));
+    await publishToGitHub();
+  }
 
+  function buildProductsJS() {
+    const safeProducts = products.map(p => {
+      const {_newImages, ...rest} = p;
+      if (!rest.images || rest.images.length === 0) {
+        rest.images = rest.image ? [rest.image] : ['COMING SOON.png'];
+      }
+      return rest;
+    });
     return `// products.js — generiert vom Admin-Panel
 // ${new Date().toLocaleString('de-CH')}
 
@@ -815,6 +718,45 @@ const LEGACY_MAP = {
   'Session-9.html':             'session-9',
 };
 `;
+  }
+
+  // ── UTILS ─────────────────────────────────────────────
+  function switchTab(tab, el) {
+    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    if (el) el.classList.add('active');
+    document.getElementById('pageTitle').textContent = {products:'PRODUKTE', publish:'PUBLIZIEREN'}[tab]||tab.toUpperCase();
+  }
+
+  function showToast(msg, isError=false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.borderColor = isError ? 'var(--danger)' : 'var(--success)';
+    t.style.color       = isError ? 'var(--danger)' : 'var(--success)';
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  function copyExport() {
+    navigator.clipboard.writeText(JSON.stringify(products, null, 2))
+      .then(() => showToast('JSON kopiert ✓'))
+      .catch(() => showToast('Kopieren fehlgeschlagen', true));
+  }
+
+  function downloadJSON() {
+    const blob = new Blob([buildProductsJS()], { type: 'text/javascript' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'products.js'; a.click();
+  }
+
+  function resetData() {
+    if (!confirm('Alle lokalen Änderungen zurücksetzen?')) return;
+    localStorage.removeItem('fingermtb_products');
+    products = getProducts();
+    renderTable();
+    showToast('Zurückgesetzt');
   }
 
   renderTable();
