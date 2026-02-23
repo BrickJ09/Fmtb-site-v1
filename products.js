@@ -1,5 +1,5 @@
 // products.js — generiert vom Admin-Panel
-// 23.2.2026, 11:24:55
+// 23.2.2026, 11:26:49
 
 const PRODUCTS = [
   {
@@ -33,20 +33,20 @@ const PRODUCTS = [
     "id": "fingerski-v2-blue",
     "name": "BrickJ Fingerski V2 — Blue",
     "category": "ski",
-    "status": "available",
+    "status": "sold-out",
     "priceUSD": 2,
     "priceCHF": 1.8,
     "priceEUR": 1.9,
     "stock": 15,
     "etsyLink": "",
-    "etsyLabel": "Buy STL Files on Etsy",
-    "description": "Printable finger ski files in blue. Comes included with the Starter Set.",
+    "etsyLabel": "Buy on Etsy",
+    "description": "Comes included with the Starter Set.",
     "specs": [
       "Length: 9.5 cm",
       "Width: 2.8 cm",
       "Files: STL + 3MF included"
     ],
-    "note": "This product contains 3MF and STL files only — no physical product.",
+    "note": "comes included with the fingerski starterset",
     "images": [
       "blueski/blueskiV3_side.JPG",
       "blueski/blueskiis_frontleft.JPG",
@@ -55,30 +55,6 @@ const PRODUCTS = [
     ],
     "image": "C:\\dev\\Fmtb-site-v1\\fingerski_starterkit\\starterset_view_img.JPG",
     "link": "C:\\dev\\Fmtb-site-v1\\fingerski_starterset.html"
-  },
-  {
-    "id": "fingerski-v2-pink",
-    "name": "BrickJ Fingerski V2 — Pink",
-    "category": "ski",
-    "status": "available",
-    "priceUSD": 2,
-    "priceCHF": 1.8,
-    "priceEUR": 1.9,
-    "stock": 15,
-    "etsyLink": "",
-    "etsyLabel": "Buy STL Files on Etsy",
-    "description": "Printable finger ski files in pink.",
-    "specs": [
-      "Length: 9.5 cm",
-      "Width: 2.8 cm",
-      "Files: STL + 3MF included"
-    ],
-    "note": "This product contains 3MF and STL files only — no physical product.",
-    "images": [
-      "pinkski/pinkskiis_front.JPG",
-      "pinkski/pinkskiis_frontleft.JPG",
-      "pinkski/pinkskiis_front_far_away.JPG"
-    ]
   },
   {
     "id": "kinkrail-blue",
