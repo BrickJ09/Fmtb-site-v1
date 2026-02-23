@@ -147,13 +147,10 @@
   <script src="script.js"></script>
   <script>
     // ── Featured Grid ──────────────────────────────────
-    const FEATURED_IDS = [
-      'fingerski-starter-set',
-      'sender',
-      'v10',
-      'fingerski-v2-blue',
-      'kinkrail-blue',
-    ];
+    // FEATURED_IDS kommt aus products.js (vom Admin-Panel gesetzt)
+    const FEATURED_IDS = (typeof window.FEATURED_IDS !== 'undefined' && window.FEATURED_IDS.length)
+      ? window.FEATURED_IDS
+      : ['fingerski-starter-set','sender','v10','fingerski-v2-blue','kinkrail-blue'];
 
     const grid = document.getElementById('featuredGrid');
     if (grid && typeof PRODUCTS !== 'undefined') {
