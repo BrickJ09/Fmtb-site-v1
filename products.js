@@ -1,5 +1,5 @@
 // products.js — FingerMTB
-// Generiert: 25.2.2026, 20:41:48
+// Generiert: 25.2.2026, 20:48:14
 
 const PRODUCTS = [
   {
@@ -19,7 +19,34 @@ const PRODUCTS = [
       "The Fingerski Starter Set comes with everything you need to shred — indoors or outside. The rail measures 18.7 × 5 × 5.5 cm and the ski boots come in four sizes (XS–L, measured by circumference: 4.1 / 4.5 / 4.7 / 5.0 cm). Also included: a mini kicker for indoor use and a park shaper tool for building your own outdoor spots."
     ],
     "images": [
-      "uploads/fingerski_set_pro.JPEG"
+      "uploads/fingerski_set_pro.JPEG",
+      "uploads/fingerski-set_5.jpg",
+      "uploads/fingerski-set_6.jpg",
+      "uploads/fingerski-set_7.jpg",
+      "uploads/fingerski-set_8.jpg"
+    ]
+  },
+  {
+    "id": "brickj-fingerski-starterset-tube-rail",
+    "name": "BrickJ FIngerski starterset - tube rail",
+    "category": "kit",
+    "status": "available",
+    "priceUSD": 15,
+    "priceCHF": 15,
+    "priceEUR": 15,
+    "stock": 1,
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312439296/",
+    "etsyLabel": "Buy on Etsy",
+    "description": "Starterset with 1 pair of fingerskiis + 1 park shaper tool + 1 flat tube rail",
+    "note": "Shipping only in switzerland - shipping cost 3.40 CHF",
+    "specs": [
+      "The Fingerski Starter Set comes with everything you need to shred — indoors or outside. The rail measures 18.7 × 5 × 5.5 cm and the ski boots come in four sizes (XS–L, measured by circumference: 4.1 / 4.5 / 4.7 / 5.0 cm). Also included: a park shaper tool for building your own outdoor spots."
+    ],
+    "images": [
+      "uploads/fingerski-set_1.jpg",
+      "uploads/fingerski-set_2.jpg",
+      "uploads/fingerski-set_3.jpg",
+      "uploads/fingerski-set_4.jpg"
     ]
   },
   {
@@ -287,29 +314,11 @@ const PRODUCTS = [
     "images": [
       "COMING SOON.png"
     ]
-  },
-  {
-    "id": "brickj-fingerski-starterset-tube-rail",
-    "name": "BrickJ FIngerski starterset - tube rail",
-    "category": "kit",
-    "status": "available",
-    "priceUSD": 15,
-    "priceCHF": 15,
-    "priceEUR": 15,
-    "stock": 0,
-    "etsyLink": "",
-    "etsyLabel": "Buy on Etsy",
-    "description": "",
-    "note": "",
-    "specs": [],
-    "images": [
-      "uploads/fingerski-set_1.jpg"
-    ]
   }
 ];
 
 // Featured IDs für die Startseite (vom Admin-Panel gesetzt)
-const FEATURED_IDS = ["fingerski-set-pro","v10","fingerski-set-pro"];
+const FEATURED_IDS = ["fingerski-set-pro","brickj-fingerski-starterset-tube-rail"];
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
