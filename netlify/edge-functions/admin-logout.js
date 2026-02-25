@@ -1,15 +1,15 @@
 // netlify/edge-functions/admin-logout.js
-// Löscht den Session-Cookie und leitet zurück zum Login
 
-export default async function handler(request) {
+export default async function handler(request, context) {
   return new Response(null, {
     status: 302,
     headers: {
-      'Location': '/admin-login.html',
-      // Cookie mit Max-Age=0 löschen
-      'Set-Cookie': 'fingermtb_session=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0'
+      'Location': '/admin.html',
+      'Set-Cookie': 'fm_sess=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Strict'
     }
   });
 }
 
-export const config = { path: '/admin-logout' };
+export const config = {
+  path: ['/admin-logout']
+};
