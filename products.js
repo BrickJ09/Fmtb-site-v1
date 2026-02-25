@@ -12,7 +12,7 @@ const PRODUCTS = [
     "priceEUR": 20,
     "stock": 1,
     "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
-    "etsyLabel": "Buy on Etsy",
+    "etsyLabel": "Buy on Ricardo",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
     "specs": [
@@ -36,7 +36,7 @@ const PRODUCTS = [
     "priceEUR": 15,
     "stock": 1,
     "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312439296/",
-    "etsyLabel": "Buy on Etsy",
+    "etsyLabel": "Buy on Ricardo",
     "description": "Starterset with 1 pair of fingerskiis + 1 park shaper tool + 1 flat tube rail",
     "note": "Shipping only in switzerland - shipping cost 3.40 CHF",
     "specs": [
