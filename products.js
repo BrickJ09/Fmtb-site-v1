@@ -1,5 +1,5 @@
 // products.js — FingerMTB
-// Generiert: 25.2.2026, 19:44:52
+// Generiert: 25.2.2026, 20:41:48
 
 const PRODUCTS = [
   {
@@ -287,11 +287,29 @@ const PRODUCTS = [
     "images": [
       "COMING SOON.png"
     ]
+  },
+  {
+    "id": "brickj-fingerski-starterset-tube-rail",
+    "name": "BrickJ FIngerski starterset - tube rail",
+    "category": "kit",
+    "status": "available",
+    "priceUSD": 15,
+    "priceCHF": 15,
+    "priceEUR": 15,
+    "stock": 0,
+    "etsyLink": "",
+    "etsyLabel": "Buy on Etsy",
+    "description": "",
+    "note": "",
+    "specs": [],
+    "images": [
+      "uploads/fingerski-set_1.jpg"
+    ]
   }
 ];
 
 // Featured IDs für die Startseite (vom Admin-Panel gesetzt)
-const FEATURED_IDS = ["fingerski-starter-set","v10","fingerski-set-pro"];
+const FEATURED_IDS = ["fingerski-set-pro","v10","fingerski-set-pro"];
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
