@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin Panel
-// Generiert: 25.2.2026, 17:47:04
+// Generiert: 25.2.2026, 19:00:57
 
 const PRODUCTS = [
   {
@@ -310,7 +310,7 @@ const PRODUCTS = [
   }
 ];
 
-const FEATURED_IDS = ["v10","fingerski-set-pro","fingerski-v2-blue","fingerski-starterset-flat-tube-rail"];
+const FEATURED_IDS = ["fingerski-set-pro","fingerski-v2-blue","fingerski-starterset-flat-tube-rail"];
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
