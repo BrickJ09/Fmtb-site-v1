@@ -1,6 +1,9 @@
 [build]
   publish = "."
 
+[functions]
+  directory = "netlify/functions"
+
 [[edge_functions]]
   path = "/admin.html"
   function = "admin-auth"

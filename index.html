@@ -140,7 +140,7 @@
     .admin-entry:hover { opacity:0.6; }
     .admin-entry a { display:flex; align-items:center; justify-content:center; width:24px; height:24px; background:#333; border-radius:50%; text-decoration:none; font-size:13px; color:#fff; }
   </style>
-  <!--<div class="admin-entry" title="Admin"><a href="admin-login.html">⚙</a></div>-->
+  <div class="admin-entry" title="Admin"><a href="admin-login.html">⚙</a></div>
 
   <!-- Scripts: Reihenfolge wichtig! products.js zuerst, dann script.js, dann inline -->
   <script src="products.js"></script>
@@ -148,13 +148,14 @@
   <script>
     // ── Featured Grid ──────────────────────────────────
     // FEATURED_IDS kommt aus products.js (vom Admin-Panel gesetzt)
-    const FEATURED_IDS = (typeof window.FEATURED_IDS !== 'undefined' && window.FEATURED_IDS.length)
-      ? window.FEATURED_IDS
+    // Kein 'const' — products.js deklariert es bereits als const
+    const featuredIds = (typeof FEATURED_IDS !== 'undefined' && FEATURED_IDS.length)
+      ? FEATURED_IDS
       : ['fingerski-starter-set','sender','v10','fingerski-v2-blue','kinkrail-blue'];
 
     const grid = document.getElementById('featuredGrid');
     if (grid && typeof PRODUCTS !== 'undefined') {
-      FEATURED_IDS.forEach(id => {
+      featuredIds.forEach(id => {
         const p = PRODUCTS.find(x => x.id === id);
         if (!p) return;
         const statusLabel = { available: '', 'sold-out': 'not sold yet', soon: 'coming soon' }[p.status] || '';
