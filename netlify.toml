@@ -11,11 +11,7 @@
   directory = "netlify/functions"
 
 [[edge_functions]]
-  path = "/admin.html"
-  function = "admin-auth"
-
-[[edge_functions]]
-  path = "/admin"
+  path = "/dashboard-brickj.html"
   function = "admin-auth"
 
 [[edge_functions]]
