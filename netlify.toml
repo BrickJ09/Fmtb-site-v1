@@ -9,5 +9,9 @@
   function = "admin-auth"
 
 [[edge_functions]]
+  path = "/admin"
+  function = "admin-auth"
+
+[[edge_functions]]
   path = "/admin-logout"
   function = "admin-logout"
