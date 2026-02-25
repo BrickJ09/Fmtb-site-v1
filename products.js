@@ -1,5 +1,5 @@
 // products.js — FingerMTB
-// Generiert: 25.2.2026, 20:48:14
+// Generiert: 25.2.2026, 20:59:36
 
 const PRODUCTS = [
   {
@@ -10,8 +10,8 @@ const PRODUCTS = [
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
-    "stock": 2,
-    "etsyLink": "",
+    "stock": 1,
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
     "etsyLabel": "Buy on Etsy",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
