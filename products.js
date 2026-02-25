@@ -1,7 +1,27 @@
-// products.js — generiert vom Admin-Panel
-// 23.2.2026, 12:02:47
+// products.js — FingerMTB Admin Panel
+// Generiert: 23.2.2026, 18:01:07
 
 const PRODUCTS = [
+  {
+    "id": "fingerski-set-pro",
+    "name": "Fingerski Set Pro",
+    "category": "kit",
+    "status": "soon",
+    "priceUSD": 20,
+    "priceCHF": 20,
+    "priceEUR": 20,
+    "stock": 2,
+    "etsyLink": "",
+    "etsyLabel": "Buy on Etsy",
+    "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
+    "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
+    "specs": [
+      "The Fingerski Starter Set comes with everything you need to shred — indoors or outside. The rail measures 18.7 × 5 × 5.5 cm and the ski boots come in four sizes (XS–L, measured by circumference: 4.1 / 4.5 / 4.7 / 5.0 cm). Also included: a mini kicker for indoor use and a park shaper tool for building your own outdoor spots."
+    ],
+    "images": [
+      "uploads/fingerski_set_pro.JPEG"
+    ]
+  },
   {
     "id": "fingerski-starter-set",
     "name": "BrickJ Fingerski kit",
@@ -267,28 +287,10 @@ const PRODUCTS = [
     "images": [
       "COMING SOON.png"
     ]
-  },
-  {
-    "id": "fingerski-set-pro",
-    "name": "Fingerski Set Pro",
-    "category": "kit",
-    "status": "soon",
-    "priceUSD": 20,
-    "priceCHF": 20,
-    "priceEUR": 20,
-    "stock": 2,
-    "etsyLink": "",
-    "etsyLabel": "Buy on Etsy",
-    "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
-    "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
-    "specs": [
-      "The Fingerski Starter Set comes with everything you need to shred — indoors or outside. The rail measures 18.7 × 5 × 5.5 cm and the ski boots come in four sizes (XS–L, measured by circumference: 4.1 / 4.5 / 4.7 / 5.0 cm). Also included: a mini kicker for indoor use and a park shaper tool for building your own outdoor spots."
-    ],
-    "images": [
-      "COMING SOON.png"
-    ]
   }
 ];
+
+const FEATURED_IDS = ["fingerski-starter-set","v10","fingerski-v2-blue","kinkrail-blue"];
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
