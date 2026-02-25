@@ -36,8 +36,8 @@ export default async function handler(request, context) {
     }
   }
 
-  // GET /admin.html → Session prüfen
-  if (url.pathname === '/admin.html') {
+  // GET /admin.html oder /admin → Session prüfen
+  if (url.pathname === '/admin.html' || url.pathname === '/admin') {
     const cookie = request.headers.get('cookie') || '';
     const secret = Deno.env.get('SESSION_SECRET') || 'fallback-secret';
     const sess   = parseCookie(cookie, 'fm_sess');
