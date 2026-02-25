@@ -36,7 +36,10 @@ export default async function handler(request, context) {
   const sess   = parseCookie(cookie, 'fm_sess');
 
   if (sess && await verifySession(sess, secret)) {
-    return context.next();
+    // Direkt die HTML-Datei fetchen — bypassed Pretty URLs komplett
+    const adminUrl = new URL('/dashboard-brickj.html', request.url);
+    const adminRes = await context.next(new Request(adminUrl.href));
+    return adminRes;
   }
 
   return new Response(loginPage(), {
@@ -109,5 +112,5 @@ function loginPage(error = '') {
 }
 
 export const config = {
-  path: ['/dashboard-brickj.html']
+  path: ['/dashboard-brickj.html', '/dashboard-brickj']
 };
