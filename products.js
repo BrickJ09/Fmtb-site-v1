@@ -1,17 +1,17 @@
 // products.js — FingerMTB Admin Panel
-// Generiert: 23.2.2026, 18:01:07
+// Generiert: 25.2.2026, 17:47:04
 
 const PRODUCTS = [
   {
     "id": "fingerski-set-pro",
     "name": "Fingerski Set Pro",
     "category": "kit",
-    "status": "soon",
+    "status": "available",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
-    "stock": 2,
-    "etsyLink": "",
+    "stock": 1,
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
     "etsyLabel": "Buy on Etsy",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
@@ -24,12 +24,12 @@ const PRODUCTS = [
   },
   {
     "id": "fingerski-starter-set",
-    "name": "BrickJ Fingerski kit",
+    "name": "BrickJ Fingerski starterkit - Kinkrail",
     "category": "kit",
     "status": "sold-out",
-    "priceUSD": 20,
-    "priceCHF": 20,
-    "priceEUR": 20,
+    "priceUSD": 15,
+    "priceCHF": 15,
+    "priceEUR": 15,
     "stock": 2,
     "etsyLink": "",
     "etsyLabel": "Buy on Etsy",
@@ -287,10 +287,30 @@ const PRODUCTS = [
     "images": [
       "COMING SOON.png"
     ]
+  },
+  {
+    "id": "fingerski-starterset-flat-tube-rail",
+    "name": "Fingerski starterset - flat tube rail",
+    "category": "kit",
+    "status": "available",
+    "priceUSD": 15,
+    "priceCHF": 15,
+    "priceEUR": 15,
+    "stock": 1,
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312439296/",
+    "etsyLabel": "Buy on Etsy",
+    "description": "Perfect starterkit for fingerskiing - comes with: 1 flat tube rail + 1 pair of skiis + 1 park shaper tool",
+    "note": "",
+    "specs": [
+      "The Fingerski Starter Set comes with everything you need to shred — indoors or outside. The rail measures 18.7 × 5 × 5.5 cm and the ski boots come in four sizes (XS–L, measured by circumference: 4.1 / 4.5 / 4.7 / 5.0 cm). Also included: a park shaper tool for building your own outdoor spots."
+    ],
+    "images": [
+      "uploads/fingerski_flatrail_starterkit.jpg"
+    ]
   }
 ];
 
-const FEATURED_IDS = ["fingerski-starter-set","v10","fingerski-v2-blue","kinkrail-blue"];
+const FEATURED_IDS = ["v10","fingerski-set-pro","fingerski-v2-blue","fingerski-starterset-flat-tube-rail"];
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
