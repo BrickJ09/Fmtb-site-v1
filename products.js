@@ -1,12 +1,12 @@
-// products.js — FingerMTB Admin Panel
-// Generiert: 23.2.2026, 18:01:07
+// products.js — FingerMTB
+// Generiert: 25.2.2026, 19:44:52
 
 const PRODUCTS = [
   {
     "id": "fingerski-set-pro",
     "name": "Fingerski Set Pro",
     "category": "kit",
-    "status": "soon",
+    "status": "available",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
@@ -290,7 +290,8 @@ const PRODUCTS = [
   }
 ];
 
-const FEATURED_IDS = ["fingerski-starter-set","v10","fingerski-v2-blue","kinkrail-blue"];
+// Featured IDs für die Startseite (vom Admin-Panel gesetzt)
+const FEATURED_IDS = ["fingerski-starter-set","v10","fingerski-set-pro"];
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
