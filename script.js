@@ -19,6 +19,7 @@ const mainNav    = document.querySelector('.main-nav');
 if (menuToggle && mainNav) {
   menuToggle.addEventListener('click', () => {
     mainNav.classList.toggle('active');
+    menuToggle.classList.toggle('open');
   });
 }
 

@@ -1033,3 +1033,30 @@ form.container .field { margin-bottom: 18px; }
    FOOTERPROD
 ══════════════════════════════════════════ */
 .footerprod { margin-top: 3rem; }
+
+/* ══════════════════════════════════════════
+   BUY BUTTON — alle Links in pricedescription
+   (auch ohne .buy-link Klasse)
+══════════════════════════════════════════ */
+.pricedescription > a,
+.pricedescription a:not(.details a) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff !important;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px 30px;
+  border-radius: 100px;
+  transition: all var(--transition);
+  box-shadow: 0 6px 20px rgba(255,107,0,0.3);
+  width: fit-content;
+  margin-top: 4px;
+}
+.pricedescription > a:hover,
+.pricedescription a:not(.details a):hover {
+  background: #e05500;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(255,107,0,0.4);
+}
