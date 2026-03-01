@@ -1,5 +1,5 @@
 // products.js — generiert vom Admin-Panel
-// 1.3.2026, 13:49:05
+// 1.3.2026, 14:23:59
 
 const PRODUCTS = [
   {
@@ -321,7 +321,7 @@ const FEATURED_IDS = ["fingerski-set-pro"];
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "Ride small - Dream big",
+    "title": "Ride small  \\N Dream big",
     "subtitle": "",
     "badge": "Handmade in Switzerland",
     "buttonText": "shop now",
@@ -332,8 +332,8 @@ const SITE_CONFIG = {
     "page": "index",
     "delay": 2000,
     "title": "Fingerski pro set now available",
-    "subtitle": "",
-    "body": "",
+    "subtitle": "20 CHF",
+    "body": "Including Fingerskis + 1 Tube Rail + 1 park shaper tool + 1 indoor kicker",
     "image": "uploads\\fingerski-set_view_img.jpg",
     "buttonText": "Buy on Ricardo.ch",
     "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
