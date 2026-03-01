@@ -1,5 +1,5 @@
 // products.js — generiert vom Admin-Panel
-// 1.3.2026, 14:41:57
+// 1.3.2026, 17:12:31
 
 const PRODUCTS = [
   {
@@ -12,7 +12,7 @@ const PRODUCTS = [
     "priceEUR": 20,
     "stock": 1,
     "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
-    "etsyLabel": "Buy on Etsy",
+    "etsyLabel": "Buy on Ricardo.ch",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
     "specs": [
