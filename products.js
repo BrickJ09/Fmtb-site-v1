@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generiert: 1.3.2026, 17:46:13
+// Generiert: 1.3.2026, 20:10:36
 
 const PRODUCTS = [
   {
@@ -311,6 +311,28 @@ const PRODUCTS = [
     "note": "",
     "images": [
       "COMING SOON.png"
+    ]
+  },
+  {
+    "id": "fingerski-starterset-flat-tube-rail-pink",
+    "name": "Fingerski starterset - Flat tube rail | pink",
+    "category": "ski",
+    "status": "available",
+    "priceUSD": 15,
+    "priceCHF": 15,
+    "priceEUR": 15,
+    "stock": 0,
+    "etsyLabel": "Buy now on Ricardo.ch",
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
+    "description": "Starterset with 1 pair of fingerskiis + 1 park shaper tool + 1 flat tube rail",
+    "specs": [
+      "The Fingerski Starter Set comes with everything you need to shred — indoors or outside. The rail measures 18.7 × 5 × 5.5 cm and the ski boots come in four sizes (XS–L, measured by circumference: 4.1 / 4.5 / 4.7 / 5.0 cm). Also included: a park shaper tool for building your own outdoor spots."
+    ],
+    "note": "Shipping exclusively to Switzerland || shipping cost 3.40 CHF",
+    "images": [
+      "uploads/fingerski-set-pink.jpg",
+      "uploads/fingerski-set-pink_2.jpg",
+      "uploads/fingerski-set-pink_1.jpg"
     ]
   }
 ];
