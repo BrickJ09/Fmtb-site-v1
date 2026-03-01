@@ -1,18 +1,15 @@
 // script.js — FingerMTB
-// Alle Elemente werden erst gesucht bevor sie verwendet werden
-// → kein Crash mehr auf Seiten ohne Slider, ohne Menü usw.
+// Shared across all pages
 
 // ── Popup ──────────────────────────────────────────────
+// Popup is controlled by index.html via SITE_CONFIG delay
+// This just exposes closePopup globally
 function closePopup() {
   const popup = document.getElementById('popup');
   if (popup) popup.style.display = 'none';
 }
 
-// Popup automatisch öffnen (nur auf index)
-const popup = document.getElementById('popup');
-if (popup) popup.style.display = 'flex';
-
-// ── Mobile Menü ────────────────────────────────────────
+// ── Mobile Menu ────────────────────────────────────────
 const menuToggle = document.querySelector('.menu-toggle');
 const mainNav    = document.querySelector('.main-nav');
 
@@ -21,12 +18,17 @@ if (menuToggle && mainNav) {
     mainNav.classList.toggle('active');
     menuToggle.classList.toggle('open');
   });
+  // Close menu when clicking a link
+  mainNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mainNav.classList.remove('active');
+      menuToggle.classList.remove('open');
+    });
+  });
 }
 
-// ── Währungsswitch ─────────────────────────────────────
-// Funktioniert auf allen Seiten die .price Elemente haben
+// ── Currency Switch ────────────────────────────────────
 const currencySwitch = document.getElementById('currencySwitch');
-
 if (currencySwitch) {
   currencySwitch.addEventListener('change', function () {
     const sel = this.value;
@@ -41,12 +43,10 @@ if (currencySwitch) {
   });
 }
 
-// ── Bildslider ─────────────────────────────────────────
-// Nur initialisieren wenn ein Slider auf der Seite ist
+// ── Image Slider ───────────────────────────────────────
 const sliderEl = document.querySelector('.slider');
-
 if (sliderEl) {
-  const slides  = document.querySelectorAll('.slide');
+  const slides = document.querySelectorAll('.slide');
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
   let current = 0;
@@ -61,7 +61,7 @@ if (sliderEl) {
   if (nextBtn) nextBtn.addEventListener('click', () => showSlide(current + 1));
   if (prevBtn) prevBtn.addEventListener('click', () => showSlide(current - 1));
 
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') showSlide(current + 1);
     if (e.key === 'ArrowLeft')  showSlide(current - 1);
   });

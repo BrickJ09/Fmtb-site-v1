@@ -3,15 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FingerMTB — Mini Bikes · Big Tricks</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
-  <meta property="og:title" content="FingerMTB – Mini Bikes">
-  <meta property="og:description" content="Mini Bikes · Big Tricks – 3D-Printed Mini-MTBs & Files">
-  <meta property="og:image" content="https://brickj-mtb.netlify.app/v10/V10side1.JPEG">
+
+  <!-- SEO: filled dynamically by JS from SITE_CONFIG -->
+  <title id="meta-title">FingerMTB — Mini Bikes · Big Tricks</title>
+  <meta name="description" id="meta-desc" content="3D-printed mini MTBs and finger skis from Switzerland. Handmade, for tricks and fun.">
+  <meta name="keywords" id="meta-keywords" content="finger mtb, fingerski, mini bike, 3d print, switzerland">
+
+  <!-- Open Graph -->
+  <meta property="og:title" id="og-title" content="FingerMTB – Mini Bikes">
+  <meta property="og:description" id="og-desc" content="Mini Bikes · Big Tricks – 3D-Printed Mini-MTBs">
+  <meta property="og:image" id="og-image" content="https://brickj-mtb.netlify.app/v10/V10side1.JPEG">
   <meta property="og:url" content="https://brickj-mtb.netlify.app/">
   <meta property="og:type" content="website">
-  <meta name="google-site-verification" content="aNF-TgNQgJ67cJHaotOHZY3JBdhou-I6kVrIkcdjWww" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://brickj-mtb.netlify.app/">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
+  <meta name="google-site-verification" content="aNF-TgNQgJ67cJHaotOHZY3JBdhou-I6kVrIkcdjWww">
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
 </head>
 <body>
@@ -42,25 +51,26 @@
     </div>
   </header>
 
-  <!-- POPUP — wird per JS befüllt -->
-  <div id="popup" class="popup-overlay" style="display:none">
+  <!-- POPUP — hidden until JS triggers it -->
+  <div id="popup" class="popup-overlay" style="display:none" role="dialog" aria-modal="true">
     <div class="popup-box">
       <h2 id="popup-title"></h2>
       <p id="popup-subtitle"></p>
       <p id="popup-body"></p>
-      <img id="popup-img" src="" alt="">
-      <a id="popup-btn" class="btn2" href="#" target="_blank"></a>
+      <img id="popup-img" src="" alt="" style="display:none">
+      <p id="popup-price" class="popup-price" style="display:none"></p>
+      <a id="popup-btn" class="btn2" href="#" target="_blank" rel="noopener"></a>
       <button class="btn1" onclick="closePopup()" id="popup-dismiss"></button>
     </div>
   </div>
 
-  <!-- HERO — wird per JS befüllt -->
+  <!-- HERO -->
   <section class="hero" id="hero-section">
     <div class="container hero-content">
-      <p class="hero-badge" id="hero-badge"></p>
-      <h2 id="hero-title"></h2>
-      <p id="hero-subtitle"></p>
-      <a id="hero-btn" class="btn-primary" href="shop.html"></a>
+      <p class="hero-badge" id="hero-badge" style="display:none"></p>
+      <h2 id="hero-title">Ride Small.<br>Dream Big.</h2>
+      <p id="hero-subtitle">Finger bikes &amp; skis, built for tricks and fun — all year round.</p>
+      <a id="hero-btn" class="btn-primary" href="shop.html">Shop Now</a>
     </div>
   </section>
 
@@ -83,7 +93,7 @@
     <div class="field">
       <label class="label">Name</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Instagram or TikTok handle" name="Client Name" />
+        <input class="input" type="text" placeholder="Instagram or TikTok handle" name="Client Name">
       </div>
     </div>
     <div class="field">
@@ -103,16 +113,15 @@
     <div id="message"></div>
   </form>
 
-  <!-- FOOTER — wird per JS befüllt -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">FingerMTB</div>
       <div class="footer-links">
-        <a href="privacy.html" id="footer-privacy"></a>
+        <a href="privacy.html" id="footer-privacy">Privacy Policy</a>
       </div>
       <div class="footer-copy">
-        <p id="footer-line1"></p>
-        <p id="footer-line2"></p>
+        <p id="footer-line1">BrickJ_mtb · Handmade in Switzerland 🇨🇭</p>
+        <p id="footer-line2">No cookies 🍪</p>
       </div>
     </div>
   </footer>
@@ -122,78 +131,100 @@
   <script src="products.js"></script>
   <script src="script.js"></script>
   <script>
-    // ── Merge localStorage overrides with SITE_CONFIG ──
+    // ── Config helpers ──────────────────────────────────
+    function deepMerge(base, over) {
+      const r = {...base};
+      for (const k in over) {
+        if (over[k] && typeof over[k]==='object' && !Array.isArray(over[k]))
+          r[k] = deepMerge(base[k]||{}, over[k]);
+        else r[k] = over[k];
+      }
+      return r;
+    }
+
     function getCfg() {
       try {
         const stored = JSON.parse(localStorage.getItem('fm_cfg') || '{}');
-        return deepMerge(SITE_CONFIG, stored.siteConfig || {});
-      } catch { return SITE_CONFIG; }
+        return deepMerge(
+          typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : {},
+          stored.siteConfig || {}
+        );
+      } catch { return typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : {}; }
     }
 
-    function deepMerge(base, override) {
-      const result = Object.assign({}, base);
-      for (const key in override) {
-        if (override[key] && typeof override[key] === 'object' && !Array.isArray(override[key])) {
-          result[key] = deepMerge(base[key] || {}, override[key]);
-        } else {
-          result[key] = override[key];
-        }
-      }
-      return result;
+    function getFeaturedIds() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('fm_cfg') || '{}');
+        if (stored.featuredIds?.length) return stored.featuredIds;
+      } catch {}
+      return typeof FEATURED_IDS !== 'undefined' ? FEATURED_IDS : [];
     }
 
     const cfg = getCfg();
 
-    // ── Hero ──
-    const heroTitle = document.getElementById('hero-title');
-    if (heroTitle) heroTitle.innerHTML = cfg.hero.title.replace(/\n/g, '<br>');
-    const heroSub = document.getElementById('hero-subtitle');
-    if (heroSub) heroSub.textContent = cfg.hero.subtitle;
-    const heroBtn = document.getElementById('hero-btn');
-    if (heroBtn) { heroBtn.textContent = cfg.hero.buttonText; heroBtn.href = cfg.hero.buttonLink; }
-    const heroBadge = document.getElementById('hero-badge');
-    if (heroBadge) { heroBadge.textContent = cfg.hero.badge; heroBadge.style.display = cfg.hero.badge ? '' : 'none'; }
+    // ── SEO meta tags ───────────────────────────────────
+    if (cfg.seo?.title) {
+      document.getElementById('meta-title').textContent = cfg.seo.title;
+      document.getElementById('og-title').content = cfg.seo.title;
+    }
+    if (cfg.seo?.description) {
+      document.getElementById('meta-desc').content = cfg.seo.description;
+      document.getElementById('og-desc').content = cfg.seo.description;
+    }
+    if (cfg.seo?.ogImage) document.getElementById('og-image').content = cfg.seo.ogImage;
+    if (cfg.seo?.keywords) document.getElementById('meta-keywords').content = cfg.seo.keywords;
 
-    // ── Footer ──
-    const el = (id) => document.getElementById(id);
-    if (el('footer-line1')) el('footer-line1').textContent = cfg.footer.line1;
-    if (el('footer-line2')) el('footer-line2').textContent = cfg.footer.line2;
-    if (el('footer-privacy')) el('footer-privacy').textContent = cfg.footer.privacyText;
+    // ── Hero ────────────────────────────────────────────
+    if (cfg.hero?.title) document.getElementById('hero-title').innerHTML = cfg.hero.title.replace(/\n/g,'<br>');
+    if (cfg.hero?.subtitle) document.getElementById('hero-subtitle').textContent = cfg.hero.subtitle;
+    if (cfg.hero?.buttonText) document.getElementById('hero-btn').textContent = cfg.hero.buttonText;
+    if (cfg.hero?.buttonLink) document.getElementById('hero-btn').href = cfg.hero.buttonLink;
+    const badgeEl = document.getElementById('hero-badge');
+    if (cfg.hero?.badge) { badgeEl.textContent = cfg.hero.badge; badgeEl.style.display = ''; }
 
-    // ── Popup ──
-    const page = 'index';
-    const showPopup = cfg.popup.enabled && (cfg.popup.page === 'all' || cfg.popup.page === page);
+    // ── Footer ──────────────────────────────────────────
+    if (cfg.footer?.line1) document.getElementById('footer-line1').textContent = cfg.footer.line1;
+    if (cfg.footer?.line2) document.getElementById('footer-line2').textContent = cfg.footer.line2;
+    if (cfg.footer?.privacyText) document.getElementById('footer-privacy').textContent = cfg.footer.privacyText;
+
+    // ── Popup ───────────────────────────────────────────
+    // Only trigger via setTimeout — no immediate show
+    const showPopup = cfg.popup?.enabled !== false &&
+      (cfg.popup?.page === 'all' || cfg.popup?.page === 'index' || !cfg.popup?.page);
+
     if (showPopup) {
-      const popup = document.getElementById('popup');
-      if (popup) {
-        document.getElementById('popup-title').textContent    = cfg.popup.title;
-        document.getElementById('popup-subtitle').textContent = cfg.popup.subtitle;
-        document.getElementById('popup-body').textContent     = cfg.popup.body;
-        const img = document.getElementById('popup-img');
-        img.src = cfg.popup.image; img.style.display = cfg.popup.image ? '' : 'none';
-        const btn = document.getElementById('popup-btn');
-        btn.textContent = cfg.popup.buttonText; btn.href = cfg.popup.buttonLink;
-        document.getElementById('popup-dismiss').textContent = cfg.popup.dismissText;
-        setTimeout(() => popup.style.display = 'flex', cfg.popup.delay || 0);
-      }
+      const popupEl = document.getElementById('popup');
+      document.getElementById('popup-title').textContent = cfg.popup.title || '';
+      document.getElementById('popup-subtitle').textContent = cfg.popup.subtitle || '';
+      document.getElementById('popup-body').textContent = cfg.popup.body || '';
+
+      const imgEl = document.getElementById('popup-img');
+      if (cfg.popup.image) { imgEl.src = cfg.popup.image; imgEl.style.display = ''; }
+
+      const priceEl = document.getElementById('popup-price');
+      if (cfg.popup.price) { priceEl.textContent = cfg.popup.price; priceEl.style.display = ''; }
+
+      const btnEl = document.getElementById('popup-btn');
+      btnEl.textContent = cfg.popup.buttonText || 'Buy Now';
+      btnEl.href = cfg.popup.buttonLink || '#';
+
+      document.getElementById('popup-dismiss').textContent = cfg.popup.dismissText || 'Close';
+
+      // FIXED: only ONE setTimeout, popup starts hidden
+      const delay = parseInt(cfg.popup.delay) || 0;
+      setTimeout(() => { popupEl.style.display = 'flex'; }, delay);
     }
 
-    function closePopup() {
-      const p = document.getElementById('popup');
-      if (p) p.style.display = 'none';
-    }
-
-    // ── Featured Products ──
-    const featuredIds = (typeof FEATURED_IDS !== 'undefined' && FEATURED_IDS.length)
-      ? FEATURED_IDS : ['fingerski-starter-set','sender','v10','fingerski-v2-blue','kinkrail-blue'];
-
+    // ── Featured Products ────────────────────────────────
+    const featuredIds = getFeaturedIds();
     const grid = document.getElementById('featuredGrid');
-    if (grid && typeof PRODUCTS !== 'undefined') {
-      // Sort: available first
-      const sorted = [...featuredIds]
-        .map(id => PRODUCTS.find(x => x.id === id))
+
+    if (grid && typeof PRODUCTS !== 'undefined' && featuredIds.length) {
+      // Available products first
+      const sorted = featuredIds
+        .map(id => PRODUCTS.find(p => p.id === id))
         .filter(Boolean)
-        .sort((a,b) => (a.status === 'available' ? -1 : 1) - (b.status === 'available' ? -1 : 1));
+        .sort((a, b) => (a.status === 'available' ? 0 : 1) - (b.status === 'available' ? 0 : 1));
 
       sorted.forEach((p, i) => {
         const priceHTML = p.status === 'available'
@@ -211,37 +242,38 @@
       });
     }
 
-    // ── Scroll reveal ──
-    const obs = new IntersectionObserver(entries =>
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    // ── Scroll reveal ────────────────────────────────────
+    const observer = new IntersectionObserver(entries =>
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // ── Contact form ──
+    // ── Contact form ─────────────────────────────────────
     const form = document.getElementById('form');
-    const submitButton = document.getElementById('submit-button');
-    const messageDiv = document.getElementById('message');
+    const submitBtn = document.getElementById('submit-button');
+    const msgDiv = document.getElementById('message');
 
-    form?.addEventListener('submit', async function(e) {
+    form?.addEventListener('submit', async e => {
       e.preventDefault();
-      messageDiv.textContent = 'Sending…'; messageDiv.style.display = 'block'; messageDiv.className = '';
-      submitButton.disabled = true;
+      msgDiv.textContent = 'Sending…'; msgDiv.style.display = 'block'; msgDiv.className = '';
+      submitBtn.disabled = true;
       try {
-        const formDataObj = {};
-        for (let [k,v] of new FormData(this).entries()) formDataObj[k] = v;
+        const obj = {};
+        for (const [k,v] of new FormData(form).entries()) obj[k] = v;
         const res = await fetch(
           'https://script.google.com/macros/s/AKfycby18XE62EImfZ8FJx_8yT0q-Q-nw-dV5hign-TeANThgP_Sa9xvrpfUoJhZBJIjUpExCQ/exec',
-          { redirect:'follow', method:'POST', body: JSON.stringify(formDataObj), headers:{'Content-Type':'text/plain;charset=utf-8'} }
+          { redirect:'follow', method:'POST', body:JSON.stringify(obj), headers:{'Content-Type':'text/plain;charset=utf-8'} }
         );
         const data = await res.json();
-        if (data.status === 'success') {
-          messageDiv.textContent = data.message || 'Sent!'; messageDiv.className = 'success';
-          form.reset();
-        } else throw new Error(data.message || 'Failed');
+        if (data.status==='success') {
+          msgDiv.textContent = data.message||'Sent!'; msgDiv.className = 'success'; form.reset();
+        } else throw new Error(data.message||'Failed');
       } catch(err) {
-        messageDiv.textContent = 'Error: ' + err.message; messageDiv.className = 'error';
+        msgDiv.textContent = 'Error: '+err.message; msgDiv.className = 'error';
       } finally {
-        submitButton.disabled = false;
-        setTimeout(() => messageDiv.style.display = 'none', 4000);
+        submitBtn.disabled = false;
+        setTimeout(() => msgDiv.style.display = 'none', 4000);
       }
     });
   </script>

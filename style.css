@@ -1156,3 +1156,12 @@ form.container .field { margin-bottom: 18px; }
   padding: 10px 14px; border-radius: 4px;
   font-size: 0.82rem; color: var(--muted); margin-top: 4px;
 }
+
+/* Popup price */
+.popup-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin: 4px 0 10px;
+}
