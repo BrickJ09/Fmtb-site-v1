@@ -1,5 +1,5 @@
-// products.js — FingerMTB
-// Generiert: 28.2.2026, 18:00:26
+// products.js — generiert vom Admin-Panel
+// 1.3.2026, 13:25:14
 
 const PRODUCTS = [
   {
@@ -317,8 +317,43 @@ const PRODUCTS = [
   }
 ];
 
-// Featured IDs für die Startseite (vom Admin-Panel gesetzt)
-const FEATURED_IDS = ["fingerski-set-pro","brickj-fingerski-starterset-tube-rail"];
+const FEATURED_IDS = ["fingerski-set-pro"];
+
+const SITE_CONFIG = {
+  "hero": {
+    "title": "",
+    "subtitle": "",
+    "badge": "",
+    "buttonText": "",
+    "buttonLink": ""
+  },
+  "popup": {
+    "enabled": true,
+    "page": "index",
+    "delay": 2000,
+    "title": "Fingerski pro set now available",
+    "subtitle": "",
+    "body": "",
+    "image": "uploads\\fingerski-set_view_img.jpg",
+    "buttonText": "Buy on Ricardo.ch",
+    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
+    "dismissText": "Close"
+  },
+  "shop": {
+    "heroTitle": "Finger",
+    "heroEyebrow": "",
+    "heroSub": ""
+  },
+  "trust": {
+    "badge": "",
+    "shipping": ""
+  },
+  "footer": {
+    "line1": "This website was coded by me",
+    "line2": "Made in switzerland",
+    "privacyText": "C:\\dev\\Fmtb-site-v1\\privacy.html"
+  }
+};
 
 const LEGACY_MAP = {
   'V10.html':                   'v10',
