@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generiert: 1.3.2026, 21:07:32
+// Generiert: 1.3.2026, 21:18:37
 
 const PRODUCTS = [
   {
@@ -341,7 +341,7 @@ const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-p
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "Ride small  \\N Dream big",
+    "title": "Ride small   Dream big",
     "subtitle": "",
     "badge": "Handmade in Switzerland",
     "buttonText": "shop now",
