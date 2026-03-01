@@ -1,5 +1,5 @@
 // products.js — generiert vom Admin-Panel
-// 1.3.2026, 13:25:14
+// 1.3.2026, 13:49:05
 
 const PRODUCTS = [
   {
@@ -321,11 +321,11 @@ const FEATURED_IDS = ["fingerski-set-pro"];
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "",
+    "title": "Ride small - Dream big",
     "subtitle": "",
-    "badge": "",
-    "buttonText": "",
-    "buttonLink": ""
+    "badge": "Handmade in Switzerland",
+    "buttonText": "shop now",
+    "buttonLink": "/shop.html"
   },
   "popup": {
     "enabled": true,
