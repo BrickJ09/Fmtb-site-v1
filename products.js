@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generiert: 1.3.2026, 20:14:27
+// Generiert: 1.3.2026, 21:07:32
 
 const PRODUCTS = [
   {
