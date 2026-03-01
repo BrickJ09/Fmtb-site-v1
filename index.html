@@ -16,7 +16,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container flex-between">
       <div class="brand">
@@ -43,26 +42,25 @@
     </div>
   </header>
 
-  <!-- POPUP -->
-  <div id="popup" class="popup-overlay">
+  <!-- POPUP — wird per JS befüllt -->
+  <div id="popup" class="popup-overlay" style="display:none">
     <div class="popup-box">
-      <h2>Special Offer</h2>
-      <p>Fingerski Starter Set Pro</p>
-      <p>now available exclusively in Switzerland.</p>
-      <img src="uploads/fingerski-set_view_img.jpg" alt="Fingerski Starter Set Pro">
-      <a class="btn2" href="https://www.ricardo.ch/de/a/fingerski-set-1312438968/" target="_blank">
-        Buy now on ricardo.ch
-      </a>
-      <button class="btn1" onclick="closePopup()">Close</button>
+      <h2 id="popup-title"></h2>
+      <p id="popup-subtitle"></p>
+      <p id="popup-body"></p>
+      <img id="popup-img" src="" alt="">
+      <a id="popup-btn" class="btn2" href="#" target="_blank"></a>
+      <button class="btn1" onclick="closePopup()" id="popup-dismiss"></button>
     </div>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- HERO — wird per JS befüllt -->
+  <section class="hero" id="hero-section">
     <div class="container hero-content">
-      <h2>Ride Small.<br>Dream Big.</h2>
-      <p>Finger bikes & skis, built for tricks and fun — all year round.</p>
-      <a href="shop.html" class="btn-primary">Shop Now</a>
+      <p class="hero-badge" id="hero-badge"></p>
+      <h2 id="hero-title"></h2>
+      <p id="hero-subtitle"></p>
+      <a id="hero-btn" class="btn-primary" href="shop.html"></a>
     </div>
   </section>
 
@@ -88,22 +86,6 @@
         <input class="input" type="text" placeholder="Instagram or TikTok handle" name="Client Name" />
       </div>
     </div>
-    
-    <div class="field">
-      <label class="label">Upload Document</label>
-      <div class="control">
-        <div class="file has-name is-fullwidth">
-          <label class="file-label">
-            <input class="file-input" type="file" name="theFile" id="fileInput" accept="*/*" />
-            <span class="file-cta">
-              <span class="file-label">Choose a file…</span>
-            </span>
-            <span class="file-name" id="fileNameDisplay">No file selected</span>
-          </label>
-        </div>
-      </div>
-    </div>
-   <input type="hidden" name="filename" id="actualFilename" />
     <div class="field">
       <label class="label">Message</label>
       <div class="control">
@@ -115,48 +97,108 @@
         <button class="button is-primary" type="submit" id="submit-button">Send Message</button>
       </div>
       <div class="control">
-        <button class="button is-danger" type="button"
-          onclick="document.getElementById('form').reset(); document.getElementById('fileNameDisplay').textContent = 'No file selected';">
-          Cancel
-        </button>
+        <button class="button is-danger" type="button" onclick="document.getElementById('form').reset()">Cancel</button>
       </div>
     </div>
     <div id="message"></div>
   </form>
 
-  <!-- FOOTER -->
+  <!-- FOOTER — wird per JS befüllt -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">FingerMTB</div>
       <div class="footer-links">
-        <a href="privacy.html">Privacy Policy</a>
+        <a href="privacy.html" id="footer-privacy"></a>
       </div>
       <div class="footer-copy">
-        <p>BrickJ_mtb · Coded with ❤️</p>
-        <p>No cookies 🍪</p>
+        <p id="footer-line1"></p>
+        <p id="footer-line2"></p>
       </div>
     </div>
   </footer>
 
-  <!-- Admin Button -->
   <div class="admin-entry" title="Admin"><a href="/dashboard-brickj.html">⚙</a></div>
 
   <script src="products.js"></script>
   <script src="script.js"></script>
   <script>
-    // Featured Grid
+    // ── Merge localStorage overrides with SITE_CONFIG ──
+    function getCfg() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('fm_cfg') || '{}');
+        return deepMerge(SITE_CONFIG, stored.siteConfig || {});
+      } catch { return SITE_CONFIG; }
+    }
+
+    function deepMerge(base, override) {
+      const result = Object.assign({}, base);
+      for (const key in override) {
+        if (override[key] && typeof override[key] === 'object' && !Array.isArray(override[key])) {
+          result[key] = deepMerge(base[key] || {}, override[key]);
+        } else {
+          result[key] = override[key];
+        }
+      }
+      return result;
+    }
+
+    const cfg = getCfg();
+
+    // ── Hero ──
+    const heroTitle = document.getElementById('hero-title');
+    if (heroTitle) heroTitle.innerHTML = cfg.hero.title.replace(/\n/g, '<br>');
+    const heroSub = document.getElementById('hero-subtitle');
+    if (heroSub) heroSub.textContent = cfg.hero.subtitle;
+    const heroBtn = document.getElementById('hero-btn');
+    if (heroBtn) { heroBtn.textContent = cfg.hero.buttonText; heroBtn.href = cfg.hero.buttonLink; }
+    const heroBadge = document.getElementById('hero-badge');
+    if (heroBadge) { heroBadge.textContent = cfg.hero.badge; heroBadge.style.display = cfg.hero.badge ? '' : 'none'; }
+
+    // ── Footer ──
+    const el = (id) => document.getElementById(id);
+    if (el('footer-line1')) el('footer-line1').textContent = cfg.footer.line1;
+    if (el('footer-line2')) el('footer-line2').textContent = cfg.footer.line2;
+    if (el('footer-privacy')) el('footer-privacy').textContent = cfg.footer.privacyText;
+
+    // ── Popup ──
+    const page = 'index';
+    const showPopup = cfg.popup.enabled && (cfg.popup.page === 'all' || cfg.popup.page === page);
+    if (showPopup) {
+      const popup = document.getElementById('popup');
+      if (popup) {
+        document.getElementById('popup-title').textContent    = cfg.popup.title;
+        document.getElementById('popup-subtitle').textContent = cfg.popup.subtitle;
+        document.getElementById('popup-body').textContent     = cfg.popup.body;
+        const img = document.getElementById('popup-img');
+        img.src = cfg.popup.image; img.style.display = cfg.popup.image ? '' : 'none';
+        const btn = document.getElementById('popup-btn');
+        btn.textContent = cfg.popup.buttonText; btn.href = cfg.popup.buttonLink;
+        document.getElementById('popup-dismiss').textContent = cfg.popup.dismissText;
+        setTimeout(() => popup.style.display = 'flex', cfg.popup.delay || 0);
+      }
+    }
+
+    function closePopup() {
+      const p = document.getElementById('popup');
+      if (p) p.style.display = 'none';
+    }
+
+    // ── Featured Products ──
     const featuredIds = (typeof FEATURED_IDS !== 'undefined' && FEATURED_IDS.length)
-      ? FEATURED_IDS
-      : ['fingerski-starter-set','sender','v10','fingerski-v2-blue','kinkrail-blue'];
+      ? FEATURED_IDS : ['fingerski-starter-set','sender','v10','fingerski-v2-blue','kinkrail-blue'];
 
     const grid = document.getElementById('featuredGrid');
     if (grid && typeof PRODUCTS !== 'undefined') {
-      featuredIds.forEach((id, i) => {
-        const p = PRODUCTS.find(x => x.id === id);
-        if (!p) return;
+      // Sort: available first
+      const sorted = [...featuredIds]
+        .map(id => PRODUCTS.find(x => x.id === id))
+        .filter(Boolean)
+        .sort((a,b) => (a.status === 'available' ? -1 : 1) - (b.status === 'available' ? -1 : 1));
+
+      sorted.forEach((p, i) => {
         const priceHTML = p.status === 'available'
           ? `<p class="price" data-usd="${p.priceUSD}" data-chf="${p.priceCHF}" data-eur="${p.priceEUR}">$${p.priceUSD.toFixed(2)}</p>`
-          : `<p class="price" style="color:var(--muted);font-size:0.85rem">${{soon:'Coming Soon','sold-out':'Sold Out'}[p.status]||''}</p>`;
+          : `<p class="price-muted">${{soon:'Coming Soon','sold-out':'Sold Out'}[p.status]||''}</p>`;
         const card = document.createElement('div');
         card.className = 'product-card reveal';
         card.style.transitionDelay = `${i * 0.07}s`;
@@ -169,82 +211,39 @@
       });
     }
 
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // ── Scroll reveal ──
+    const obs = new IntersectionObserver(entries =>
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    // Currency switch
-    document.getElementById('currencySwitch')?.addEventListener('change', function() {
-      const sel = this.value;
-      document.querySelectorAll('.price[data-usd]').forEach(el => {
-        if (sel === 'CHF') el.textContent = `CHF ${parseFloat(el.dataset.chf).toFixed(2)}`;
-        else if (sel === 'EUR') el.textContent = `€${parseFloat(el.dataset.eur).toFixed(2)}`;
-        else el.textContent = `$${parseFloat(el.dataset.usd).toFixed(2)}`;
-      });
-    });
-
-    // Hamburger
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.main-nav');
-    toggle?.addEventListener('click', () => {
-      nav.classList.toggle('active');
-      toggle.classList.toggle('open');
-    });
-
-    // Contact form
+    // ── Contact form ──
     const form = document.getElementById('form');
     const submitButton = document.getElementById('submit-button');
     const messageDiv = document.getElementById('message');
-    const fileInput = document.getElementById('fileInput');
-    const fileNameDisplay = document.getElementById('fileNameDisplay');
-
-    fileInput?.addEventListener('change', function() {
-      fileNameDisplay.textContent = this.files.length > 0 ? this.files[0].name : 'No file selected';
-    });
-
-    async function uploadFile(file) {
-      return new Promise((resolve, reject) => {
-        const fr = new FileReader();
-        fr.onload = e => {
-          const data = e.target.result.split(',');
-          resolve({ fileName: file.name, mimeType: data[0].match(/:(\w.+);/)[1], data: data[1] });
-        };
-        fr.onerror = reject;
-        fr.readAsDataURL(file);
-      });
-    }
 
     form?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      messageDiv.textContent = 'Sending…';
-      messageDiv.style.display = 'block';
-      messageDiv.className = '';
+      messageDiv.textContent = 'Sending…'; messageDiv.style.display = 'block'; messageDiv.className = '';
       submitButton.disabled = true;
       try {
         const formDataObj = {};
-        for (let [key, value] of new FormData(this).entries()) formDataObj[key] = value;
-        if (fileInput.files.length > 0) formDataObj.fileData = await uploadFile(fileInput.files[0]);
-        const response = await fetch(
+        for (let [k,v] of new FormData(this).entries()) formDataObj[k] = v;
+        const res = await fetch(
           'https://script.google.com/macros/s/AKfycby18XE62EImfZ8FJx_8yT0q-Q-nw-dV5hign-TeANThgP_Sa9xvrpfUoJhZBJIjUpExCQ/exec',
           { redirect:'follow', method:'POST', body: JSON.stringify(formDataObj), headers:{'Content-Type':'text/plain;charset=utf-8'} }
         );
-        const data = await response.json();
+        const data = await res.json();
         if (data.status === 'success') {
-          messageDiv.textContent = data.message || 'Sent successfully!';
-          messageDiv.className = 'success';
-          form.reset(); fileNameDisplay.textContent = 'No file selected';
+          messageDiv.textContent = data.message || 'Sent!'; messageDiv.className = 'success';
+          form.reset();
         } else throw new Error(data.message || 'Failed');
-      } catch(error) {
-        messageDiv.textContent = 'Error: ' + error.message;
-        messageDiv.className = 'error';
+      } catch(err) {
+        messageDiv.textContent = 'Error: ' + err.message; messageDiv.className = 'error';
       } finally {
         submitButton.disabled = false;
-        setTimeout(() => { messageDiv.style.display = 'none'; }, 4000);
+        setTimeout(() => messageDiv.style.display = 'none', 4000);
       }
     });
   </script>
-
 </body>
 </html>

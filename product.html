@@ -7,69 +7,18 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
-  <style>
-    /* ── Status badges ── */
-    .status-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .status-available { background: #d4edda; color: #155724; }
-    .status-sold-out  { background: #f8d7da; color: #721c24; }
-    .status-soon      { background: #fff3cd; color: #856404; }
-
-    /* ── Buy button disabled state ── */
-    .btn-buy-disabled {
-      background-color: #ccc !important;
-      color: #666 !important;
-      cursor: not-allowed !important;
-      pointer-events: none;
-    }
-
-    /* ── Specs list ── */
-    .details ul {
-      list-style: disc;
-      padding-left: 1.4rem;
-      margin: 0.4rem 0;
-    }
-    .details li {
-      margin-bottom: 0.25rem;
-      font-size: 0.95rem;
-    }
-
-    /* ── Note box ── */
-    .product-note {
-      background: #fff8e1;
-      border-left: 3px solid #fba802;
-      padding: 10px 14px;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      color: #555;
-      margin-top: 4px;
-    }
-
-    /* ── Not found ── */
-    .not-found {
-      text-align: center;
-      padding: 80px 20px;
-    }
-    .not-found h2 { font-size: 2rem; margin-bottom: 12px; }
-    .not-found p  { color: #666; margin-bottom: 24px; }
-  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container flex-between">
       <div class="brand">
         <h1>FingerMTB</h1>
         <p class="tagline">Mini Bikes · Big Tricks</p>
       </div>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <button class="menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
       <nav class="main-nav">
         <a href="index.html">Home</a>
         <a href="shop.html">Shop</a>
@@ -87,115 +36,126 @@
     </div>
   </header>
 
-  <!-- PRODUCT CONTENT -->
-  <main id="productMain">
-    <!-- Wird per JS befüllt -->
-  </main>
+  <main id="productMain"></main>
 
-  <!-- FOOTER -->
-  <section class="footerprod">
-    <footer class="site-footer">
-      <div class="container">
-        <p>BrickJ_mtb · This site was coded by me 😊</p>
-        <p>This site doesn't use cookies 🍪</p>
-        <p><a href="privacy.html">Privacy Policy ➔</a></p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">FingerMTB</div>
+      <div class="footer-links"><a href="privacy.html" id="footer-privacy">Privacy Policy</a></div>
+      <div class="footer-copy">
+        <p id="footer-line1">BrickJ_mtb · Handmade in Switzerland 🇨🇭</p>
+        <p id="footer-line2">No cookies 🍪</p>
       </div>
-    </footer>
-  </section>
+    </div>
+  </footer>
 
-  <!-- Produktdaten laden -->
+  <div class="admin-entry" title="Admin"><a href="/dashboard-brickj.html">⚙</a></div>
+
   <script src="products.js"></script>
   <script src="script.js"></script>
   <script>
-    (function () {
-      const params  = new URLSearchParams(location.search);
-      let   id      = params.get('id');
-      const main    = document.getElementById('productMain');
+    // ── Config merge ──
+    function getCfg() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('fm_cfg') || '{}');
+        function deepMerge(base, override) {
+          const r = Object.assign({}, base);
+          for (const k in override) {
+            if (override[k] && typeof override[k] === 'object' && !Array.isArray(override[k]))
+              r[k] = deepMerge(base[k] || {}, override[k]);
+            else r[k] = override[k];
+          }
+          return r;
+        }
+        return deepMerge(SITE_CONFIG, stored.siteConfig || {});
+      } catch { return SITE_CONFIG; }
+    }
+    const cfg = getCfg();
 
-      // Kein ID → 404
-      if (!id) {
-        showNotFound();
-        return;
-      }
+    // Footer
+    const el = id => document.getElementById(id);
+    if (el('footer-line1')) el('footer-line1').textContent = cfg.footer.line1;
+    if (el('footer-line2')) el('footer-line2').textContent = cfg.footer.line2;
+    if (el('footer-privacy')) el('footer-privacy').textContent = cfg.footer.privacyText;
 
-      // Produkt suchen
-      let product = PRODUCTS.find(p => p.id === id);
+    // ── Product render ──
+    (function() {
+      const params = new URLSearchParams(location.search);
+      let id = params.get('id');
+      const main = document.getElementById('productMain');
+      if (!id) { showNotFound(); return; }
 
-      // Nicht gefunden → 404
-      if (!product) {
-        showNotFound();
-        return;
-      }
+      // Legacy redirect
+      if (typeof LEGACY_MAP !== 'undefined' && LEGACY_MAP[id]) id = LEGACY_MAP[id];
 
-      // Seiten-Titel setzen
+      const product = PRODUCTS.find(p => p.id === id);
+      if (!product) { showNotFound(); return; }
+
       document.title = `${product.name} · FingerMTB`;
 
-      // Preis je nach Währung
-      function getPrice(p) {
-        const sel = document.getElementById('currencySwitch')?.value || 'USD';
-        if (sel === 'CHF') return `CHF ${p.priceCHF.toFixed(2)}`;
-        if (sel === 'EUR') return `€${p.priceEUR.toFixed(2)}`;
-        return `$${p.priceUSD.toFixed(2)}`;
-      }
+      const badgeClass = { available:'status-available','sold-out':'status-sold-out',soon:'status-soon' }[product.status];
+      const badgeLabel = { available:'In Stock','sold-out':'Sold Out',soon:'Coming Soon' }[product.status];
 
-      // Status Badge
-      const badgeClass = { available: 'status-available', 'sold-out': 'status-sold-out', soon: 'status-soon' }[product.status];
-      const badgeLabel = { available: 'In Stock', 'sold-out': 'Sold Out', soon: 'Coming Soon' }[product.status];
-
-      // Bilder
       const slides = product.images.map((src, i) =>
-        `<img src="${src}" alt="${product.name}" class="slide${i === 0 ? ' active' : ''}" loading="${i === 0 ? 'eager' : 'lazy'}">`
+        `<img src="${src}" alt="${product.name}" class="slide${i===0?' active':''}" loading="${i===0?'eager':'lazy'}">`
       ).join('');
 
-      // Specs
       const specItems = product.specs.length
-        ? `<ul>${product.specs.map(s => `<li>${s}</li>`).join('')}</ul>`
-        : '';
+        ? `<ul>${product.specs.map(s=>`<li>${s}</li>`).join('')}</ul>` : '';
 
-      // Note
       const noteHTML = product.note
-        ? `<div class="product-note">ℹ️ ${product.note}</div>`
-        : '';
+        ? `<div class="product-note">ℹ️ ${product.note}</div>` : '';
 
-      // Buy Button
-      const canBuy = product.status === 'available' && product.etsyLink;
-      const buyBtn = canBuy
-        ? `<a href="${product.etsyLink}" target="_blank" rel="noopener">${product.etsyLabel}</a>`
-        : `<a class="btn-buy-disabled">${badgeLabel}</a>`;
+      const trustBadge = cfg.trust?.badge
+        ? `<span class="trust-badge">${cfg.trust.badge}</span>` : '';
 
-      // HTML zusammenbauen
+      const shippingBadge = cfg.trust?.shipping
+        ? `<span class="trust-badge trust-badge--shipping">🚚 ${cfg.trust.shipping}</span>` : '';
+
+      // Buy Button — prominent
+      let buyBtn = '';
+      if (product.status === 'available' && product.etsyLink) {
+        buyBtn = `
+          <a class="buy-btn" href="${product.etsyLink}" target="_blank" rel="noopener">
+            <span class="buy-btn-icon">🛒</span>
+            <span>${product.etsyLabel || 'Buy Now'}</span>
+            <span class="buy-btn-arrow">→</span>
+          </a>`;
+      } else {
+        buyBtn = `<div class="buy-btn buy-btn--disabled">${badgeLabel}</div>`;
+      }
+
       main.innerHTML = `
         <section class="product-container">
-          <section class="productimgbox">
+          <div class="productimgbox">
             <div class="slider">
-              <button class="prev" aria-label="Previous">⟨</button>
-              ${slides}
-              <button class="next" aria-label="Next">⟩</button>
+              <button class="prev" aria-label="Previous">‹</button>
+              <div class="slides">${slides}</div>
+              <button class="next" aria-label="Next">›</button>
             </div>
-          </section>
-
-          <section class="pricedescription">
+          </div>
+          <div class="pricedescription">
             <span class="status-badge ${badgeClass}">${badgeLabel}</span>
             <h2>${product.name}</h2>
             <p class="price" data-usd="${product.priceUSD}" data-chf="${product.priceCHF}" data-eur="${product.priceEUR}">
               $${product.priceUSD.toFixed(2)}
             </p>
-            <p style="color:#555; font-size:0.95rem; line-height:1.6">${product.description}</p>
+            <p class="product-description">${product.description}</p>
             ${buyBtn}
+            <div class="trust-badges">
+              ${trustBadge}
+              ${shippingBadge}
+            </div>
             <div class="details">
-              <h3>Specs</h3>
-              ${specItems}
+              ${specItems ? `<h3>Specs</h3>${specItems}` : ''}
             </div>
             ${noteHTML}
-          </section>
-        </section>
-      `;
+          </div>
+        </section>`;
 
-      // Slider initialisieren
       initSlider();
 
-      // Währungsswitch
-      document.getElementById('currencySwitch').addEventListener('change', function () {
+      document.getElementById('currencySwitch').addEventListener('change', function() {
         const priceEl = main.querySelector('.price');
         if (!priceEl) return;
         const sel = this.value;
@@ -205,7 +165,7 @@
       });
 
       function showNotFound() {
-        document.title = 'Product not found · FingerMTB';
+        document.title = 'Not found · FingerMTB';
         main.innerHTML = `
           <div class="not-found">
             <h2>Product not found 🤷</h2>
@@ -215,25 +175,21 @@
       }
 
       function initSlider() {
-        const slides  = main.querySelectorAll('.slide');
-        const prevBtn = main.querySelector('.prev');
-        const nextBtn = main.querySelector('.next');
-        if (!slides.length || !prevBtn) return;
-
-        let current = 0;
-
+        const slides = main.querySelectorAll('.slide');
+        const prev = main.querySelector('.prev');
+        const next = main.querySelector('.next');
+        if (!slides.length || !prev) return;
+        let cur = 0;
         function show(idx) {
-          slides[current].classList.remove('active');
-          current = (idx + slides.length) % slides.length;
-          slides[current].classList.add('active');
+          slides[cur].classList.remove('active');
+          cur = (idx + slides.length) % slides.length;
+          slides[cur].classList.add('active');
         }
-
-        nextBtn.addEventListener('click', () => show(current + 1));
-        prevBtn.addEventListener('click', () => show(current - 1));
-
+        next.addEventListener('click', () => show(cur+1));
+        prev.addEventListener('click', () => show(cur-1));
         document.addEventListener('keydown', e => {
-          if (e.key === 'ArrowRight') show(current + 1);
-          if (e.key === 'ArrowLeft')  show(current - 1);
+          if (e.key === 'ArrowRight') show(cur+1);
+          if (e.key === 'ArrowLeft') show(cur-1);
         });
       }
     })();
