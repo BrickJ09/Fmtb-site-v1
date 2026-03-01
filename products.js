@@ -1,5 +1,5 @@
 // products.js — generiert vom Admin-Panel
-// 1.3.2026, 14:23:59
+// 1.3.2026, 14:41:57
 
 const PRODUCTS = [
   {
@@ -351,7 +351,7 @@ const SITE_CONFIG = {
   "footer": {
     "line1": "This website was coded by me",
     "line2": "Made in switzerland",
-    "privacyText": "C:\\dev\\Fmtb-site-v1\\privacy.html"
+    "privacyText": "Your Privacy matters"
   }
 };
 
