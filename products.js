@@ -1,18 +1,18 @@
 // products.js — FingerMTB Admin
-// Generiert: 1.3.2026, 21:18:37
+// Generiert: 3.3.2026, 09:30:03
 
 const PRODUCTS = [
   {
     "id": "fingerski-set-pro",
     "name": "Fingerski Set Pro Blue",
     "category": "ski",
-    "status": "available",
+    "status": "sold-out",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
-    "etsyLabel": "Buy on Ricardo.ch",
+    "etsyLink": "",
+    "etsyLabel": "Buy Now",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
     "specs": [
@@ -337,7 +337,7 @@ const PRODUCTS = [
   }
 ];
 
-const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-pink"];
+const FEATURED_IDS = ["fingerski-starterset-flat-tube-rail-pink"];
 
 const SITE_CONFIG = {
   "hero": {
