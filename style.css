@@ -1270,3 +1270,14 @@ form.container .field { margin-bottom: 18px; }
   .footer-inner { grid-template-columns: 1fr; text-align: center; }
   .footer-center { align-items: center; }
 }
+
+
+/* Shop section titles */
+.shop-section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin: 50px 0 24px;
+  color: var(--text);
+}

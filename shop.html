@@ -16,7 +16,6 @@
         <h1>FingerMTB</h1>
         <p class="tagline">Mini Bikes · Big Tricks</p>
       </div>
-      <!-- FIXED: use <span> tags, not ☰ text -->
       <button class="menu-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -45,18 +44,28 @@
     </div>
   </header>
 
-  <main>
-    <h1 style="text-align:center;margin-top:50px;margin-bottom:50px;">Finger Skis</h1>
-    <section class="products" id="grid-ski"></section>
+  <main class="container" style="padding-top:40px;padding-bottom:60px">
 
-    <h1 style="text-align:center;margin-top:50px;margin-bottom:50px;">Obstacles & Rails</h1>
-    <section class="products" id="grid-obstacle"></section>
+    <div id="section-ski">
+      <h2 class="shop-section-title">Finger Skis</h2>
+      <div class="products" id="grid-ski"></div>
+    </div>
 
-    <h1 style="text-align:center;margin-top:50px;margin-bottom:50px;">Finger MTB's</h1>
-    <section class="products" id="grid-mtb"></section>
+    <div id="section-obstacle">
+      <h2 class="shop-section-title">Obstacles &amp; Rails</h2>
+      <div class="products" id="grid-obstacle"></div>
+    </div>
 
-    <h1 style="text-align:center;margin-top:50px;margin-bottom:50px;">Kits</h1>
-    <section class="products" id="grid-kit"></section>
+    <div id="section-mtb">
+      <h2 class="shop-section-title">Finger MTB's</h2>
+      <div class="products" id="grid-mtb"></div>
+    </div>
+
+    <div id="section-kit">
+      <h2 class="shop-section-title">Kits</h2>
+      <div class="products" id="grid-kit"></div>
+    </div>
+
   </main>
 
   <footer class="site-footer">
@@ -85,43 +94,20 @@
   <script src="products.js"></script>
   <script src="script.js"></script>
   <script>
-    // Load config for footer/social
-    function deepMerge(base, over) {
-      const r={...base};
-      for(const k in over){
-        if(over[k]&&typeof over[k]==='object'&&!Array.isArray(over[k])) r[k]=deepMerge(base[k]||{},over[k]);
-        else r[k]=over[k];
-      }
-      return r;
-    }
-    const cfg = (()=>{
-      try {
-        const s=JSON.parse(localStorage.getItem('fm_cfg')||'{}');
-        return deepMerge(typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{},s.siteConfig||{});
-      } catch { return typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{}; }
-    })();
+    // Config
+    function deepMerge(b,o){const r={...b};for(const k in o){if(o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k]))r[k]=deepMerge(b[k]||{},o[k]);else r[k]=o[k];}return r;}
+    const cfg=(()=>{try{const s=JSON.parse(localStorage.getItem('fm_cfg')||'{}');return deepMerge(typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{},s.siteConfig||{});}catch{return typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{};}})();
 
     // Footer
     if(cfg.footer?.line1) document.getElementById('footer-line1').textContent=cfg.footer.line1;
     if(cfg.footer?.line2) document.getElementById('footer-line2').textContent=cfg.footer.line2;
 
     // Social
-    function setSocial(prefix, platform, url) {
-      const el=document.getElementById(`${prefix}-${platform}`);
-      if(el&&url){el.href=url;el.style.display='inline-flex';}
-    }
     if(cfg.social?.enabled!==false&&(cfg.social?.instagram||cfg.social?.tiktok)){
       const pos=cfg.social?.position||'both';
-      if(pos==='header'||pos==='both'){
-        document.getElementById('header-social').style.display='flex';
-        setSocial('header','instagram',cfg.social.instagram);
-        setSocial('header','tiktok',cfg.social.tiktok);
-      }
-      if(pos==='footer'||pos==='both'){
-        document.getElementById('footer-social').style.display='flex';
-        setSocial('footer','instagram',cfg.social.instagram);
-        setSocial('footer','tiktok',cfg.social.tiktok);
-      }
+      function setS(prefix,platform,url){const el=document.getElementById(`${prefix}-${platform}`);if(el&&url){el.href=url;el.style.display='inline-flex';}}
+      if(pos==='header'||pos==='both'){document.getElementById('header-social').style.display='flex';setS('header','instagram',cfg.social.instagram);setS('header','tiktok',cfg.social.tiktok);}
+      if(pos==='footer'||pos==='both'){document.getElementById('footer-social').style.display='flex';setS('footer','instagram',cfg.social.instagram);setS('footer','tiktok',cfg.social.tiktok);}
     }
 
     const GRIDS = {
@@ -131,50 +117,53 @@
       kit:      document.getElementById('grid-kit'),
     };
 
-    function statusHTML(status) {
-      const map = {
-        available: ['In Stock','#d4edda','#155724'],
-        'sold-out': ['Sold Out','#f8d7da','#721c24'],
-        soon: ['Coming Soon','#fff3cd','#856404'],
-      };
-      const [label,bg,color]=map[status]||['','#eee','#333'];
-      return `<span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:.75rem;font-weight:600;background:${bg};color:${color};margin-bottom:6px">${label}</span>`;
-    }
+    const STATUS_MAP = {
+      available: ['In Stock',   '#00a86b','rgba(0,168,107,0.1)','rgba(0,168,107,0.2)'],
+      'sold-out':['Sold Out',   '#e8263a','rgba(232,38,58,0.08)','rgba(232,38,58,0.15)'],
+      soon:      ['Coming Soon','#b07800','rgba(255,193,0,0.12)','rgba(255,193,0,0.2)'],
+    };
 
     function buildCard(p) {
-      const img=(p.images&&p.images.length>0)?p.images[0]:'COMING SOON.png';
-      const priceHTML=p.status==='available'
-        ?`<p class="price" data-usd="${p.priceUSD}" data-chf="${p.priceCHF}" data-eur="${p.priceEUR}">$${p.priceUSD.toFixed(2)}</p>`:'';
-      return `<div class="product">
-        <img src="${img}" alt="${p.name}" loading="lazy">
-        <h2>${p.name}</h2>
-        ${statusHTML(p.status)}
-        ${priceHTML}
-        <button><a href="product.html?id=${p.id}">See More</a></button>
-      </div>`;
+      const img = p.images?.[0] || 'COMING SOON.png';
+      const [label,color,bg,border] = STATUS_MAP[p.status] || ['','#888','#eee','#ccc'];
+      const priceHTML = p.status==='available'
+        ? `<p class="price" data-usd="${p.priceUSD}" data-chf="${p.priceCHF}" data-eur="${p.priceEUR}" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#0057ff;padding:0 14px 2px;letter-spacing:.04em;">$${p.priceUSD.toFixed(2)}</p>` : '';
+      return `
+        <div class="product visible">
+          <div style="aspect-ratio:4/3;overflow:hidden;background:#f0efe9">
+            <img src="${img}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease">
+          </div>
+          <div style="padding:14px">
+            <span style="display:inline-block;padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:${color};background:${bg};border:1.5px solid ${border};margin-bottom:6px">${label}</span>
+            <h3 style="font-size:.9rem;font-weight:700;margin-bottom:6px;line-height:1.3">${p.name}</h3>
+            ${priceHTML}
+            <a href="product.html?id=${p.id}" style="display:inline-block;margin-top:8px;padding:8px 20px;background:#ff6b00;color:#fff;font-weight:700;font-size:.78rem;border-radius:100px;text-decoration:none;transition:opacity .15s" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">View Details →</a>
+          </div>
+        </div>`;
     }
 
-    PRODUCTS.forEach(p=>{
-      const grid=GRIDS[p.category];
-      if(grid) grid.innerHTML+=buildCard(p);
+    PRODUCTS.forEach(p => {
+      const grid = GRIDS[p.category];
+      if (grid) grid.innerHTML += buildCard(p);
     });
 
-    Object.entries(GRIDS).forEach(([cat,el])=>{
-      if(!el.innerHTML.trim()){
-        el.previousElementSibling.style.display='none';
-        el.style.display='none';
-      }
+    // Hide empty sections
+    ['ski','obstacle','mtb','kit'].forEach(cat => {
+      const grid = GRIDS[cat];
+      const section = document.getElementById('section-'+cat);
+      if (grid && !grid.innerHTML.trim()) section.style.display='none';
     });
 
-    document.getElementById('currencySwitch').addEventListener('change',function(){
+    // Currency switch
+    document.getElementById('currencySwitch').addEventListener('change', function(){
       const sel=this.value;
-      document.querySelectorAll('.price').forEach(el=>{
-        if(!el.dataset.usd) return;
+      document.querySelectorAll('.price[data-usd]').forEach(el=>{
         if(sel==='CHF') el.textContent=`CHF ${parseFloat(el.dataset.chf).toFixed(2)}`;
         else if(sel==='EUR') el.textContent=`€${parseFloat(el.dataset.eur).toFixed(2)}`;
         else el.textContent=`$${parseFloat(el.dataset.usd).toFixed(2)}`;
       });
     });
   </script>
+
 </body>
 </html>
