@@ -1,18 +1,18 @@
 // products.js — FingerMTB Admin
-// Generiert: 3.3.2026, 09:30:03
+// Generiert: 4.3.2026, 16:26:14
 
 const PRODUCTS = [
   {
     "id": "fingerski-set-pro",
     "name": "Fingerski Set Pro Blue",
     "category": "ski",
-    "status": "sold-out",
+    "status": "available",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "",
-    "etsyLabel": "Buy Now",
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
+    "etsyLabel": "Buy on Ricardo.ch",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
     "specs": [
@@ -337,31 +337,32 @@ const PRODUCTS = [
   }
 ];
 
-const FEATURED_IDS = ["fingerski-starterset-flat-tube-rail-pink"];
+const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-pink"];
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "Ride small   Dream big",
+    "title": "",
     "subtitle": "",
-    "badge": "Handmade in Switzerland",
-    "buttonText": "shop now",
-    "buttonLink": "/shop.html"
+    "badge": "",
+    "buttonText": "",
+    "buttonLink": "",
+    "image": ""
   },
   "popup": {
     "enabled": true,
     "page": "index",
-    "delay": 2000,
-    "title": "Fingerski pro set now available",
+    "delay": 0,
+    "title": "",
     "subtitle": "",
-    "body": "Including Fingerskis + 1 Tube Rail + 1 park shaper tool + 1 indoor kicker",
-    "image": "uploads\\fingerski-set_view_img.jpg",
-    "buttonText": "Buy on Ricardo.ch",
-    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
-    "dismissText": "Close",
-    "price": "CHF 20.00"
+    "body": "",
+    "image": "",
+    "buttonText": "",
+    "buttonLink": "",
+    "dismissText": "",
+    "price": ""
   },
   "shop": {
-    "heroTitle": "Finger",
+    "heroTitle": "",
     "heroEyebrow": "",
     "heroSub": ""
   },
@@ -370,15 +371,36 @@ const SITE_CONFIG = {
     "shipping": ""
   },
   "footer": {
-    "line1": "This website was coded by me",
-    "line2": "Made in switzerland",
+    "line1": "",
+    "line2": "",
     "privacyText": "Your Privacy matters"
   },
   "seo": {
-    "title": "BrickJ-MTB — 3D Printed Mini MTB & Fingerski from Switzerland",
-    "description": "3D printed Finger MTB and Fingerski from Switzerland. Handmade mini bikes built for tricks, creativity and serious fun.",
+    "title": "",
+    "description": "",
     "ogImage": "",
-    "keywords": "finger mtb, finger mountain bike, fingerski, 3d printed mini bike, mini mtb, finger bike tricks, handmade finger bike"
+    "keywords": ""
+  },
+  "social": {
+    "enabled": true,
+    "instagram": "",
+    "tiktok": "",
+    "youtube": "https://www.youtube.com/@Brickj-fb",
+    "position": "both"
+  },
+  "reviews": {
+    "enabled": true,
+    "items": []
+  },
+  "notify": {
+    "enabled": true,
+    "buttonText": "Benachrichtige mich"
+  },
+  "sizeref": {
+    "enabled": true,
+    "title": "",
+    "text": "",
+    "image": ""
   }
 };
 
