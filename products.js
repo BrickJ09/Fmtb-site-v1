@@ -1,12 +1,12 @@
 // products.js — FingerMTB Admin
-// Generiert: 4.3.2026, 16:26:14
+// Generiert: 4.3.2026, 16:30:58
 
 const PRODUCTS = [
   {
     "id": "fingerski-set-pro",
     "name": "Fingerski Set Pro Blue",
     "category": "ski",
-    "status": "available",
+    "status": "sold-out",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
