@@ -3,20 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- SEO: filled dynamically by JS from SITE_CONFIG -->
   <title id="meta-title">FingerMTB — Mini Bikes · Big Tricks</title>
   <meta name="description" id="meta-desc" content="3D-printed mini MTBs and finger skis from Switzerland. Handmade, for tricks and fun.">
   <meta name="keywords" id="meta-keywords" content="finger mtb, fingerski, mini bike, 3d print, switzerland">
-
-  <!-- Open Graph -->
   <meta property="og:title" id="og-title" content="FingerMTB – Mini Bikes">
   <meta property="og:description" id="og-desc" content="Mini Bikes · Big Tricks – 3D-Printed Mini-MTBs">
   <meta property="og:image" id="og-image" content="https://brickj-mtb.netlify.app/v10/V10side1.JPEG">
   <meta property="og:url" content="https://brickj-mtb.netlify.app/">
   <meta property="og:type" content="website">
-
-  <!-- Canonical -->
   <link rel="canonical" href="https://brickj-mtb.netlify.app/">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
@@ -41,7 +35,18 @@
         <a href="about.html">About</a>
         <a href="#entryform">Contact</a>
       </nav>
-      <div class="cart-container">
+      <div class="header-right">
+        <div class="social-links" id="header-social" style="display:none">
+          <a id="header-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram" style="display:none">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a id="header-tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok" style="display:none">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+          </a>
+          <a id="header-youtube" href="#" target="_blank" rel="noopener" aria-label="YouTube" style="display:none">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-1.9-1.1-2.7c-1.1-1.1-2.3-1.1-2.8-1.2C16.2 3 12 3 12 3s-4.2 0-7.1.1c-.6.1-1.8.1-2.8 1.2C1.3 5.1 1 7 1 7S.7 9.1.7 11.2v2c0 2.1.3 4.2.3 4.2s.3 1.9 1.1 2.7c1.1 1.1 2.5 1.1 3.1 1.1C7.2 21.3 12 21.3 12 21.3s4.2 0 7.1-.2c.6-.1 1.8-.1 2.8-1.2.8-.8 1.1-2.7 1.1-2.7s.3-2.1.3-4.2v-2C23.3 9.1 23 7 23 7zM9.7 15.5V8.4l7.6 3.6-7.6 3.5z"/></svg>
+          </a>
+        </div>
         <select id="currencySwitch">
           <option value="USD">$ USD</option>
           <option value="CHF">CHF</option>
@@ -51,8 +56,8 @@
     </div>
   </header>
 
-  <!-- POPUP — hidden until JS triggers it -->
-  <div id="popup" class="popup-overlay" style="display:none" role="dialog" aria-modal="true">
+  <!-- POPUP -->
+  <div id="popup" class="popup-overlay" style="display:none">
     <div class="popup-box">
       <h2 id="popup-title"></h2>
       <p id="popup-subtitle"></p>
@@ -78,6 +83,15 @@
   <section class="product-section container">
     <h3>Our Products</h3>
     <div class="products-grid" id="featuredGrid"></div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section-home container" id="reviews-section" style="display:none">
+    <div class="reviews-home-header">
+      <h3>What people say</h3>
+      <div class="reviews-stars-total">★★★★★</div>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
   </section>
 
   <!-- CONTACT -->
@@ -116,8 +130,19 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">FingerMTB</div>
-      <div class="footer-links">
-        <a href="privacy.html" id="footer-privacy">Privacy Policy</a>
+      <div class="footer-center">
+        <div class="social-links" id="footer-social" style="display:none">
+          <a id="footer-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram" style="display:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a id="footer-tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok" style="display:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+          </a>
+          <a id="footer-youtube" href="#" target="_blank" rel="noopener" aria-label="YouTube" style="display:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-1.9-1.1-2.7c-1.1-1.1-2.3-1.1-2.8-1.2C16.2 3 12 3 12 3s-4.2 0-7.1.1c-.6.1-1.8.1-2.8 1.2C1.3 5.1 1 7 1 7S.7 9.1.7 11.2v2c0 2.1.3 4.2.3 4.2s.3 1.9 1.1 2.7c1.1 1.1 2.5 1.1 3.1 1.1C7.2 21.3 12 21.3 12 21.3s4.2 0 7.1-.2c.6-.1 1.8-.1 2.8-1.2.8-.8 1.1-2.7 1.1-2.7s.3-2.1.3-4.2v-2C23.3 9.1 23 7 23 7zM9.7 15.5V8.4l7.6 3.6-7.6 3.5z"/></svg>
+          </a>
+        </div>
+        <a href="privacy.html" id="footer-privacy" style="font-size:.75rem;color:rgba(255,255,255,.4)">Privacy Policy</a>
       </div>
       <div class="footer-copy">
         <p id="footer-line1">BrickJ_mtb · Handmade in Switzerland 🇨🇭</p>
@@ -131,7 +156,6 @@
   <script src="products.js"></script>
   <script src="script.js"></script>
   <script>
-    // ── Config helpers ──────────────────────────────────
     function deepMerge(base, over) {
       const r = {...base};
       for (const k in over) {
@@ -141,140 +165,141 @@
       }
       return r;
     }
-
     function getCfg() {
       try {
-        const stored = JSON.parse(localStorage.getItem('fm_cfg') || '{}');
-        return deepMerge(
-          typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : {},
-          stored.siteConfig || {}
-        );
-      } catch { return typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : {}; }
+        const s = JSON.parse(localStorage.getItem('fm_cfg')||'{}');
+        return deepMerge(typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{}, s.siteConfig||{});
+      } catch { return typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{}; }
     }
-
     function getFeaturedIds() {
       try {
-        const stored = JSON.parse(localStorage.getItem('fm_cfg') || '{}');
-        if (stored.featuredIds?.length) return stored.featuredIds;
+        const s = JSON.parse(localStorage.getItem('fm_cfg')||'{}');
+        if (s.featuredIds?.length) return s.featuredIds;
       } catch {}
-      return typeof FEATURED_IDS !== 'undefined' ? FEATURED_IDS : [];
+      return typeof FEATURED_IDS!=='undefined'?FEATURED_IDS:[];
     }
 
     const cfg = getCfg();
 
-    // ── SEO meta tags ───────────────────────────────────
-    if (cfg.seo?.title) {
-      document.getElementById('meta-title').textContent = cfg.seo.title;
-      document.getElementById('og-title').content = cfg.seo.title;
+    // SEO
+    if (cfg.seo?.title) { document.getElementById('meta-title').textContent=cfg.seo.title; document.getElementById('og-title').content=cfg.seo.title; }
+    if (cfg.seo?.description) { document.getElementById('meta-desc').content=cfg.seo.description; document.getElementById('og-desc').content=cfg.seo.description; }
+    if (cfg.seo?.ogImage) document.getElementById('og-image').content=cfg.seo.ogImage;
+    if (cfg.seo?.keywords) document.getElementById('meta-keywords').content=cfg.seo.keywords;
+
+    // Hero image
+    if (cfg.hero?.image) {
+      document.getElementById('hero-section').style.backgroundImage = `url('${cfg.hero.image}')`;
     }
-    if (cfg.seo?.description) {
-      document.getElementById('meta-desc').content = cfg.seo.description;
-      document.getElementById('og-desc').content = cfg.seo.description;
+    if (cfg.hero?.title) document.getElementById('hero-title').innerHTML=cfg.hero.title.replace(/\n/g,'<br>');
+    if (cfg.hero?.subtitle) document.getElementById('hero-subtitle').textContent=cfg.hero.subtitle;
+    if (cfg.hero?.buttonText) document.getElementById('hero-btn').textContent=cfg.hero.buttonText;
+    if (cfg.hero?.buttonLink) document.getElementById('hero-btn').href=cfg.hero.buttonLink;
+    if (cfg.hero?.badge) { const b=document.getElementById('hero-badge'); b.textContent=cfg.hero.badge; b.style.display=''; }
+
+    // Footer
+    if (cfg.footer?.line1) document.getElementById('footer-line1').textContent=cfg.footer.line1;
+    if (cfg.footer?.line2) document.getElementById('footer-line2').textContent=cfg.footer.line2;
+
+    // Social links
+    function setSocialLink(prefix, platform, url, pos) {
+      const el = document.getElementById(`${prefix}-${platform}`);
+      if (!el) return;
+      if (url) { el.href=url; el.style.display='inline-flex'; }
     }
-    if (cfg.seo?.ogImage) document.getElementById('og-image').content = cfg.seo.ogImage;
-    if (cfg.seo?.keywords) document.getElementById('meta-keywords').content = cfg.seo.keywords;
+    if (cfg.social?.enabled !== false && (cfg.social?.instagram||cfg.social?.tiktok||cfg.social?.youtube)) {
+      const pos = cfg.social?.position || 'both';
+      if (pos==='header'||pos==='both') {
+        document.getElementById('header-social').style.display='flex';
+        setSocialLink('header','instagram',cfg.social.instagram);
+        setSocialLink('header','tiktok',cfg.social.tiktok);
+        setSocialLink('header','youtube',cfg.social.youtube);
+      }
+      if (pos==='footer'||pos==='both') {
+        document.getElementById('footer-social').style.display='flex';
+        setSocialLink('footer','instagram',cfg.social.instagram);
+        setSocialLink('footer','tiktok',cfg.social.tiktok);
+        setSocialLink('footer','youtube',cfg.social.youtube);
+      }
+    }
 
-    // ── Hero ────────────────────────────────────────────
-    if (cfg.hero?.title) document.getElementById('hero-title').innerHTML = cfg.hero.title.replace(/\n/g,'<br>');
-    if (cfg.hero?.subtitle) document.getElementById('hero-subtitle').textContent = cfg.hero.subtitle;
-    if (cfg.hero?.buttonText) document.getElementById('hero-btn').textContent = cfg.hero.buttonText;
-    if (cfg.hero?.buttonLink) document.getElementById('hero-btn').href = cfg.hero.buttonLink;
-    const badgeEl = document.getElementById('hero-badge');
-    if (cfg.hero?.badge) { badgeEl.textContent = cfg.hero.badge; badgeEl.style.display = ''; }
-
-    // ── Footer ──────────────────────────────────────────
-    if (cfg.footer?.line1) document.getElementById('footer-line1').textContent = cfg.footer.line1;
-    if (cfg.footer?.line2) document.getElementById('footer-line2').textContent = cfg.footer.line2;
-    if (cfg.footer?.privacyText) document.getElementById('footer-privacy').textContent = cfg.footer.privacyText;
-
-    // ── Popup ───────────────────────────────────────────
-    // Only trigger via setTimeout — no immediate show
+    // Popup (single setTimeout, no duplicate)
     const showPopup = cfg.popup?.enabled !== false &&
-      (cfg.popup?.page === 'all' || cfg.popup?.page === 'index' || !cfg.popup?.page);
-
+      (cfg.popup?.page==='all' || cfg.popup?.page==='index' || !cfg.popup?.page);
     if (showPopup) {
       const popupEl = document.getElementById('popup');
-      document.getElementById('popup-title').textContent = cfg.popup.title || '';
-      document.getElementById('popup-subtitle').textContent = cfg.popup.subtitle || '';
-      document.getElementById('popup-body').textContent = cfg.popup.body || '';
-
+      document.getElementById('popup-title').textContent     = cfg.popup.title||'';
+      document.getElementById('popup-subtitle').textContent  = cfg.popup.subtitle||'';
+      document.getElementById('popup-body').textContent      = cfg.popup.body||'';
       const imgEl = document.getElementById('popup-img');
-      if (cfg.popup.image) { imgEl.src = cfg.popup.image; imgEl.style.display = ''; }
-
+      if (cfg.popup.image) { imgEl.src=cfg.popup.image; imgEl.style.display=''; }
       const priceEl = document.getElementById('popup-price');
-      if (cfg.popup.price) { priceEl.textContent = cfg.popup.price; priceEl.style.display = ''; }
-
-      const btnEl = document.getElementById('popup-btn');
-      btnEl.textContent = cfg.popup.buttonText || 'Buy Now';
-      btnEl.href = cfg.popup.buttonLink || '#';
-
-      document.getElementById('popup-dismiss').textContent = cfg.popup.dismissText || 'Close';
-
-      // FIXED: only ONE setTimeout, popup starts hidden
-      const delay = parseInt(cfg.popup.delay) || 0;
-      setTimeout(() => { popupEl.style.display = 'flex'; }, delay);
+      if (cfg.popup.price) { priceEl.textContent=cfg.popup.price; priceEl.style.display=''; }
+      document.getElementById('popup-btn').textContent = cfg.popup.buttonText||'Buy Now';
+      document.getElementById('popup-btn').href = cfg.popup.buttonLink||'#';
+      document.getElementById('popup-dismiss').textContent = cfg.popup.dismissText||'Close';
+      setTimeout(() => popupEl.style.display='flex', parseInt(cfg.popup.delay)||0);
     }
 
-    // ── Featured Products ────────────────────────────────
-    const featuredIds = getFeaturedIds();
+    // Featured products
     const grid = document.getElementById('featuredGrid');
-
-    if (grid && typeof PRODUCTS !== 'undefined' && featuredIds.length) {
-      // Available products first
-      const sorted = featuredIds
-        .map(id => PRODUCTS.find(p => p.id === id))
-        .filter(Boolean)
-        .sort((a, b) => (a.status === 'available' ? 0 : 1) - (b.status === 'available' ? 0 : 1));
-
-      sorted.forEach((p, i) => {
-        const priceHTML = p.status === 'available'
+    if (grid && typeof PRODUCTS !== 'undefined') {
+      const ids = getFeaturedIds();
+      const sorted = ids.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean)
+        .sort((a,b)=>(a.status==='available'?0:1)-(b.status==='available'?0:1));
+      sorted.forEach((p,i)=>{
+        const priceHTML = p.status==='available'
           ? `<p class="price" data-usd="${p.priceUSD}" data-chf="${p.priceCHF}" data-eur="${p.priceEUR}">$${p.priceUSD.toFixed(2)}</p>`
           : `<p class="price-muted">${{soon:'Coming Soon','sold-out':'Sold Out'}[p.status]||''}</p>`;
         const card = document.createElement('div');
-        card.className = 'product-card reveal';
-        card.style.transitionDelay = `${i * 0.07}s`;
-        card.innerHTML = `
-          <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
-          <h4>${p.name}</h4>
-          ${priceHTML}
-          <a href="product.html?id=${p.id}" class="btn-secondary">View Details</a>`;
+        card.className='product-card reveal';
+        card.style.transitionDelay=`${i*0.07}s`;
+        card.innerHTML=`<img src="${p.images[0]}" alt="${p.name}" loading="lazy"><h4>${p.name}</h4>${priceHTML}<a href="product.html?id=${p.id}" class="btn-secondary">View Details</a>`;
         grid.appendChild(card);
       });
     }
 
-    // ── Scroll reveal ────────────────────────────────────
-    const observer = new IntersectionObserver(entries =>
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // Reviews
+    if (cfg.reviews?.enabled !== false && cfg.reviews?.items?.length) {
+      const sec = document.getElementById('reviews-section');
+      const rGrid = document.getElementById('reviewsGrid');
+      sec.style.display = '';
+      cfg.reviews.items.forEach(rev => {
+        const stars = '★'.repeat(rev.stars||5)+'☆'.repeat(5-(rev.stars||5));
+        const div = document.createElement('div');
+        div.className = 'review-card reveal';
+        div.innerHTML = `
+          <div class="review-stars">${stars}</div>
+          <p class="review-text">"${rev.text}"</p>
+          <div class="review-footer">
+            <span class="review-name">${rev.name}</span>
+            ${rev.product?`<span class="review-product">${rev.product}</span>`:''}
+          </div>`;
+        rGrid.appendChild(div);
+      });
+    }
 
-    // ── Contact form ─────────────────────────────────────
-    const form = document.getElementById('form');
-    const submitBtn = document.getElementById('submit-button');
-    const msgDiv = document.getElementById('message');
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-    form?.addEventListener('submit', async e => {
+    // Contact form
+    document.getElementById('form')?.addEventListener('submit', async e=>{
       e.preventDefault();
-      msgDiv.textContent = 'Sending…'; msgDiv.style.display = 'block'; msgDiv.className = '';
-      submitBtn.disabled = true;
+      const msgDiv=document.getElementById('message');
+      const btn=document.getElementById('submit-button');
+      msgDiv.textContent='Sending…'; msgDiv.style.display='block'; msgDiv.className='';
+      btn.disabled=true;
       try {
-        const obj = {};
-        for (const [k,v] of new FormData(form).entries()) obj[k] = v;
-        const res = await fetch(
-          'https://script.google.com/macros/s/AKfycby18XE62EImfZ8FJx_8yT0q-Q-nw-dV5hign-TeANThgP_Sa9xvrpfUoJhZBJIjUpExCQ/exec',
-          { redirect:'follow', method:'POST', body:JSON.stringify(obj), headers:{'Content-Type':'text/plain;charset=utf-8'} }
-        );
-        const data = await res.json();
-        if (data.status==='success') {
-          msgDiv.textContent = data.message||'Sent!'; msgDiv.className = 'success'; form.reset();
-        } else throw new Error(data.message||'Failed');
-      } catch(err) {
-        msgDiv.textContent = 'Error: '+err.message; msgDiv.className = 'error';
-      } finally {
-        submitBtn.disabled = false;
-        setTimeout(() => msgDiv.style.display = 'none', 4000);
-      }
+        const obj={};
+        for(const [k,v] of new FormData(e.target).entries()) obj[k]=v;
+        const res=await fetch('https://script.google.com/macros/s/AKfycby18XE62EImfZ8FJx_8yT0q-Q-nw-dV5hign-TeANThgP_Sa9xvrpfUoJhZBJIjUpExCQ/exec',
+          {redirect:'follow',method:'POST',body:JSON.stringify(obj),headers:{'Content-Type':'text/plain;charset=utf-8'}});
+        const data=await res.json();
+        if(data.status==='success'){msgDiv.textContent=data.message||'Sent!';msgDiv.className='success';e.target.reset();}
+        else throw new Error(data.message||'Failed');
+      } catch(err){msgDiv.textContent='Error: '+err.message;msgDiv.className='error';}
+      finally{btn.disabled=false;setTimeout(()=>msgDiv.style.display='none',4000);}
     });
   </script>
 </body>

@@ -273,6 +273,111 @@
               <div class="sfield"><label>Button Text</label><input type="text" id="s-hero-btn"></div>
               <div class="sfield"><label>Button Link</label><input type="text" id="s-hero-link"></div>
             </div>
+            <div class="sfield" style="margin-top:6px">
+              <label>Hintergrundbild</label>
+              <div class="img-dropzone" id="heroImgDrop" style="padding:12px">
+                <input type="file" id="heroImgInput" accept="image/*" onchange="handleHeroImg(event)">
+                <div class="img-dropzone-text">📸 Drag & Drop oder <strong>klicken</strong></div>
+              </div>
+              <div id="heroImgPreview" style="margin-top:8px;display:none">
+                <img id="heroImgThumb" style="width:100%;max-height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+                  <span id="heroImgName" style="font-size:.7rem;color:var(--muted)"></span>
+                  <button class="btn-d" style="padding:3px 10px;font-size:.68rem" onclick="clearHeroImg()">Entfernen</button>
+                </div>
+              </div>
+              <div class="sfield" style="margin-top:8px"><label>Oder Bildpfad manuell</label><input type="text" id="s-hero-img" placeholder="fingerski_starterkit/fingerski_trick.JPEG"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <div class="s-card-hdr" onclick="toggleCard(this,'social-bd')">
+            <span class="cicon">📱</span><span class="ctitle">Social Media Links</span><span class="ctoggle">▾</span>
+          </div>
+          <div class="s-card-body" id="social-bd">
+            <div class="toggle-row">
+              <div><div class="toggle-lbl">Social Links anzeigen</div><div class="toggle-sub">Im Header und Footer sichtbar</div></div>
+              <div class="toggle" id="tgl-social" onclick="toggleSwitch('social-enabled','tgl-social')"></div>
+              <input type="hidden" id="social-enabled" value="true">
+            </div>
+            <div class="srow" style="margin-top:12px">
+              <div class="sfield"><label>Instagram URL</label><input type="text" id="s-instagram" placeholder="https://instagram.com/brickj_mtb"></div>
+              <div class="sfield"><label>TikTok URL</label><input type="text" id="s-tiktok" placeholder="https://tiktok.com/@brickj_mtb"></div>
+            </div>
+            <div class="srow">
+              <div class="sfield"><label>YouTube URL (leer = ausblenden)</label><input type="text" id="s-youtube" placeholder="https://youtube.com/@..."></div>
+              <div class="sfield"><label>Position</label>
+                <select id="s-social-pos">
+                  <option value="both">Header + Footer</option>
+                  <option value="header">Nur Header</option>
+                  <option value="footer">Nur Footer</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <div class="s-card-hdr" onclick="toggleCard(this,'reviews-bd')">
+            <span class="cicon">⭐</span><span class="ctitle">Bewertungen (Startseite)</span><span class="ctoggle">▾</span>
+          </div>
+          <div class="s-card-body" id="reviews-bd">
+            <div class="toggle-row">
+              <div><div class="toggle-lbl">Bewertungs-Sektion anzeigen</div><div class="toggle-sub">Erscheint auf der Startseite unter den Produkten</div></div>
+              <div class="toggle" id="tgl-reviews" onclick="toggleSwitch('reviews-enabled','tgl-reviews')"></div>
+              <input type="hidden" id="reviews-enabled" value="true">
+            </div>
+            <div style="margin-top:14px">
+              <div id="reviewsList"></div>
+              <button class="btn-s" style="width:100%;margin-top:10px" onclick="addReview()">+ Bewertung hinzufügen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <div class="s-card-hdr" onclick="toggleCard(this,'notify-bd')">
+            <span class="cicon">🔔</span><span class="ctitle">Benachrichtige mich (Sold-Out)</span><span class="ctoggle">▾</span>
+          </div>
+          <div class="s-card-body" id="notify-bd">
+            <div class="toggle-row">
+              <div><div class="toggle-lbl">Benachrichtigung aktivieren</div><div class="toggle-sub">Zeigt ein Email-Feld bei ausverkauften Produkten</div></div>
+              <div class="toggle" id="tgl-notify" onclick="toggleSwitch('notify-enabled','tgl-notify')"></div>
+              <input type="hidden" id="notify-enabled" value="true">
+            </div>
+            <div class="sfield" style="margin-top:12px"><label>Button Text</label><input type="text" id="s-notify-btn" placeholder="Benachrichtige mich wenn verfügbar"></div>
+            <div style="font-size:.68rem;color:var(--muted);padding:10px;background:var(--bg);border-radius:6px;line-height:1.6;margin-top:8px">
+              📧 Emails werden per Google Forms gesammelt und dir per Email zugesendet. Du siehst die Anfragen in deinem Google Drive.
+            </div>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <div class="s-card-hdr" onclick="toggleCard(this,'sizeref-bd')">
+            <span class="cicon">📏</span><span class="ctitle">Grössenreferenz (Produktseiten)</span><span class="ctoggle">▾</span>
+          </div>
+          <div class="s-card-body" id="sizeref-bd">
+            <div class="toggle-row">
+              <div><div class="toggle-lbl">Grössenreferenz anzeigen</div><div class="toggle-sub">Zeigt Grösseninfo auf allen Produktseiten</div></div>
+              <div class="toggle" id="tgl-sizeref" onclick="toggleSwitch('sizeref-enabled','tgl-sizeref')"></div>
+              <input type="hidden" id="sizeref-enabled" value="true">
+            </div>
+            <div class="srow" style="margin-top:12px">
+              <div class="sfield"><label>Titel</label><input type="text" id="s-sizeref-title" placeholder="Wie gross ist das?"></div>
+              <div class="sfield"><label>Text</label><input type="text" id="s-sizeref-text" placeholder="Ca. 5cm — passt auf eine Fingerkuppe"></div>
+            </div>
+            <div class="sfield">
+              <label>Referenzbild (Pfad oder Drag & Drop)</label>
+              <div class="img-dropzone" id="sizeImgDrop" style="padding:12px">
+                <input type="file" id="sizeImgInput" accept="image/*" onchange="handleSizeImg(event)">
+                <div class="img-dropzone-text">📸 Bild mit Hand/Finger zum Grössenvergleich</div>
+              </div>
+              <div id="sizeImgPreview" style="margin-top:8px;display:none">
+                <img id="sizeImgThumb" style="width:100%;max-height:100px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">
+                <button class="btn-d" style="padding:3px 10px;font-size:.68rem;margin-top:4px" onclick="clearSizeImg()">Entfernen</button>
+              </div>
+              <div class="sfield" style="margin-top:8px"><label>Oder Pfad manuell</label><input type="text" id="s-sizeref-img" placeholder="uploads/size-reference.jpg"></div>
+            </div>
           </div>
         </div>
 
@@ -818,6 +923,42 @@ function loadSiteForm() {
   // Footer
   document.getElementById('s-ft1').value = cfg.footer?.line1||'';
   document.getElementById('s-ft2').value = cfg.footer?.line2||'';
+  // Hero image
+  document.getElementById('s-hero-img').value = cfg.hero?.image||'';
+  if (cfg.hero?.image) {
+    document.getElementById('heroImgThumb').src = cfg.hero.image;
+    document.getElementById('heroImgPreview').style.display = '';
+    document.getElementById('heroImgName').textContent = cfg.hero.image;
+  }
+  // Social
+  const socOn = cfg.social?.enabled !== false;
+  document.getElementById('social-enabled').value = String(socOn);
+  document.getElementById('tgl-social').classList.toggle('on', socOn);
+  document.getElementById('s-instagram').value   = cfg.social?.instagram||'';
+  document.getElementById('s-tiktok').value      = cfg.social?.tiktok||'';
+  document.getElementById('s-youtube').value     = cfg.social?.youtube||'';
+  document.getElementById('s-social-pos').value  = cfg.social?.position||'both';
+  // Reviews
+  const revOn = cfg.reviews?.enabled !== false;
+  document.getElementById('reviews-enabled').value = String(revOn);
+  document.getElementById('tgl-reviews').classList.toggle('on', revOn);
+  renderReviewsList(cfg.reviews?.items||[]);
+  // Notify
+  const notOn = cfg.notify?.enabled !== false;
+  document.getElementById('notify-enabled').value = String(notOn);
+  document.getElementById('tgl-notify').classList.toggle('on', notOn);
+  document.getElementById('s-notify-btn').value = cfg.notify?.buttonText||'Benachrichtige mich';
+  // Size ref
+  const szOn = cfg.sizeref?.enabled !== false;
+  document.getElementById('sizeref-enabled').value = String(szOn);
+  document.getElementById('tgl-sizeref').classList.toggle('on', szOn);
+  document.getElementById('s-sizeref-title').value = cfg.sizeref?.title||'';
+  document.getElementById('s-sizeref-text').value  = cfg.sizeref?.text||'';
+  document.getElementById('s-sizeref-img').value   = cfg.sizeref?.image||'';
+  if (cfg.sizeref?.image) {
+    document.getElementById('sizeImgThumb').src = cfg.sizeref.image;
+    document.getElementById('sizeImgPreview').style.display = '';
+  }
 }
 
 function saveSiteConfig() {
@@ -861,7 +1002,30 @@ function saveSiteConfig() {
       line1: document.getElementById('s-ft1').value,
       line2: document.getElementById('s-ft2').value,
     },
+    social:{
+      enabled:  document.getElementById('social-enabled').value==='true',
+      instagram: document.getElementById('s-instagram').value,
+      tiktok:   document.getElementById('s-tiktok').value,
+      youtube:  document.getElementById('s-youtube').value,
+      position: document.getElementById('s-social-pos').value,
+    },
+    reviews:{
+      enabled: document.getElementById('reviews-enabled').value==='true',
+      items: collectReviews(),
+    },
+    notify:{
+      enabled: document.getElementById('notify-enabled').value==='true',
+      buttonText: document.getElementById('s-notify-btn').value||'Benachrichtige mich',
+    },
+    sizeref:{
+      enabled: document.getElementById('sizeref-enabled').value==='true',
+      title:   document.getElementById('s-sizeref-title').value,
+      text:    document.getElementById('s-sizeref-text').value,
+      image:   document.getElementById('s-sizeref-img').value || (window._sizeImgPath||''),
+    },
   };
+  // hero image
+  cfg.hero.image = document.getElementById('s-hero-img').value || (window._heroImgPath||cfg.hero?.image||'');
   saveCfgStore(cfg);
   showToast('Gespeichert ✓');
 }
@@ -1023,6 +1187,141 @@ async function publishToGitHub() {
     setStatus('Fehler: '+e.message,false);
     showToast('Fehler',true);
   } finally { btn.disabled=false; btn.textContent='🚀 JETZT PUBLIZIEREN'; }
+}
+
+// ═══════════════════════════════════════════════
+// HERO IMAGE UPLOAD
+// ═══════════════════════════════════════════════
+const heroDropEl = document.getElementById('heroImgDrop');
+if (heroDropEl) {
+  heroDropEl.addEventListener('dragover', e=>{e.preventDefault();heroDropEl.classList.add('over');});
+  heroDropEl.addEventListener('dragleave', ()=>heroDropEl.classList.remove('over'));
+  heroDropEl.addEventListener('drop', e=>{
+    e.preventDefault();heroDropEl.classList.remove('over');
+    const f=e.dataTransfer.files[0];
+    if (f&&f.type.startsWith('image/')) processHeroFile(f);
+  });
+}
+
+function handleHeroImg(e){const f=e.target.files[0];if(f)processHeroFile(f);}
+
+function processHeroFile(file){
+  const safe=file.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9._-]/g,'');
+  const path=`uploads/hero-${safe}`;
+  const r=new FileReader();
+  r.onload=ev=>{
+    window._heroImgPath=path;
+    document.getElementById('heroImgThumb').src=ev.target.result;
+    document.getElementById('heroImgPreview').style.display='';
+    document.getElementById('heroImgName').textContent=path;
+    document.getElementById('s-hero-img').value=path;
+    // store for upload
+    const ex=JSON.parse(localStorage.getItem('fm_cfg')||'{}');
+    ex.pendingUploads=ex.pendingUploads||[];
+    ex.pendingUploads=ex.pendingUploads.filter(u=>!u.path.startsWith('uploads/hero-'));
+    ex.pendingUploads.push({path,dataURL:ev.target.result});
+    localStorage.setItem('fm_cfg',JSON.stringify(ex));
+  };
+  r.readAsDataURL(file);
+}
+
+function clearHeroImg(){
+  window._heroImgPath=null;
+  document.getElementById('heroImgPreview').style.display='none';
+  document.getElementById('s-hero-img').value='';
+  document.getElementById('heroImgInput').value='';
+}
+
+// ═══════════════════════════════════════════════
+// SIZE REF IMAGE UPLOAD
+// ═══════════════════════════════════════════════
+const sizeDropEl = document.getElementById('sizeImgDrop');
+if (sizeDropEl) {
+  sizeDropEl.addEventListener('dragover', e=>{e.preventDefault();sizeDropEl.classList.add('over');});
+  sizeDropEl.addEventListener('dragleave', ()=>sizeDropEl.classList.remove('over'));
+  sizeDropEl.addEventListener('drop', e=>{
+    e.preventDefault();sizeDropEl.classList.remove('over');
+    const f=e.dataTransfer.files[0];
+    if (f&&f.type.startsWith('image/')) processSizeFile(f);
+  });
+}
+
+function handleSizeImg(e){const f=e.target.files[0];if(f)processSizeFile(f);}
+
+function processSizeFile(file){
+  const safe=file.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9._-]/g,'');
+  const path=`uploads/sizeref-${safe}`;
+  const r=new FileReader();
+  r.onload=ev=>{
+    window._sizeImgPath=path;
+    document.getElementById('sizeImgThumb').src=ev.target.result;
+    document.getElementById('sizeImgPreview').style.display='';
+    document.getElementById('s-sizeref-img').value=path;
+    const ex=JSON.parse(localStorage.getItem('fm_cfg')||'{}');
+    ex.pendingUploads=ex.pendingUploads||[];
+    ex.pendingUploads=ex.pendingUploads.filter(u=>!u.path.startsWith('uploads/sizeref-'));
+    ex.pendingUploads.push({path,dataURL:ev.target.result});
+    localStorage.setItem('fm_cfg',JSON.stringify(ex));
+  };
+  r.readAsDataURL(file);
+}
+
+function clearSizeImg(){
+  window._sizeImgPath=null;
+  document.getElementById('sizeImgPreview').style.display='none';
+  document.getElementById('s-sizeref-img').value='';
+}
+
+// ═══════════════════════════════════════════════
+// REVIEWS MANAGEMENT
+// ═══════════════════════════════════════════════
+function renderReviewsList(items){
+  const list=document.getElementById('reviewsList');
+  if (!list) return;
+  list.innerHTML='';
+  (items||[]).forEach((rev,i)=>{
+    const div=document.createElement('div');
+    div.style.cssText='background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;';
+    div.innerHTML=`
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Name</label>
+          <input style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:6px 10px;border-radius:5px;outline:none" value="${rev.name||''}" onchange="updateReview(${i},'name',this.value)"></div>
+        <div><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Stars (1-5)</label>
+          <select style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:6px 10px;border-radius:5px;outline:none" onchange="updateReview(${i},'stars',parseInt(this.value))">
+            ${[5,4,3,2,1].map(n=>`<option value="${n}"${rev.stars===n?' selected':''}>${'★'.repeat(n)}</option>`).join('')}
+          </select></div>
+      </div>
+      <div style="margin-bottom:8px"><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Bewertungstext</label>
+        <textarea style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:6px 10px;border-radius:5px;outline:none;min-height:56px;resize:vertical" onchange="updateReview(${i},'text',this.value)">${rev.text||''}</textarea></div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <input style="background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:Inter,sans-serif;font-size:.75rem;padding:5px 9px;border-radius:5px;outline:none;width:160px" placeholder="Produkt (optional)" value="${rev.product||''}" onchange="updateReview(${i},'product',this.value)">
+        <button class="btn-d" style="padding:4px 12px;font-size:.7rem" onclick="removeReview(${i})">Löschen</button>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+let _reviews = [];
+function updateReview(i, key, val){ _reviews[i][key]=val; }
+function addReview(){
+  _reviews.push({name:'',stars:5,text:'',product:''});
+  renderReviewsList(_reviews);
+}
+function removeReview(i){
+  _reviews.splice(i,1);
+  renderReviewsList(_reviews);
+}
+function collectReviews(){ return _reviews; }
+
+// Override renderReviewsList to sync _reviews
+const _origRenderReviews = renderReviewsList;
+// patch loadSiteForm to also set _reviews
+const _origLoadSiteForm = loadSiteForm;
+function loadSiteForm(){
+  _origLoadSiteForm();
+  const cfg=getCfg();
+  _reviews = JSON.parse(JSON.stringify(cfg.reviews?.items||[]));
+  renderReviewsList(_reviews);
 }
 
 // INIT
