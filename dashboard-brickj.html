@@ -180,23 +180,23 @@
   </div>
   <nav class="sb-nav">
     <div class="sb-group">Content</div>
-    <div class="sb-item active" onclick="switchTab('products',this)"><span class="ic">📦</span>Produkte</div>
+    <div class="sb-item active" onclick="switchTab('products',this)"><span class="ic">📦</span>Products</div>
     <div class="sb-item" onclick="switchTab('layout',this)"><span class="ic">🗂️</span>Layout</div>
     <div class="sb-item" onclick="switchTab('site',this)"><span class="ic">🌐</span>Website</div>
     <div class="sb-group">System</div>
-    <div class="sb-item" onclick="switchTab('export',this)"><span class="ic">🚀</span>Publizieren</div>
+    <div class="sb-item" onclick="switchTab('export',this)"><span class="ic">🚀</span>Publish</div>
   </nav>
   <div class="sb-bottom">
     <form action="/admin-logout" method="POST">
-      <button type="submit" class="logout-btn">Ausloggen</button>
+      <button type="submit" class="logout-btn">Log Out</button>
     </form>
   </div>
 </aside>
 
 <div class="main">
   <div class="topbar">
-    <h1 id="pageTitle">PRODUKTE</h1>
-    <div class="status-dot"><div class="dot"></div><span>Session aktiv</span></div>
+    <h1 id="pageTitle">PRODUCTS</h1>
+    <div class="status-dot"><div class="dot"></div><span>Session active</span></div>
   </div>
   <div class="content">
 
@@ -204,30 +204,30 @@
     <div id="tab-products" class="tab-section active">
       <div class="stats-row">
         <div class="stat-card y"><div class="stat-lbl">Total</div><div class="stat-val" id="sTotal">0</div></div>
-        <div class="stat-card g"><div class="stat-lbl">Verfügbar</div><div class="stat-val" id="sAvail">0</div></div>
-        <div class="stat-card r"><div class="stat-lbl">Ausverkauft</div><div class="stat-val" id="sSold">0</div></div>
-        <div class="stat-card c"><div class="stat-lbl">Bald</div><div class="stat-val" id="sSoon">0</div></div>
+        <div class="stat-card g"><div class="stat-lbl">Available</div><div class="stat-val" id="sAvail">0</div></div>
+        <div class="stat-card r"><div class="stat-lbl">Sold Out</div><div class="stat-val" id="sSold">0</div></div>
+        <div class="stat-card c"><div class="stat-lbl">Coming Soon</div><div class="stat-val" id="sSoon">0</div></div>
       </div>
       <div class="sec-hdr">
-        <div class="sec-title">Alle Produkte</div>
-        <button class="btn-p" onclick="openModal()">+ NEUES PRODUKT</button>
+        <div class="sec-title">Alle Products</div>
+        <button class="btn-p" onclick="openModal()">+ NEW PRODUCT</button>
       </div>
       <div class="filter-row">
-        <input class="search-bar" type="text" placeholder="Suchen…" id="searchInput" oninput="renderTable()">
+        <input class="search-bar" type="text" placeholder="Search…" id="searchInput" oninput="renderTable()">
         <select class="filter-sel" id="filterCat" onchange="renderTable()">
-          <option value="">Alle Kategorien</option>
+          <option value="">All Categories</option>
           <option value="mtb">MTB</option><option value="ski">Ski</option>
           <option value="obstacle">Obstacle</option><option value="kit">Kit</option>
         </select>
         <select class="filter-sel" id="filterStat" onchange="renderTable()">
-          <option value="">Alle Status</option>
-          <option value="available">Verfügbar</option>
-          <option value="sold-out">Ausverkauft</option>
-          <option value="soon">Bald</option>
+          <option value="">All Status</option>
+          <option value="available">Available</option>
+          <option value="sold-out">Sold Out</option>
+          <option value="soon">Coming Soon</option>
         </select>
       </div>
       <table>
-        <thead><tr><th>Name</th><th>Kat.</th><th>CHF</th><th>Kauflink</th><th>Status</th><th>Aktionen</th></tr></thead>
+        <thead><tr><th>Name</th><th>Cat.</th><th>CHF</th><th>Buy Link</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
     </div>
@@ -238,18 +238,18 @@
 
         <!-- Featured -->
         <div class="layout-card">
-          <h3>⭐ Featured — Startseite</h3>
-          <p style="font-size:.72rem;color:var(--muted);margin-bottom:14px;">Diese 5 Produkte erscheinen auf der Startseite.</p>
+          <h3>⭐ Featured — Home Page</h3>
+          <p style="font-size:.72rem;color:var(--muted);margin-bottom:14px;">Diese 5 Products erscheinen auf der Startseite.</p>
           <div class="featured-slots" id="featuredSlots"></div>
-          <button class="btn-p" style="margin-top:14px;width:100%" onclick="saveFeatured()">SPEICHERN</button>
+          <button class="btn-p" style="margin-top:14px;width:100%" onclick="saveFeatured()">SAVE</button>
         </div>
 
         <!-- Shop Order -->
         <div class="layout-card">
-          <h3>↕ Shop-Reihenfolge</h3>
-          <p style="font-size:.72rem;color:var(--muted);margin-bottom:14px;">Drag & Drop zum Neu-Sortieren.</p>
+          <h3>↕ Shop Order</h3>
+          <p style="font-size:.72rem;color:var(--muted);margin-bottom:14px;">Drag & Drop to reorder.</p>
           <div class="drag-list" id="shopOrder"></div>
-          <button class="btn-p" style="margin-top:14px;width:100%" onclick="saveShopOrder()">REIHENFOLGE SPEICHERN</button>
+          <button class="btn-p" style="margin-top:14px;width:100%" onclick="saveShopOrder()">SAVE ORDER</button>
         </div>
 
       </div>
@@ -261,12 +261,12 @@
 
         <div class="s-card">
           <div class="s-card-hdr" onclick="toggleCard(this,'hero-bd')">
-            <span class="cicon">🏠</span><span class="ctitle">Startseite — Hero</span><span class="ctoggle">▾</span>
+            <span class="cicon">🏠</span><span class="ctitle">Home Page — Hero</span><span class="ctoggle">▾</span>
           </div>
           <div class="s-card-body open" id="hero-bd">
-            <div class="sfield"><label>Titel (Zeilenumbruch = \n)</label><input type="text" id="s-hero-title"></div>
+            <div class="sfield"><label>Title (line break = \n)</label><input type="text" id="s-hero-title"></div>
             <div class="srow">
-              <div class="sfield"><label>Untertitel</label><input type="text" id="s-hero-sub"></div>
+              <div class="sfield"><label>Subtitle</label><input type="text" id="s-hero-sub"></div>
               <div class="sfield"><label>Badge</label><input type="text" id="s-hero-badge" placeholder="Handmade in Switzerland 🇨🇭"></div>
             </div>
             <div class="srow">
@@ -274,10 +274,10 @@
               <div class="sfield"><label>Button Link</label><input type="text" id="s-hero-link"></div>
             </div>
             <div class="sfield" style="margin-top:6px">
-              <label>Hintergrundbild</label>
+              <label>Background Image</label>
               <div class="img-dropzone" id="heroImgDrop" style="padding:12px">
                 <input type="file" id="heroImgInput" accept="image/*" onchange="handleHeroImg(event)">
-                <div class="img-dropzone-text">📸 Drag & Drop oder <strong>klicken</strong></div>
+                <div class="img-dropzone-text">📸 <strong>Click or drag</strong> image here</div>
               </div>
               <div id="heroImgPreview" style="margin-top:8px;display:none">
                 <img id="heroImgThumb" style="width:100%;max-height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">
@@ -286,7 +286,7 @@
                   <button class="btn-d" style="padding:3px 10px;font-size:.68rem" onclick="clearHeroImg()">Entfernen</button>
                 </div>
               </div>
-              <div class="sfield" style="margin-top:8px"><label>Oder Bildpfad manuell</label><input type="text" id="s-hero-img" placeholder="fingerski_starterkit/fingerski_trick.JPEG"></div>
+              <div class="sfield" style="margin-top:8px"><label>Or enter path manually</label><input type="text" id="s-hero-img" placeholder="fingerski_starterkit/fingerski_trick.JPEG"></div>
             </div>
           </div>
         </div>
@@ -297,7 +297,7 @@
           </div>
           <div class="s-card-body" id="social-bd">
             <div class="toggle-row">
-              <div><div class="toggle-lbl">Social Links anzeigen</div><div class="toggle-sub">Im Header und Footer sichtbar</div></div>
+              <div><div class="toggle-lbl">Show Social Links</div><div class="toggle-sub">Shown in header and/or footer</div></div>
               <div class="toggle" id="tgl-social" onclick="toggleSwitch('social-enabled','tgl-social')"></div>
               <input type="hidden" id="social-enabled" value="true">
             </div>
@@ -310,8 +310,8 @@
               <div class="sfield"><label>Position</label>
                 <select id="s-social-pos">
                   <option value="both">Header + Footer</option>
-                  <option value="header">Nur Header</option>
-                  <option value="footer">Nur Footer</option>
+                  <option value="header">Header only</option>
+                  <option value="footer">Footer only</option>
                 </select>
               </div>
             </div>
@@ -320,45 +320,45 @@
 
         <div class="s-card">
           <div class="s-card-hdr" onclick="toggleCard(this,'reviews-bd')">
-            <span class="cicon">⭐</span><span class="ctitle">Bewertungen (Startseite)</span><span class="ctoggle">▾</span>
+            <span class="cicon">⭐</span><span class="ctitle">Reviews (Home Page)</span><span class="ctoggle">▾</span>
           </div>
           <div class="s-card-body" id="reviews-bd">
             <div class="toggle-row">
-              <div><div class="toggle-lbl">Bewertungs-Sektion anzeigen</div><div class="toggle-sub">Erscheint auf der Startseite unter den Produkten</div></div>
+              <div><div class="toggle-lbl">Show Reviews Section</div><div class="toggle-sub">Erscheint auf der Startseite unter den Productsn</div></div>
               <div class="toggle" id="tgl-reviews" onclick="toggleSwitch('reviews-enabled','tgl-reviews')"></div>
               <input type="hidden" id="reviews-enabled" value="true">
             </div>
             <div style="margin-top:14px">
               <div id="reviewsList"></div>
-              <button class="btn-s" style="width:100%;margin-top:10px" onclick="addReview()">+ Bewertung hinzufügen</button>
+              <button class="btn-s" style="width:100%;margin-top:10px" onclick="addReview()">+ Add Review</button>
             </div>
           </div>
         </div>
 
         <div class="s-card">
           <div class="s-card-hdr" onclick="toggleCard(this,'notify-bd')">
-            <span class="cicon">🔔</span><span class="ctitle">Benachrichtige mich (Sold-Out)</span><span class="ctoggle">▾</span>
+            <span class="cicon">🔔</span><span class="ctitle">Notify Me (Sold Out)</span><span class="ctoggle">▾</span>
           </div>
           <div class="s-card-body" id="notify-bd">
             <div class="toggle-row">
-              <div><div class="toggle-lbl">Benachrichtigung aktivieren</div><div class="toggle-sub">Zeigt ein Email-Feld bei ausverkauften Produkten</div></div>
+              <div><div class="toggle-lbl">Enable Notifications</div><div class="toggle-sub">Zeigt ein Email-Feld bei ausverkauften Productsn</div></div>
               <div class="toggle" id="tgl-notify" onclick="toggleSwitch('notify-enabled','tgl-notify')"></div>
               <input type="hidden" id="notify-enabled" value="true">
             </div>
-            <div class="sfield" style="margin-top:12px"><label>Button Text</label><input type="text" id="s-notify-btn" placeholder="Benachrichtige mich wenn verfügbar"></div>
+            <div class="sfield" style="margin-top:12px"><label>Button Text</label><input type="text" id="s-notify-btn" placeholder="Notify me when available"></div>
             <div style="font-size:.68rem;color:var(--muted);padding:10px;background:var(--bg);border-radius:6px;line-height:1.6;margin-top:8px">
-              📧 Emails werden per Google Forms gesammelt und dir per Email zugesendet. Du siehst die Anfragen in deinem Google Drive.
+              📧 Email addresses are saved locally and exported when you publish. You can view them in the Export tab.
             </div>
           </div>
         </div>
 
         <div class="s-card">
           <div class="s-card-hdr" onclick="toggleCard(this,'sizeref-bd')">
-            <span class="cicon">📏</span><span class="ctitle">Grössenreferenz (Produktseiten)</span><span class="ctoggle">▾</span>
+            <span class="cicon">📏</span><span class="ctitle">Size Reference (Product Pages)</span><span class="ctoggle">▾</span>
           </div>
           <div class="s-card-body" id="sizeref-bd">
             <div class="toggle-row">
-              <div><div class="toggle-lbl">Grössenreferenz anzeigen</div><div class="toggle-sub">Zeigt Grösseninfo auf allen Produktseiten</div></div>
+              <div><div class="toggle-lbl">Show Size Reference</div><div class="toggle-sub">Shown on all product pages</div></div>
               <div class="toggle" id="tgl-sizeref" onclick="toggleSwitch('sizeref-enabled','tgl-sizeref')"></div>
               <input type="hidden" id="sizeref-enabled" value="true">
             </div>
@@ -370,13 +370,13 @@
               <label>Referenzbild (Pfad oder Drag & Drop)</label>
               <div class="img-dropzone" id="sizeImgDrop" style="padding:12px">
                 <input type="file" id="sizeImgInput" accept="image/*" onchange="handleSizeImg(event)">
-                <div class="img-dropzone-text">📸 Bild mit Hand/Finger zum Grössenvergleich</div>
+                <div class="img-dropzone-text">📸 Photo with hand/finger for size comparison</div>
               </div>
               <div id="sizeImgPreview" style="margin-top:8px;display:none">
                 <img id="sizeImgThumb" style="width:100%;max-height:100px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">
                 <button class="btn-d" style="padding:3px 10px;font-size:.68rem;margin-top:4px" onclick="clearSizeImg()">Entfernen</button>
               </div>
-              <div class="sfield" style="margin-top:8px"><label>Oder Pfad manuell</label><input type="text" id="s-sizeref-img" placeholder="uploads/size-reference.jpg"></div>
+              <div class="sfield" style="margin-top:8px"><label>Or enter path manually</label><input type="text" id="s-sizeref-img" placeholder="uploads/size-reference.jpg"></div>
             </div>
           </div>
         </div>
@@ -387,30 +387,44 @@
           </div>
           <div class="s-card-body" id="popup-bd">
             <div class="toggle-row">
-              <div><div class="toggle-lbl">Popup aktiv</div><div class="toggle-sub">Zeigt Popup wenn Besucher die Seite öffnen</div></div>
+              <div><div class="toggle-lbl">Popup enabled</div><div class="toggle-sub">Zeigt Popup wenn Besucher die Show on öffnen</div></div>
               <div class="toggle" id="tgl-popup" onclick="toggleSwitch('pup-enabled','tgl-popup')"></div>
               <input type="hidden" id="pup-enabled" value="true">
             </div>
             <div class="srow" style="margin-top:12px">
               <div class="sfield">
-                <label>Seite</label>
+                <label>Show on</label>
                 <select id="pup-page">
-                  <option value="index">Nur Startseite</option>
-                  <option value="all">Alle Seiten</option>
-                  <option value="shop">Nur Shop</option>
+                  <option value="index">Home page only</option>
+                  <option value="all">Alle Show onn</option>
+                  <option value="shop">Shop only</option>
                 </select>
               </div>
-              <div class="sfield"><label>Verzögerung (ms, 0 = sofort)</label><input type="number" id="pup-delay" placeholder="2000" min="0"></div>
+              <div class="sfield"><label>Delay (ms, 0 = immediate)</label><input type="number" id="pup-delay" placeholder="2000" min="0"></div>
             </div>
             <div class="srow">
               <div class="sfield"><label>Titel</label><input type="text" id="pup-title"></div>
-              <div class="sfield"><label>Untertitel</label><input type="text" id="pup-sub"></div>
+              <div class="sfield"><label>Subtitle</label><input type="text" id="pup-sub"></div>
             </div>
             <div class="sfield"><label>Text</label><textarea id="pup-body"></textarea></div>
-            <div class="sfield"><label>Bild (Pfad, leer = kein Bild)</label><input type="text" id="pup-img" placeholder="uploads/bild.jpg"></div>
+            <div class="sfield">
+              <label>Image (drag &amp; drop or path)</label>
+              <div class="img-dropzone" id="pupImgDrop" style="padding:10px">
+                <input type="file" id="pupImgInput" accept="image/*" onchange="handlePupImg(event)">
+                <div class="img-dropzone-text">📸 <strong>Click or drag</strong> image here</div>
+              </div>
+              <div id="pupImgPreview" style="margin-top:8px;display:none">
+                <img id="pupImgThumb" style="width:100%;max-height:90px;object-fit:cover;border-radius:6px;border:1px solid var(--border)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:5px">
+                  <span id="pupImgName" style="font-size:.68rem;color:var(--muted)"></span>
+                  <button class="btn-d" style="padding:2px 9px;font-size:.65rem" onclick="clearPupImg()">Remove</button>
+                </div>
+              </div>
+              <div class="sfield" style="margin-top:6px"><label>Or enter path manually</label><input type="text" id="pup-img" placeholder="uploads/image.jpg" oninput="syncPupImgPath(this.value)"></div>
+            </div>
             <div class="srow">
-              <div class="sfield"><label>Preis (leer = kein Preis)</label><input type="text" id="pup-price" placeholder="CHF 13.50"></div>
-              <div class="sfield"><label>Schliessen-Text</label><input type="text" id="pup-dismiss"></div>
+              <div class="sfield"><label>Price (leave empty to hide)</label><input type="text" id="pup-price" placeholder="CHF 13.50"></div>
+              <div class="sfield"><label>Dismiss text</label><input type="text" id="pup-dismiss"></div>
             </div>
             <div class="srow">
               <div class="sfield"><label>Button Text</label><input type="text" id="pup-btn-text"></div>
@@ -421,24 +435,24 @@
 
         <div class="s-card">
           <div class="s-card-hdr" onclick="toggleCard(this,'seo-bd')">
-            <span class="cicon">🔍</span><span class="ctitle">SEO — Suchmaschinenoptimierung</span><span class="ctoggle">▾</span>
+            <span class="cicon">🔍</span><span class="ctitle">SEO — Search Engine Optimization</span><span class="ctoggle">▾</span>
           </div>
           <div class="s-card-body" id="seo-bd">
-            <div class="sfield"><label>Site Titel (erscheint im Browser-Tab)</label><input type="text" id="seo-title" placeholder="FingerMTB — Mini Bikes · Big Tricks"></div>
-            <div class="sfield"><label>Meta Description (155 Zeichen, erscheint in Google)</label><textarea id="seo-desc" placeholder="3D-gedruckte Mini-MTBs und Fingerski aus der Schweiz. Handgemacht, für Tricks und Spaß."></textarea></div>
+            <div class="sfield"><label>Page Title (shown in browser tab)</label><input type="text" id="seo-title" placeholder="FingerMTB — Mini Bikes · Big Tricks"></div>
+            <div class="sfield"><label>Meta Description (155 chars, shown in Google)</label><textarea id="seo-desc" placeholder="3D-gedruckte Mini-MTBs und Fingerski aus der Schweiz. Handgemacht, für Tricks und Spaß."></textarea></div>
             <div class="srow">
-              <div class="sfield"><label>OG Image URL (für Social Media)</label><input type="text" id="seo-og-img" placeholder="https://brickj-mtb.netlify.app/v10/V10side1.JPEG"></div>
+              <div class="sfield"><label>OG Image URL (for social media)</label><input type="text" id="seo-og-img" placeholder="https://brickj-mtb.netlify.app/v10/V10side1.JPEG"></div>
               <div class="sfield"><label>Keywords</label><input type="text" id="seo-keywords" placeholder="finger mtb, fingerski, mini bike, 3d print"></div>
             </div>
             <div style="font-size:.68rem;color:var(--muted);padding:10px;background:var(--bg);border-radius:6px;line-height:1.6;">
-              💡 <strong style="color:var(--accent)">SEO Tipps:</strong> Die Description sollte das wichtigste Keyword enthalten und zum Klicken einladen. Google zeigt ~155 Zeichen. Keywords sind weniger wichtig als früher — guter Content zählt mehr.
+              💡 <strong style="color:var(--accent)">SEO Tips:</strong> Your description should include your main keyword and encourage clicks. Google shows ~155 characters. Keywords matter less nowadays — great content is what counts.
             </div>
           </div>
         </div>
 
         <div class="s-card">
           <div class="s-card-hdr" onclick="toggleCard(this,'trust-bd')">
-            <span class="cicon">🏅</span><span class="ctitle">Trust Badges (Produktseite)</span><span class="ctoggle">▾</span>
+            <span class="cicon">🏅</span><span class="ctitle">Trust Badges (Product Page)</span><span class="ctoggle">▾</span>
           </div>
           <div class="s-card-body" id="trust-bd">
             <div class="srow">
@@ -450,14 +464,14 @@
 
         <div class="s-card">
           <div class="s-card-hdr" onclick="toggleCard(this,'shop-bd')">
-            <span class="cicon">🛒</span><span class="ctitle">Shop-Seite Texte</span><span class="ctoggle">▾</span>
+            <span class="cicon">🛒</span><span class="ctitle">Shop-Show on Texte</span><span class="ctoggle">▾</span>
           </div>
           <div class="s-card-body" id="shop-bd">
             <div class="srow">
-              <div class="sfield"><label>Hero Titel</label><input type="text" id="s-shop-title"></div>
+              <div class="sfield"><label>Hero Title</label><input type="text" id="s-shop-title"></div>
               <div class="sfield"><label>Eyebrow</label><input type="text" id="s-shop-eyebrow"></div>
             </div>
-            <div class="sfield"><label>Untertitel</label><input type="text" id="s-shop-sub"></div>
+            <div class="sfield"><label>Subtitle</label><input type="text" id="s-shop-sub"></div>
           </div>
         </div>
 
@@ -467,41 +481,50 @@
           </div>
           <div class="s-card-body" id="footer-bd">
             <div class="srow">
-              <div class="sfield"><label>Zeile 1</label><input type="text" id="s-ft1"></div>
-              <div class="sfield"><label>Zeile 2</label><input type="text" id="s-ft2"></div>
+              <div class="sfield"><label>Line 1</label><input type="text" id="s-ft1"></div>
+              <div class="sfield"><label>Line 2</label><input type="text" id="s-ft2"></div>
             </div>
           </div>
         </div>
 
       </div>
       <div class="save-bar">
-        <span class="save-info">Lokal gespeichert → Publizieren um es live zu stellen.</span>
-        <button class="btn-p" onclick="saveSiteConfig()">💾 SPEICHERN</button>
+        <span class="save-info">Lokal gespeichert → Publish um es live zu stellen.</span>
+        <button class="btn-p" onclick="saveSiteConfig()">💾 SAVE</button>
       </div>
     </div>
 
     <!-- ══ TAB: EXPORT ══ -->
     <div id="tab-export" class="tab-section">
       <div class="export-box" style="border-color:var(--accent)">
-        <div class="export-title" style="color:var(--accent)">🚀 Auf Website publizieren</div>
-        <div class="export-desc">Pusht <code>products.js</code> zu GitHub → Netlify deployed automatisch (~30 Sek).</div>
+        <div class="export-title" style="color:var(--accent)">🚀 Publish to Website</div>
+        <div class="export-desc">Pushes <code>products.js</code> to GitHub → Netlify auto-deploys (~30 sec).</div>
         <div id="pubStatus" style="display:none;padding:11px 15px;border-radius:6px;font-size:.76rem;margin-bottom:14px;"></div>
         <div id="pubProgress" style="display:none;margin-bottom:14px;">
           <div style="font-size:.62rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:7px;">Deploy</div>
           <div id="pubSteps" style="display:flex;flex-direction:column;gap:4px;"></div>
         </div>
-        <button class="btn-p" id="pubBtn" onclick="publishToGitHub()" style="font-size:1rem;padding:12px 28px;">🚀 JETZT PUBLIZIEREN</button>
-        &nbsp;<button class="btn-s" onclick="downloadJS()">⬇ Als Datei</button>
+        <button class="btn-p" id="pubBtn" onclick="publishToGitHub()" style="font-size:1rem;padding:12px 28px;">🚀 JETZT PUBLISH</button>
+        &nbsp;<button class="btn-s" onclick="downloadJS()">⬇ Download</button>
       </div>
       <div class="export-box">
-        <div class="export-title">Vorschau products.js</div>
+        <div class="export-title">Preview — products.js</div>
         <div class="code-block" id="exportCode"></div>
-        <button class="btn-s" onclick="copyExport()">KOPIEREN</button>
+        <button class="btn-s" onclick="copyExport()">COPY</button>
       </div>
       <div class="export-box">
-        <div class="export-title">⚠️ Zurücksetzen</div>
-        <div class="export-desc">Löscht alle lokalen Änderungen unwiderruflich.</div>
-        <button class="btn-d" onclick="resetData()">ALLES ZURÜCKSETZEN</button>
+        <div class="export-title">🔔 Notification Requests</div>
+        <div class="export-desc">Email addresses collected from sold-out product notification forms.</div>
+        <div class="code-block" id="notifyList" style="max-height:120px">No requests yet.</div>
+        <button class="btn-s" onclick="loadNotifications()">Refresh</button>
+        &nbsp;<button class="btn-s" onclick="copyNotifications()">Copy CSV</button>
+        &nbsp;<button class="btn-d" onclick="clearNotifications()">Clear All</button>
+      </div>
+
+      <div class="export-box">
+        <div class="export-title">⚠️ Reset Data</div>
+        <div class="export-desc">Permanently deletes all local changes.</div>
+        <button class="btn-d" onclick="resetData()">RESET EVERYTHING</button>
       </div>
     </div>
 
@@ -512,52 +535,52 @@
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-hdr">
-      <div class="modal-title" id="modalTitle">NEUES PRODUKT</div>
+      <div class="modal-title" id="modalTitle">NEW PRODUCT</div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
       <div class="fr">
-        <div class="fg" style="grid-column:span 2"><label>Produktname *</label><input type="text" id="fName" placeholder="z.B. BrickJ_MTB V10"></div>
+        <div class="fg" style="grid-column:span 2"><label>Product Name *</label><input type="text" id="fName" placeholder="z.B. BrickJ_MTB V10"></div>
       </div>
       <div class="fr">
-        <div class="fg"><label>Kategorie</label>
+        <div class="fg"><label>Category</label>
           <select id="fCat"><option value="mtb">MTB</option><option value="ski">Ski</option><option value="obstacle">Obstacle</option><option value="kit">Kit</option></select>
         </div>
         <div class="fg"><label>Status</label>
-          <select id="fStat"><option value="available">Verfügbar</option><option value="sold-out">Ausverkauft</option><option value="soon">Bald</option></select>
+          <select id="fStat"><option value="available">Available</option><option value="sold-out">Sold Out</option><option value="soon">Coming Soon</option></select>
         </div>
       </div>
 
-      <div class="fsec">Preise</div>
+      <div class="fsec">Pricing</div>
       <div class="fr">
-        <div class="fg"><label>Preis USD</label><input type="number" id="fUSD" placeholder="0.00" min="0" step="0.01"></div>
-        <div class="fg"><label>Preis CHF</label><input type="number" id="fCHF" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="fg"><label>Price USD</label><input type="number" id="fUSD" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="fg"><label>Price CHF</label><input type="number" id="fCHF" placeholder="0.00" min="0" step="0.01"></div>
       </div>
       <div class="fr">
-        <div class="fg"><label>Preis EUR</label><input type="number" id="fEUR" placeholder="0.00" min="0" step="0.01"></div>
-        <div class="fg"><label>Lagerbestand</label><input type="number" id="fStock" placeholder="0" min="0"></div>
+        <div class="fg"><label>Price EUR</label><input type="number" id="fEUR" placeholder="0.00" min="0" step="0.01"></div>
+        <div class="fg"><label>Stock</label><input type="number" id="fStock" placeholder="0" min="0"></div>
       </div>
 
-      <div class="fsec">Kauflink</div>
+      <div class="fsec">Buy Link</div>
       <div class="fg"><label>Button Text</label><input type="text" id="fLabel" placeholder="Buy on Ricardo"></div>
-      <div class="fg"><label>Button Link (URL)</label><input type="text" id="fLink" placeholder="https://www.ricardo.ch/..."><div class="fhint">Leer = Button deaktiviert</div></div>
+      <div class="fg"><label>Button Link (URL)</label><input type="text" id="fLink" placeholder="https://www.ricardo.ch/..."><div class="fhint">Leave empty = button disabled</div></div>
 
-      <div class="fsec">Inhalt</div>
-      <div class="fg"><label>Beschreibung</label><textarea id="fDesc" placeholder="Kurze Produktbeschreibung…"></textarea></div>
-      <div class="fg"><label>Specs (eine pro Zeile)</label><textarea id="fSpecs" placeholder="Includes: 2x Fingerskis&#10;Color: Blue&#10;Material: PLA"></textarea><div class="fhint">Jede Zeile = ein Listenpunkt</div></div>
-      <div class="fg"><label>Hinweis</label><input type="text" id="fNote" placeholder="z.B. Ships within Switzerland only"></div>
+      <div class="fsec">Content</div>
+      <div class="fg"><label>Description</label><textarea id="fDesc" placeholder="Kurze Produktbeschreibung…"></textarea></div>
+      <div class="fg"><label>Specs (one per line)</label><textarea id="fSpecs" placeholder="Includes: 2x Fingerskis&#10;Color: Blue&#10;Material: PLA"></textarea><div class="fhint">Each line becomes a bullet point</div></div>
+      <div class="fg"><label>Note</label><input type="text" id="fNote" placeholder="e.g. Ships within Switzerland only"></div>
 
-      <div class="fsec">Bilder</div>
+      <div class="fsec">Images</div>
       <div class="img-dropzone" id="imgDropzone">
         <input type="file" id="imgFileInput" accept="image/*" multiple onchange="handleFileInput(event)">
-        <div class="img-dropzone-text">📸 Bilder hierher ziehen oder <strong>klicken zum Auswählen</strong><br><span style="font-size:.65rem;opacity:.6">JPG, PNG, WebP — aus jedem Ordner</span></div>
+        <div class="img-dropzone-text">📸 Images hierher ziehen oder <strong>klicken zum Auswählen</strong><br><span style="font-size:.65rem;opacity:.6">JPG, PNG, WebP — aus jedem Ordner</span></div>
       </div>
       <div class="img-preview-grid" id="imgPreviewGrid"></div>
-      <div class="fhint" style="margin-top:6px">Das erste Bild ist das Hauptbild. Beim Publizieren werden neue Bilder zu GitHub hochgeladen.</div>
+      <div class="fhint" style="margin-top:6px">Das erste Bild ist das Hauptbild. Beim Publish werden neue Images zu GitHub hochgeladen.</div>
     </div>
     <div class="modal-ftr">
-      <button class="btn-s" onclick="closeModal()">Abbrechen</button>
-      <button class="btn-p" onclick="saveProduct()">SPEICHERN</button>
+      <button class="btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn-p" onclick="saveProduct()">SAVE</button>
     </div>
   </div>
 </div>
@@ -615,11 +638,11 @@ function switchTab(tab, el) {
   document.querySelectorAll('.sb-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
   el.classList.add('active');
-  const lbl = {products:'PRODUKTE',layout:'LAYOUT',site:'WEBSITE',export:'PUBLIZIEREN'};
+  const lbl = {products:'PRODUCTS',layout:'LAYOUT',site:'WEBSITE',export:'PUBLISH'};
   document.getElementById('pageTitle').textContent = lbl[tab]||tab.toUpperCase();
   if (tab==='layout') renderLayout();
   if (tab==='site') loadSiteForm();
-  if (tab==='export') document.getElementById('exportCode').textContent = buildJS().substring(0,3000)+'\n…';
+  if (tab==='export') { document.getElementById('exportCode').textContent=buildJS().substring(0,3000)+'\n…'; loadNotifications(); }
 }
 
 // ═══════════════════════════════════════════════
@@ -636,7 +659,7 @@ function renderTable() {
   tbody.innerHTML = '';
   filtered.forEach(p=>{
     const sb = {available:'ba','sold-out':'bs',soon:'bn'}[p.status]||'';
-    const sl = {available:'Verfügbar','sold-out':'Ausverkauft',soon:'Bald'}[p.status]||p.status;
+    const sl = {available:'Available','sold-out':'Sold Out',soon:'Coming Soon'}[p.status]||p.status;
     const cb = {mtb:'bmtb',ski:'bski',obstacle:'bobs',kit:'bkit'}[p.category]||'';
     const lnk = p.etsyLink
       ? `<span style="color:var(--success);font-size:.7rem">${p.etsyLabel||'Link'} ✓</span>`
@@ -649,8 +672,8 @@ function renderTable() {
       <td>${lnk}</td>
       <td><span class="badge ${sb}">${sl}</span></td>
       <td><div class="actions">
-        <button class="btn-s" onclick="openModal('${p.id}')">Bearbeiten</button>
-        <button class="btn-d" onclick="deleteProduct('${p.id}')">Löschen</button>
+        <button class="btn-s" onclick="openModal('${p.id}')">Edit</button>
+        <button class="btn-d" onclick="deleteProduct('${p.id}')">Delete</button>
       </div></td>`;
     tbody.appendChild(tr);
   });
@@ -665,7 +688,7 @@ function renderTable() {
 // ═══════════════════════════════════════════════
 function openModal(id) {
   editingId = id||null;
-  document.getElementById('modalTitle').textContent = id ? 'PRODUKT BEARBEITEN' : 'NEUES PRODUKT';
+  document.getElementById('modalTitle').textContent = id ? 'EDIT PRODUCT' : 'NEW PRODUCT';
   const p = id ? products.find(x=>x.id===id) : null;
   document.getElementById('fName').value  = p?.name        ?? '';
   document.getElementById('fCat').value   = p?.category    ?? 'ski';
@@ -779,11 +802,11 @@ function saveProduct() {
   if (editingId) {
     const idx = products.findIndex(p=>p.id===editingId);
     products[idx] = {...products[idx], ...data};
-    showToast('Produkt aktualisiert ✓');
+    showToast('Product updated ✓');
   } else {
     const newId = name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     products.push({id:newId,...data});
-    showToast('Produkt hinzugefügt ✓');
+    showToast('Product added ✓');
   }
   saveProds(products);
   closeModal();
@@ -791,11 +814,11 @@ function saveProduct() {
 }
 
 function deleteProduct(id) {
-  if (!confirm('Wirklich löschen?')) return;
+  if (!confirm('Really delete this product?')) return;
   products = products.filter(p=>p.id!==id);
   saveProds(products);
   renderTable();
-  showToast('Gelöscht');
+  showToast('Deleted');
 }
 
 // ═══════════════════════════════════════════════
@@ -853,7 +876,7 @@ function renderLayout() {
         products.splice(toIdx,0,moved);
         saveProds(products);
         renderLayout();
-        showToast('Reihenfolge gespeichert');
+        showToast('Order saved');
       }
     });
     list.appendChild(div);
@@ -875,12 +898,12 @@ function saveFeatured() {
   const ex = JSON.parse(localStorage.getItem('fm_cfg')||'{}');
   ex.featuredIds = ids;
   localStorage.setItem('fm_cfg', JSON.stringify(ex));
-  showToast('Featured gespeichert ✓');
+  showToast('Featured saved ✓');
 }
 
 function saveShopOrder() {
   saveProds(products);
-  showToast('Reihenfolge gespeichert ✓');
+  showToast('Order saved ✓');
 }
 
 // ═══════════════════════════════════════════════
@@ -904,6 +927,14 @@ function loadSiteForm() {
   document.getElementById('pup-sub').value      = cfg.popup?.subtitle||'';
   document.getElementById('pup-body').value     = cfg.popup?.body||'';
   document.getElementById('pup-img').value      = cfg.popup?.image||'';
+  if (cfg.popup?.image) {
+    const pt=document.getElementById('pupImgThumb');
+    const pp=document.getElementById('pupImgPreview');
+    const pn=document.getElementById('pupImgName');
+    if(pt){pt.src=cfg.popup.image;}
+    if(pp){pp.style.display='';}
+    if(pn){pn.textContent=cfg.popup.image;}
+  }
   document.getElementById('pup-price').value    = cfg.popup?.price||'';
   document.getElementById('pup-btn-text').value = cfg.popup?.buttonText||'';
   document.getElementById('pup-btn-link').value = cfg.popup?.buttonLink||'';
@@ -977,7 +1008,7 @@ function saveSiteConfig() {
       title: document.getElementById('pup-title').value,
       subtitle: document.getElementById('pup-sub').value,
       body: document.getElementById('pup-body').value,
-      image: document.getElementById('pup-img').value,
+      image: document.getElementById('pup-img').value||(window._pupImgPath||''),
       price: document.getElementById('pup-price').value,
       buttonText: document.getElementById('pup-btn-text').value,
       buttonLink: document.getElementById('pup-btn-link').value,
@@ -1027,7 +1058,7 @@ function saveSiteConfig() {
   // hero image
   cfg.hero.image = document.getElementById('s-hero-img').value || (window._heroImgPath||cfg.hero?.image||'');
   saveCfgStore(cfg);
-  showToast('Gespeichert ✓');
+  showToast('Saved ✓');
 }
 
 // ═══════════════════════════════════════════════
@@ -1057,7 +1088,7 @@ function showToast(msg, isErr=false) {
 }
 
 function copyExport() {
-  navigator.clipboard.writeText(buildJS()).then(()=>showToast('Kopiert ✓')).catch(()=>showToast('Fehler',true));
+  navigator.clipboard.writeText(buildJS()).then(()=>showToast('Copied ✓')).catch(()=>showToast('Error',true));
 }
 
 function downloadJS() {
@@ -1066,9 +1097,9 @@ function downloadJS() {
 }
 
 function resetData() {
-  if (!confirm('ACHTUNG: Alle lokalen Änderungen werden gelöscht!')) return;
+  if (!confirm('WARNING: All local changes will be deleted!')) return;
   localStorage.removeItem('fm_prods'); localStorage.removeItem('fm_cfg');
-  products = getProds(); renderTable(); showToast('Zurückgesetzt');
+  products = getProds(); renderTable(); showToast('Reset');
 }
 
 // ═══════════════════════════════════════════════
@@ -1130,12 +1161,12 @@ async function publishToGitHub() {
 
   try {
     // Token
-    const s1=addStep('Token laden…');
+    const s1=addStep('Loading token…');
     const cr=await fetch('/.netlify/functions/github-config');
-    if (!cr.ok) throw new Error('Netlify Function nicht erreichbar');
+    if (!cr.ok) throw new Error('Netlify Function unreachable');
     const {token,repo}=await cr.json();
-    if (!token||!repo) throw new Error('GITHUB_TOKEN oder GITHUB_REPO fehlt');
-    s1.textContent='✓ Token geladen'; s1.style.color='var(--success)';
+    if (!token||!repo) throw new Error('GITHUB_TOKEN or GITHUB_REPO missing');
+    s1.textContent='✓ Token loaded'; s1.style.color='var(--success)';
 
     const [owner,repoName]=repo.split('/');
 
@@ -1154,9 +1185,9 @@ async function publishToGitHub() {
             body:JSON.stringify({message:`upload: ${img.path}`,content:b64,...(sha?{sha}:{})})
           });
           uploaded++;
-        } catch(e){ console.warn('Bild-Upload Fehler',img.path,e); }
+        } catch(e){ console.warn('Bild-Upload Error',img.path,e); }
       }
-      s2.textContent=`✓ ${uploaded}/${pending.length} Bilder hochgeladen`; s2.style.color='var(--success)';
+      s2.textContent=`✓ ${uploaded}/${pending.length} Images hochgeladen`; s2.style.color='var(--success)';
       // Clear pending
       const ex=JSON.parse(localStorage.getItem('fm_cfg')||'{}');
       delete ex.pendingUploads; localStorage.setItem('fm_cfg',JSON.stringify(ex));
@@ -1166,27 +1197,27 @@ async function publishToGitHub() {
     const s3=addStep('products.js generieren…');
     const content=buildJS(); s3.textContent='✓ Generiert'; s3.style.color='var(--success)';
 
-    const s4=addStep('SHA holen…');
+    const s4=addStep('Getting SHA…');
     const gr=await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,{headers:{Authorization:`Bearer ${token}`,Accept:'application/vnd.github+json'}});
     if (!gr.ok) throw new Error(`GitHub ${gr.status}`);
     const {sha}=await gr.json(); s4.textContent='✓ SHA geladen'; s4.style.color='var(--success)';
 
-    const s5=addStep('Pushen…');
+    const s5=addStep('Pushing…');
     const pr=await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/products.js`,{
       method:'PUT',headers:{Authorization:`Bearer ${token}`,Accept:'application/vnd.github+json','Content-Type':'application/json'},
       body:JSON.stringify({message:`admin: update ${new Date().toLocaleString('de-CH')}`,content:btoa(unescape(encodeURIComponent(content))),sha})
     });
     if (!pr.ok){const e=await pr.json();throw new Error(e.message);}
-    s5.textContent='✓ Gepusht!'; s5.style.color='var(--success)';
-    addStep('Netlify deployed in ~30 Sek…',true);
-    setStatus('✓ Erfolgreich! Website aktualisiert sich in ~30 Sekunden.');
-    showToast('Gepusht ✓');
+    s5.textContent='✓ Pushed!'; s5.style.color='var(--success)';
+    addStep('Netlify deploying in ~30 sec…',true);
+    setStatus('✓ Success! Website will update in ~30 seconds.');
+    showToast('Pushed ✓');
 
   } catch(e) {
     addStep(e.message,false,true);
-    setStatus('Fehler: '+e.message,false);
-    showToast('Fehler',true);
-  } finally { btn.disabled=false; btn.textContent='🚀 JETZT PUBLIZIEREN'; }
+    setStatus('Error: '+e.message,false);
+    showToast('Error',true);
+  } finally { btn.disabled=false; btn.textContent='🚀 JETZT PUBLISH'; }
 }
 
 // ═══════════════════════════════════════════════
@@ -1286,16 +1317,16 @@ function renderReviewsList(items){
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
         <div><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Name</label>
           <input style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:6px 10px;border-radius:5px;outline:none" value="${rev.name||''}" onchange="updateReview(${i},'name',this.value)"></div>
-        <div><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Stars (1-5)</label>
+        <div><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Stars (1–5)</label>
           <select style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:6px 10px;border-radius:5px;outline:none" onchange="updateReview(${i},'stars',parseInt(this.value))">
             ${[5,4,3,2,1].map(n=>`<option value="${n}"${rev.stars===n?' selected':''}>${'★'.repeat(n)}</option>`).join('')}
           </select></div>
       </div>
-      <div style="margin-bottom:8px"><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Bewertungstext</label>
+      <div style="margin-bottom:8px"><label style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Review Text</label>
         <textarea style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:6px 10px;border-radius:5px;outline:none;min-height:56px;resize:vertical" onchange="updateReview(${i},'text',this.value)">${rev.text||''}</textarea></div>
       <div style="display:flex;align-items:center;justify-content:space-between">
-        <input style="background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:Inter,sans-serif;font-size:.75rem;padding:5px 9px;border-radius:5px;outline:none;width:160px" placeholder="Produkt (optional)" value="${rev.product||''}" onchange="updateReview(${i},'product',this.value)">
-        <button class="btn-d" style="padding:4px 12px;font-size:.7rem" onclick="removeReview(${i})">Löschen</button>
+        <input style="background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:Inter,sans-serif;font-size:.75rem;padding:5px 9px;border-radius:5px;outline:none;width:160px" placeholder="Product (optional)" value="${rev.product||''}" onchange="updateReview(${i},'product',this.value)">
+        <button class="btn-d" style="padding:4px 12px;font-size:.7rem" onclick="removeReview(${i})">Delete</button>
       </div>`;
     list.appendChild(div);
   });
@@ -1322,6 +1353,113 @@ function loadSiteForm(){
   const cfg=getCfg();
   _reviews = JSON.parse(JSON.stringify(cfg.reviews?.items||[]));
   renderReviewsList(_reviews);
+}
+
+// ═══════════════════════════════════════════════
+// POPUP IMAGE UPLOAD
+// ═══════════════════════════════════════════════
+const pupDropEl = document.getElementById('pupImgDrop');
+if (pupDropEl) {
+  pupDropEl.addEventListener('dragover', e=>{e.preventDefault();pupDropEl.classList.add('over');});
+  pupDropEl.addEventListener('dragleave', ()=>pupDropEl.classList.remove('over'));
+  pupDropEl.addEventListener('drop', e=>{
+    e.preventDefault();pupDropEl.classList.remove('over');
+    const f=e.dataTransfer.files[0];
+    if(f&&f.type.startsWith('image/')) processPupFile(f);
+  });
+  // Touch support
+  pupDropEl.addEventListener('touchend', ()=>document.getElementById('pupImgInput').click());
+}
+
+function handlePupImg(e){const f=e.target.files[0];if(f)processPupFile(f);}
+function syncPupImgPath(val){
+  if(!val){document.getElementById('pupImgPreview').style.display='none';return;}
+  document.getElementById('pupImgThumb').src=val;
+  document.getElementById('pupImgPreview').style.display='';
+  document.getElementById('pupImgName').textContent=val;
+}
+
+function processPupFile(file){
+  const safe=file.name.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9._-]/g,'');
+  const path=`uploads/popup-${safe}`;
+  const r=new FileReader();
+  r.onload=ev=>{
+    window._pupImgPath=path;
+    document.getElementById('pupImgThumb').src=ev.target.result;
+    document.getElementById('pupImgPreview').style.display='';
+    document.getElementById('pupImgName').textContent=path;
+    document.getElementById('pup-img').value=path;
+    const ex=JSON.parse(localStorage.getItem('fm_cfg')||'{}');
+    ex.pendingUploads=ex.pendingUploads||[];
+    ex.pendingUploads=ex.pendingUploads.filter(u=>!u.path.startsWith('uploads/popup-'));
+    ex.pendingUploads.push({path,dataURL:ev.target.result});
+    localStorage.setItem('fm_cfg',JSON.stringify(ex));
+  };
+  r.readAsDataURL(file);
+}
+
+function clearPupImg(){
+  window._pupImgPath=null;
+  document.getElementById('pupImgPreview').style.display='none';
+  document.getElementById('pup-img').value='';
+  document.getElementById('pupImgInput').value='';
+}
+
+// ═══════════════════════════════════════════════
+// TOUCH SUPPORT FOR ALL DROPZONES
+// ═══════════════════════════════════════════════
+function addTouchToDropzone(dropId, inputId) {
+  const drop = document.getElementById(dropId);
+  const input = document.getElementById(inputId);
+  if (!drop || !input) return;
+  // On mobile tap = open file picker
+  drop.addEventListener('touchend', e=>{
+    e.preventDefault();
+    input.click();
+  });
+}
+addTouchToDropzone('imgDropzone','imgFileInput');
+addTouchToDropzone('heroImgDrop','heroImgInput');
+addTouchToDropzone('sizeImgDrop','sizeImgInput');
+
+// ═══════════════════════════════════════════════
+// PREFILL — load defaults from SITE_CONFIG
+// ═══════════════════════════════════════════════
+// Override loadSiteForm to also prefill popup image preview
+const _basLoadSiteForm = loadSiteForm;
+loadSiteForm = function() {
+  _basLoadSiteForm();
+  const cfg = getCfg();
+  // Popup image preview
+  if (cfg.popup?.image) {
+    document.getElementById('pupImgThumb').src = cfg.popup.image;
+    document.getElementById('pupImgPreview').style.display = '';
+    document.getElementById('pupImgName').textContent = cfg.popup.image;
+  }
+};
+
+// ═══════════════════════════════════════════════
+// NOTIFICATIONS
+// ═══════════════════════════════════════════════
+function loadNotifications() {
+  const list = JSON.parse(localStorage.getItem('fm_notify')||'[]');
+  const el = document.getElementById('notifyList');
+  if (!el) return;
+  if (!list.length) { el.textContent='No requests yet.'; return; }
+  el.textContent = 'Email,Product,Date\n' +
+    list.map(n=>`${n.email},${n.productName||n.productId},${n.date||''}`).join('\n');
+}
+function copyNotifications() {
+  const list=JSON.parse(localStorage.getItem('fm_notify')||'[]');
+  if(!list.length){showToast('No notifications yet',true);return;}
+  const csv='Email,Product,Date\n'+list.map(n=>`${n.email},${n.productName||n.productId},${n.date||''}`).join('\n');
+  navigator.clipboard.writeText(csv).then(()=>showToast('Copied as CSV ✓')).catch(()=>showToast('Copy failed',true));
+}
+function clearNotifications() {
+  if(!confirm('Clear all notification requests?')) return;
+  localStorage.removeItem('fm_notify');
+  loadNotifications();
+  showToast('Cleared');
 }
 
 // INIT
