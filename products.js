@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generiert: 4.3.2026, 16:30:58
+// Generiert: 4.3.2026, 17:52:21
 
 const PRODUCTS = [
   {
@@ -11,8 +11,8 @@ const PRODUCTS = [
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
-    "etsyLabel": "Buy on Ricardo.ch",
+    "etsyLink": "",
+    "etsyLabel": "Buy Now",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
     "specs": [
@@ -355,11 +355,11 @@ const SITE_CONFIG = {
     "title": "",
     "subtitle": "",
     "body": "",
-    "image": "",
-    "buttonText": "",
-    "buttonLink": "",
-    "dismissText": "",
-    "price": ""
+    "image": "uploads/popup-fingerski-set-pink_3.jpg",
+    "buttonText": "Buy now on Ricardo.ch",
+    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
+    "dismissText": "close",
+    "price": "CHF 15.00"
   },
   "shop": {
     "heroTitle": "",
@@ -385,7 +385,7 @@ const SITE_CONFIG = {
     "enabled": true,
     "instagram": "",
     "tiktok": "",
-    "youtube": "https://www.youtube.com/@Brickj-fb",
+    "youtube": "",
     "position": "both"
   },
   "reviews": {
@@ -394,7 +394,7 @@ const SITE_CONFIG = {
   },
   "notify": {
     "enabled": true,
-    "buttonText": "Benachrichtige mich"
+    "buttonText": "Notify me when available"
   },
   "sizeref": {
     "enabled": true,
