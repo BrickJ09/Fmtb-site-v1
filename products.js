@@ -1,12 +1,12 @@
 // products.js — FingerMTB Admin
-// Generiert: 5.3.2026, 11:24:27
+// Generated: 05.03.2026, 11:56:11
 
 const PRODUCTS = [
   {
     "id": "fingerski-set-pro",
     "name": "Fingerski Set Pro Blue",
     "category": "ski",
-    "status": "available",
+    "status": "sold-out",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
@@ -351,12 +351,12 @@ const SITE_CONFIG = {
   "popup": {
     "enabled": true,
     "page": "index",
-    "delay": 0,
-    "title": "Fingerski starterset - pink",
+    "delay": 2000,
+    "title": "Fingerski starterset - tube rail | pink",
     "subtitle": "",
-    "body": "including 1 pair of fingerskis, 1 tube rail, 1 parkshaper tool",
-    "image": "uploads/popup-fingerski-set-pink_4.jpg",
-    "buttonText": "Buy now on Ricardo.ch ",
+    "body": "Starterset with 1 pair of fingerskiis + 1 park shaper tool + 1 flat tube rail",
+    "image": "uploads/fingerski-set-pink.jpg",
+    "buttonText": "Buy now on Ricardo.ch",
     "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
     "dismissText": "Close",
     "price": "CHF 15.00"
@@ -405,16 +405,5 @@ const SITE_CONFIG = {
 };
 
 const LEGACY_MAP = {
-  'V10.html':                   'v10',
-  'Pink_bike_productpage.html': 'sender',
-  'FingerskiV2_blue.html':      'fingerski-v2-blue',
-  'FingerkiV2_pink.html':       'fingerski-v2-pink',
-  'FingerskiV2_black.html':     'fingerski-v2-pink',
-  'kinkrail_blue.html':         'kinkrail-blue',
-  'kinkrail_pink.html':         'kinkrail-pink',
-  'kinkrail_black.html':        'kinkrail-black',
-  'fingerski_starterset.html':  'fingerski-starter-set',
-  'mtb_rollin.html':            'rollin',
-  'mtb_kicker.html':            'hardline-kicker',
-  'Session-9.html':             'session-9',
+  'V10.html':'v10','Pink_bike_productpage.html':'sender','FingerskiV2_blue.html':'fingerski-v2-blue','FingerkiV2_pink.html':'fingerski-v2-pink','FingerskiV2_black.html':'fingerski-v2-pink','kinkrail_blue.html':'kinkrail-blue','kinkrail_pink.html':'kinkrail-pink','kinkrail_black.html':'kinkrail-black','fingerski_starterset.html':'fingerski-starter-set','mtb_rollin.html':'rollin','mtb_kicker.html':'hardline-kicker','Session-9.html':'session-9',
 };
