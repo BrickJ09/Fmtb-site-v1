@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generiert: 4.3.2026, 18:27:27
+// Generiert: 5.3.2026, 08:15:35
 
 const PRODUCTS = [
   {
@@ -337,32 +337,31 @@ const PRODUCTS = [
   }
 ];
 
-const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-pink"];
+const FEATURED_IDS = ["fingerski-starterset-flat-tube-rail-pink"];
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "",
+    "title": "Ride small   Dream big",
     "subtitle": "",
-    "badge": "",
-    "buttonText": "",
-    "buttonLink": "",
-    "image": ""
+    "badge": "Handmade in Switzerland",
+    "buttonText": "shop now",
+    "buttonLink": "/shop.html"
   },
   "popup": {
     "enabled": true,
     "page": "index",
-    "delay": 0,
-    "title": "",
+    "delay": 2000,
+    "title": "Fingerski pro set now available",
     "subtitle": "",
-    "body": "",
-    "image": "uploads/popup-fingerski-set-pink_3.jpg",
-    "buttonText": "Buy now on Ricardo.ch",
-    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
-    "dismissText": "close",
-    "price": "CHF 15.00"
+    "body": "Including Fingerskis + 1 Tube Rail + 1 park shaper tool + 1 indoor kicker",
+    "image": "uploads\\fingerski-set_view_img.jpg",
+    "buttonText": "Buy on Ricardo.ch",
+    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-1312438968/",
+    "dismissText": "Close",
+    "price": "CHF 20.00"
   },
   "shop": {
-    "heroTitle": "",
+    "heroTitle": "Finger",
     "heroEyebrow": "",
     "heroSub": ""
   },
@@ -371,36 +370,15 @@ const SITE_CONFIG = {
     "shipping": ""
   },
   "footer": {
-    "line1": "",
-    "line2": "",
+    "line1": "This website was coded by me",
+    "line2": "Made in switzerland",
     "privacyText": "Your Privacy matters"
   },
   "seo": {
-    "title": "",
-    "description": "",
+    "title": "BrickJ-MTB — 3D Printed Mini MTB & Fingerski from Switzerland",
+    "description": "3D printed Finger MTB and Fingerski from Switzerland. Handmade mini bikes built for tricks, creativity and serious fun.",
     "ogImage": "",
-    "keywords": ""
-  },
-  "social": {
-    "enabled": true,
-    "instagram": "",
-    "tiktok": "",
-    "youtube": "",
-    "position": "both"
-  },
-  "reviews": {
-    "enabled": true,
-    "items": []
-  },
-  "notify": {
-    "enabled": true,
-    "buttonText": "Notify me when available"
-  },
-  "sizeref": {
-    "enabled": true,
-    "title": "",
-    "text": "",
-    "image": ""
+    "keywords": "finger mtb, finger mountain bike, fingerski, 3d printed mini bike, mini mtb, finger bike tricks, handmade finger bike"
   }
 };
 
