@@ -147,12 +147,12 @@
         buySection = `
           <div class="buy-btn buy-btn--disabled">${badgeLabel}</div>
           <div class="notify-box" id="notifyBox">
-            <p class="notify-label">🔔 ${cfg.notify?.buttonText||'Benachrichtige mich wenn verfügbar'}</p>
+            <p class="notify-label">🔔 ${cfg.notify?.buttonText||'Notify me when available'}</p>
             <div class="notify-form">
-              <input type="email" class="notify-input" id="notifyEmail" placeholder="deine@email.com">
-              <button class="notify-btn" onclick="submitNotify('${product.id}','${product.name}')">Senden</button>
+              <input type="email" class="notify-input" id="notifyEmail" placeholder="your@email.com">
+              <button class="notify-btn" onclick="submitNotify('${product.id}','${product.name}')">Notify me</button>
             </div>
-            <p class="notify-sent" id="notifySent" style="display:none">✓ Du wirst benachrichtigt!</p>
+            <p class="notify-sent" id="notifySent" style="display:none">✓ You'll be notified when it's back!</p>
           </div>`;
       } else {
         buySection = `<div class="buy-btn buy-btn--disabled">${badgeLabel}</div>`;
@@ -232,13 +232,32 @@
     })();
 
     // Notify submit — sends to Google Forms
-    async function submitNotify(productId, productName) {
+    function submitNotify(productId, productName) {
       const email = document.getElementById('notifyEmail')?.value?.trim();
-      if(!email || !email.includes('@')) { alert('Bitte gültige Email eingeben'); return; }
-      // Store locally and try to send
+      if(!email || !email.includes('@')) { alert('Please enter a valid email address'); return; }
+
+      // Save locally so admin can see it
       const notifications = JSON.parse(localStorage.getItem('fm_notify')||'[]');
       notifications.push({email, productId, productName, date: new Date().toISOString()});
       localStorage.setItem('fm_notify', JSON.stringify(notifications));
+
+      // Send notification email to shop owner via mailto
+      const subject = encodeURIComponent(`Restock request: ${productName}`);
+      const body = encodeURIComponent(
+        `Someone wants to be notified when ${productName} is back in stock.
+
+Email: ${email}
+Product: ${productName}
+Date: ${new Date().toLocaleString()}`
+      );
+      // Opens email app silently in background via hidden iframe
+      const link = `mailto:jami.brick@gmail.com?subject=${subject}&body=${body}`;
+      const iframe = document.createElement('iframe');
+      iframe.style.display='none';
+      iframe.src=link;
+      document.body.appendChild(iframe);
+      setTimeout(()=>iframe.remove(), 3000);
+
       document.getElementById('notifySent').style.display='block';
       document.getElementById('notifyBox').querySelector('.notify-form').style.display='none';
     }

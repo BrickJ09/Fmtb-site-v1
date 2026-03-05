@@ -944,7 +944,12 @@
     };
     if(editingId){
       const idx=products.findIndex(p=>p.id===editingId);
+      const oldStatus=products[idx].status;
       products[idx]={...products[idx],...data};
+      // If status changed TO available → offer to notify waitlist
+      if(oldStatus!=='available' && data.status==='available'){
+        checkAndNotifyWaitlist(data.name, products[idx].etsyLink||'#');
+      }
       showToast('Product updated ✓');
     } else {
       const newId=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -1298,6 +1303,33 @@
     }catch(e){
       addStep(e.message,false,true);setStatus('Error: '+e.message,false);showToast('Push failed',true);
     }finally{btn.disabled=false;btn.textContent='🚀 PUBLISH NOW';}
+  }
+
+  // ═══════════════════════════════════════════════
+  // NOTIFY WAITLIST
+  // ═══════════════════════════════════════════════
+  function checkAndNotifyWaitlist(productName, buyLink) {
+    const list = JSON.parse(localStorage.getItem('fm_notify')||'[]');
+    const waiting = list.filter(n => n.productName === productName || n.productId === productName.toLowerCase().replace(/[^a-z0-9]+/g,'-'));
+    if (!waiting.length) return;
+    const emails = waiting.map(n=>n.email).join(',');
+    const subject = encodeURIComponent(`${productName} is back in stock! 🎉`);
+    const body = encodeURIComponent(
+      `Hi there!
+
+${productName} is now back in stock on FingerMTB.
+
+Buy it here: ${buyLink}
+
+Thanks for your patience!
+BrickJ_mtb`
+    );
+    const confirmed = confirm(`${waiting.length} person(s) are waiting for "${productName}".
+
+Open email to notify them now?`);
+    if (confirmed) {
+      window.open(`mailto:${emails}?subject=${subject}&body=${body}`);
+    }
   }
 
   // ═══════════════════════════════════════════════
