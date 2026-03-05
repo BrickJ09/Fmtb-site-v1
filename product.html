@@ -143,17 +143,8 @@
             <span>${product.etsyLabel||'Buy Now'}</span>
             <span class="buy-btn-arrow">→</span>
           </a>`;
-      } else if(product.status==='sold-out' && cfg.notify?.enabled!==false) {
-        buySection = `
-          <div class="buy-btn buy-btn--disabled">${badgeLabel}</div>
-          <div class="notify-box" id="notifyBox">
-            <p class="notify-label">🔔 ${cfg.notify?.buttonText||'Notify me when available'}</p>
-            <div class="notify-form">
-              <input type="email" class="notify-input" id="notifyEmail" placeholder="your@email.com">
-              <button class="notify-btn" onclick="submitNotify('${product.id}','${product.name}')">Notify me</button>
-            </div>
-            <p class="notify-sent" id="notifySent" style="display:none">✓ You'll be notified when it's back!</p>
-          </div>`;
+      } else if(product.status==='sold-out') {
+        buySection = `<div class="buy-btn buy-btn--disabled">Sold Out</div>`;
       } else {
         buySection = `<div class="buy-btn buy-btn--disabled">${badgeLabel}</div>`;
       }
@@ -171,29 +162,75 @@
           </div>
         </div>` : '';
 
+      // Build media section (videos, gifs, youtube)
+      let mediaHTML = '';
+      const mediaItems = product.media || [];
+      if (mediaItems.length) {
+        const mediaCards = mediaItems.map(m => {
+          if (m.type === 'youtube') {
+            const ytId = m.url.match(/(?:v=|youtu\.be\/)([^&\?]+)/)?.[1] || m.url;
+            return `<div class="media-card anim-fade-up">
+              <div class="media-youtube">
+                <iframe src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                </iframe>
+              </div>
+              ${m.caption?`<p class="media-caption">${m.caption}</p>`:''}
+            </div>`;
+          } else if (m.type === 'video') {
+            return `<div class="media-card anim-fade-up">
+              <video src="${m.url}" controls playsinline loop muted class="media-video"></video>
+              ${m.caption?`<p class="media-caption">${m.caption}</p>`:''}
+            </div>`;
+          } else if (m.type === 'gif') {
+            return `<div class="media-card anim-fade-up">
+              <img src="${m.url}" alt="${m.caption||'Animation'}" class="media-gif" loading="lazy">
+              ${m.caption?`<p class="media-caption">${m.caption}</p>`:''}
+            </div>`;
+          }
+          return '';
+        }).join('');
+        mediaHTML = `<div class="media-section"><h3 class="media-section-title anim-fade-up">In Action</h3><div class="media-grid">${mediaCards}</div></div>`;
+      }
+
       main.innerHTML = `
-        <section class="product-container">
-          <div class="productimgbox">
+        <section class="product-hero anim-fade-in">
+          <div class="productimgbox anim-slide-left">
             <div class="slider">
               <button class="prev" aria-label="Previous">‹</button>
               <div class="slides">${slides}</div>
               <button class="next" aria-label="Next">›</button>
             </div>
           </div>
-          <div class="pricedescription">
+          <div class="pricedescription anim-slide-right">
             <span class="status-badge ${badgeClass}">${badgeLabel}</span>
-            <h2>${product.name}</h2>
+            <h2 class="product-name-heading">${product.name}</h2>
             <p class="price" data-usd="${product.priceUSD}" data-chf="${product.priceCHF}" data-eur="${product.priceEUR}">
               $${product.priceUSD.toFixed(2)}
             </p>
-            <p class="product-description">${product.description}</p>
-            ${buySection}
-            <div class="trust-badges">${trustBadge}${shipBadge}</div>
-            ${sizeHTML}
-            <div class="details">${specItems?`<h3>Specs</h3>${specItems}`:''}</div>
-            ${noteHTML}
+            <p class="product-description anim-fade-up" style="animation-delay:.15s">${product.description}</p>
+            <div class="anim-fade-up" style="animation-delay:.25s">${buySection}</div>
+            <div class="trust-badges anim-fade-up" style="animation-delay:.35s">${trustBadge}${shipBadge}</div>
+            ${sizeHTML ? `<div class="anim-fade-up" style="animation-delay:.4s">${sizeHTML}</div>` : ''}
+            <div class="details anim-fade-up" style="animation-delay:.45s">${specItems?`<h3>Specs</h3>${specItems}`:''}</div>
+            ${noteHTML ? `<div class="anim-fade-up" style="animation-delay:.5s">${noteHTML}</div>` : ''}
           </div>
-        </section>`;
+        </section>
+        ${mediaHTML}`;
+
+      // Scroll-triggered reveal for elements below the fold
+      const revealObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            revealObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      main.querySelectorAll('.anim-fade-up, .media-card').forEach((el,i) => {
+        el.style.setProperty('--delay', `${i * 0.07}s`);
+        revealObs.observe(el);
+      });
 
       initSlider();
 

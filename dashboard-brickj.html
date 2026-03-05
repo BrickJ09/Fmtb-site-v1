@@ -618,6 +618,10 @@
         <div class="fg"><label>Description</label><textarea id="fDesc" placeholder="Short product description…"></textarea></div>
         <div class="fg"><label>Specs (one per line)</label><textarea id="fSpecs" placeholder="Includes: 2x Fingerskis&#10;Color: Blue&#10;Material: PLA"></textarea><div class="fhint">Each line = one bullet point</div></div>
         <div class="fg"><label>Note</label><input type="text" id="fNote" placeholder="e.g. Ships within Switzerland only"></div>
+        <div class="fsec">Media (Video / GIF / YouTube)</div>
+        <div id="mediaList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+        <button class="btn-s" style="width:100%;margin-bottom:4px" onclick="addMediaItem()">+ Add Video / GIF / YouTube</button>
+        <div class="fhint">YouTube links, direct video files (.mp4), or GIF URLs. Shown below product images.</div>
         <div class="fsec">Images</div>
         <div class="img-dropzone" id="imgDropzone">
           <input type="file" id="imgFileInput" accept="image/*" multiple onchange="handleFileInput(event)">
@@ -685,6 +689,7 @@
   let products = getProds();
   let editingId = null;
   let pendingImgs = [];
+  let _mediaItems = [];
   let _reviews = [];
   let _quickPopupProduct = null;
 
@@ -853,6 +858,8 @@
     document.getElementById('fNote').value  = p?.note        ?? '';
     pendingImgs = (p?.images||['COMING SOON.png']).map(path=>({path,dataURL:null,isNew:false}));
     renderImgPreview();
+    _mediaItems = JSON.parse(JSON.stringify(p?.media||[]));
+    renderMediaList();
     document.getElementById('modalOverlay').classList.add('open');
     document.body.style.overflow='hidden';
   }
@@ -941,15 +948,13 @@
       description:document.getElementById('fDesc').value.trim(),
       specs,note:document.getElementById('fNote').value.trim(),
       images:pendingImgs.map(i=>i.path).length?pendingImgs.map(i=>i.path):['COMING SOON.png'],
+      media: _mediaItems.filter(m=>m.url),
     };
     if(editingId){
       const idx=products.findIndex(p=>p.id===editingId);
       const oldStatus=products[idx].status;
       products[idx]={...products[idx],...data};
-      // If status changed TO available → offer to notify waitlist
-      if(oldStatus!=='available' && data.status==='available'){
-        checkAndNotifyWaitlist(data.name, products[idx].etsyLink||'#');
-      }
+
       showToast('Product updated ✓');
     } else {
       const newId=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -1330,6 +1335,39 @@ Open email to notify them now?`);
     if (confirmed) {
       window.open(`mailto:${emails}?subject=${subject}&body=${body}`);
     }
+  }
+
+  // ═══════════════════════════════════════════════
+  // MEDIA ITEMS
+  // ═══════════════════════════════════════════════
+  function renderMediaList() {
+    const list = document.getElementById('mediaList');
+    if (!list) return;
+    list.innerHTML = '';
+    _mediaItems.forEach((m, i) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:7px;';
+      div.innerHTML = `
+        <div style="display:flex;gap:8px;align-items:center">
+          <select style="background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:7px 9px;border-radius:6px;outline:none;flex-shrink:0" onchange="_mediaItems[${i}].type=this.value;renderMediaList()">
+            <option value="youtube"${m.type==='youtube'?' selected':''}>▶ YouTube</option>
+            <option value="video"${m.type==='video'?' selected':''}>🎬 Video (.mp4)</option>
+            <option value="gif"${m.type==='gif'?' selected':''}>🎞 GIF</option>
+          </select>
+          <button class="btn-d" style="padding:5px 10px;margin-left:auto" onclick="_mediaItems.splice(${i},1);renderMediaList()">✕</button>
+        </div>
+        <input style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.8rem;padding:7px 10px;border-radius:6px;outline:none"
+          placeholder="${m.type==='youtube'?'https://youtube.com/watch?v=... or youtu.be/...':m.type==='video'?'https://... or uploads/video.mp4':'https://... or uploads/anim.gif'}"
+          value="${m.url||''}" onchange="_mediaItems[${i}].url=this.value">
+        <input style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:Inter,sans-serif;font-size:.78rem;padding:6px 10px;border-radius:6px;outline:none;color:var(--muted)"
+          placeholder="Caption (optional)" value="${m.caption||''}" onchange="_mediaItems[${i}].caption=this.value">`;
+      list.appendChild(div);
+    });
+  }
+
+  function addMediaItem() {
+    _mediaItems.push({ type: 'youtube', url: '', caption: '' });
+    renderMediaList();
   }
 
   // ═══════════════════════════════════════════════
