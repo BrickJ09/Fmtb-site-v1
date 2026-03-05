@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 05.03.2026, 12:07:24
+// Generated: 05.03.2026, 12:09:46
 
 const PRODUCTS = [
   {
@@ -341,9 +341,9 @@ const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-p
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "RIDE SMALL \\N DREAM BIG",
-    "subtitle": "",
-    "badge": "",
+    "title": "RIDE SMALL  DREAM BIG",
+    "subtitle": "Finger bikes & skis, built for tricks and fun — all year round.",
+    "badge": "Handmade in Switzerland 🇨🇭",
     "buttonText": "Shop now",
     "buttonLink": "/shop",
     "image": "uploads/hero-lil_park_03.01.26.JPEG"
@@ -367,18 +367,18 @@ const SITE_CONFIG = {
     "heroSub": ""
   },
   "trust": {
-    "badge": "",
-    "shipping": ""
+    "badge": "Handmade in Switzerland 🇨🇭",
+    "shipping": "Ships within Switzerland"
   },
   "footer": {
-    "line1": "",
-    "line2": "",
+    "line1": "BrickJ_mtb · Handmade in Switzerland 🇨🇭",
+    "line2": "No cookies 🍪",
     "privacyText": "Your Privacy matters"
   },
   "seo": {
     "title": "BrickJ Fingerski and FingerMTB shop ",
     "description": "3D-printed fingerskis and obstacles - made and designed in Switzerland",
-    "ogImage": "",
+    "ogImage": "https://brickj-mtb.netlify.app/v10/V10side1.JPEG",
     "keywords": "fingermtb, fingerskis, ski, mtb, 3d print, toys"
   },
   "social": {
@@ -394,12 +394,12 @@ const SITE_CONFIG = {
   },
   "notify": {
     "enabled": true,
-    "buttonText": "gooooooooooooooooooooon"
+    "buttonText": "Notify me when available"
   },
   "sizeref": {
     "enabled": true,
-    "title": "",
-    "text": "",
+    "title": "How big is it?",
+    "text": "~5cm — fits on a fingertip",
     "image": ""
   }
 };
