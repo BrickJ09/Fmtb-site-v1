@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generiert: 5.3.2026, 11:24:27
+// Generated: 05.03.2026, 12:12:04
 
 const PRODUCTS = [
   {
@@ -341,9 +341,9 @@ const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-p
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "RIDE SMALL \\N DREAM BIG",
-    "subtitle": "",
-    "badge": "",
+    "title": "RIDE SMALL  DREAM BIG",
+    "subtitle": "Finger bikes & skis, built for tricks and fun — all year round.",
+    "badge": "Handmade in Switzerland 🇨🇭",
     "buttonText": "Shop now",
     "buttonLink": "/shop",
     "image": "uploads/hero-lil_park_03.01.26.JPEG"
@@ -351,12 +351,12 @@ const SITE_CONFIG = {
   "popup": {
     "enabled": true,
     "page": "index",
-    "delay": 0,
-    "title": "Fingerski starterset - pink",
+    "delay": 2000,
+    "title": "Fingerski starterset - tube rail | pink",
     "subtitle": "",
-    "body": "including 1 pair of fingerskis, 1 tube rail, 1 parkshaper tool",
-    "image": "uploads/popup-fingerski-set-pink_4.jpg",
-    "buttonText": "Buy now on Ricardo.ch ",
+    "body": "Starterset with 1 pair of fingerskiis + 1 park shaper tool + 1 flat tube rail",
+    "image": "uploads/fingerski-set-pink.jpg",
+    "buttonText": "Buy now on Ricardo.ch",
     "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
     "dismissText": "Close",
     "price": "CHF 15.00"
@@ -367,18 +367,18 @@ const SITE_CONFIG = {
     "heroSub": ""
   },
   "trust": {
-    "badge": "",
-    "shipping": ""
+    "badge": "Handmade in Switzerland 🇨🇭",
+    "shipping": "Ships within Switzerland"
   },
   "footer": {
-    "line1": "",
-    "line2": "",
+    "line1": "BrickJ_mtb · Handmade in Switzerland 🇨🇭",
+    "line2": "No cookies 🍪",
     "privacyText": "Your Privacy matters"
   },
   "seo": {
     "title": "BrickJ Fingerski and FingerMTB shop ",
     "description": "3D-printed fingerskis and obstacles - made and designed in Switzerland",
-    "ogImage": "",
+    "ogImage": "https://brickj-mtb.netlify.app/v10/V10side1.JPEG",
     "keywords": "fingermtb, fingerskis, ski, mtb, 3d print, toys"
   },
   "social": {
@@ -394,27 +394,16 @@ const SITE_CONFIG = {
   },
   "notify": {
     "enabled": true,
-    "buttonText": "gooooooooooooooooooooon"
+    "buttonText": "Notify me when available"
   },
   "sizeref": {
-    "enabled": true,
-    "title": "",
+    "enabled": false,
+    "title": "How big is it?",
     "text": "",
     "image": ""
   }
 };
 
 const LEGACY_MAP = {
-  'V10.html':                   'v10',
-  'Pink_bike_productpage.html': 'sender',
-  'FingerskiV2_blue.html':      'fingerski-v2-blue',
-  'FingerkiV2_pink.html':       'fingerski-v2-pink',
-  'FingerskiV2_black.html':     'fingerski-v2-pink',
-  'kinkrail_blue.html':         'kinkrail-blue',
-  'kinkrail_pink.html':         'kinkrail-pink',
-  'kinkrail_black.html':        'kinkrail-black',
-  'fingerski_starterset.html':  'fingerski-starter-set',
-  'mtb_rollin.html':            'rollin',
-  'mtb_kicker.html':            'hardline-kicker',
-  'Session-9.html':             'session-9',
+  'V10.html':'v10','Pink_bike_productpage.html':'sender','FingerskiV2_blue.html':'fingerski-v2-blue','FingerkiV2_pink.html':'fingerski-v2-pink','FingerskiV2_black.html':'fingerski-v2-pink','kinkrail_blue.html':'kinkrail-blue','kinkrail_pink.html':'kinkrail-pink','kinkrail_black.html':'kinkrail-black','fingerski_starterset.html':'fingerski-starter-set','mtb_rollin.html':'rollin','mtb_kicker.html':'hardline-kicker','Session-9.html':'session-9',
 };
