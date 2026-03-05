@@ -1,12 +1,12 @@
 // products.js — FingerMTB Admin
-// Generiert: 4.3.2026, 18:21:36
+// Generiert: 5.3.2026, 11:24:27
 
 const PRODUCTS = [
   {
     "id": "fingerski-set-pro",
     "name": "Fingerski Set Pro Blue",
     "category": "ski",
-    "status": "sold-out",
+    "status": "available",
     "priceUSD": 20,
     "priceCHF": 20,
     "priceEUR": 20,
@@ -341,24 +341,24 @@ const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-p
 
 const SITE_CONFIG = {
   "hero": {
-    "title": "",
+    "title": "RIDE SMALL \\N DREAM BIG",
     "subtitle": "",
     "badge": "",
-    "buttonText": "",
-    "buttonLink": "",
-    "image": ""
+    "buttonText": "Shop now",
+    "buttonLink": "/shop",
+    "image": "uploads/hero-lil_park_03.01.26.JPEG"
   },
   "popup": {
     "enabled": true,
     "page": "index",
     "delay": 0,
-    "title": "",
+    "title": "Fingerski starterset - pink",
     "subtitle": "",
-    "body": "",
-    "image": "uploads/popup-fingerski-set-pink_3.jpg",
-    "buttonText": "Buy now on Ricardo.ch",
+    "body": "including 1 pair of fingerskis, 1 tube rail, 1 parkshaper tool",
+    "image": "uploads/popup-fingerski-set-pink_4.jpg",
+    "buttonText": "Buy now on Ricardo.ch ",
     "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
-    "dismissText": "close",
+    "dismissText": "Close",
     "price": "CHF 15.00"
   },
   "shop": {
@@ -376,16 +376,16 @@ const SITE_CONFIG = {
     "privacyText": "Your Privacy matters"
   },
   "seo": {
-    "title": "",
-    "description": "",
+    "title": "BrickJ Fingerski and FingerMTB shop ",
+    "description": "3D-printed fingerskis and obstacles - made and designed in Switzerland",
     "ogImage": "",
-    "keywords": ""
+    "keywords": "fingermtb, fingerskis, ski, mtb, 3d print, toys"
   },
   "social": {
     "enabled": true,
     "instagram": "",
-    "tiktok": "",
-    "youtube": "",
+    "tiktok": "https://www.tiktok.com/@brickj_mtb",
+    "youtube": "https://www.youtube.com/@Brickj-fb",
     "position": "both"
   },
   "reviews": {
@@ -394,7 +394,7 @@ const SITE_CONFIG = {
   },
   "notify": {
     "enabled": true,
-    "buttonText": "Notify me when available"
+    "buttonText": "gooooooooooooooooooooon"
   },
   "sizeref": {
     "enabled": true,
