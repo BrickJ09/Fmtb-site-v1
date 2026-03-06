@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 05.03.2026, 12:12:04
+// Generated: 6.3.2026, 17:35:55
 
 const PRODUCTS = [
   {
@@ -11,8 +11,8 @@ const PRODUCTS = [
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "",
-    "etsyLabel": "Buy Now",
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-blau-1313207148/",
+    "etsyLabel": "Buy Now on Ricardo.ch",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
     "specs": [
@@ -21,10 +21,10 @@ const PRODUCTS = [
     "images": [
       "uploads/fingerski_set_pro.JPEG",
       "uploads/fingerski-set_5.jpg",
-      "uploads/fingerski-set_6.jpg",
       "uploads/fingerski-set_7.jpg",
       "uploads/fingerski-set_8.jpg"
-    ]
+    ],
+    "media": []
   },
   {
     "id": "fingerski-starterset-flat-tube-rail-pink",
@@ -352,14 +352,14 @@ const SITE_CONFIG = {
     "enabled": true,
     "page": "index",
     "delay": 2000,
-    "title": "Fingerski starterset - tube rail | pink",
+    "title": "Fingerski Set Pro Blue",
     "subtitle": "",
-    "body": "Starterset with 1 pair of fingerskiis + 1 park shaper tool + 1 flat tube rail",
-    "image": "uploads/fingerski-set-pink.jpg",
-    "buttonText": "Buy now on Ricardo.ch",
-    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
+    "body": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park",
+    "image": "uploads/fingerski_set_pro.JPEG",
+    "buttonText": "Buy Now on Ricardo.ch",
+    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-blau-1313207148/",
     "dismissText": "Close",
-    "price": "CHF 15.00"
+    "price": "CHF 20.00"
   },
   "shop": {
     "heroTitle": "",
