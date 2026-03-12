@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 6.3.2026, 17:35:55
+// Generated: 12.03.2026, 08:37:11
 
 const PRODUCTS = [
   {
@@ -11,8 +11,8 @@ const PRODUCTS = [
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-blau-1313207148/",
-    "etsyLabel": "Buy Now on Ricardo.ch",
+    "etsyLink": "",
+    "etsyLabel": "Buy Now",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
     "specs": [
@@ -21,10 +21,10 @@ const PRODUCTS = [
     "images": [
       "uploads/fingerski_set_pro.JPEG",
       "uploads/fingerski-set_5.jpg",
+      "uploads/fingerski-set_6.jpg",
       "uploads/fingerski-set_7.jpg",
       "uploads/fingerski-set_8.jpg"
-    ],
-    "media": []
+    ]
   },
   {
     "id": "fingerski-starterset-flat-tube-rail-pink",
@@ -76,9 +76,9 @@ const PRODUCTS = [
     "name": "BrickJ Fingerski Starterkit - kinkrail",
     "category": "kit",
     "status": "sold-out",
-    "priceUSD": 20,
-    "priceCHF": 20,
-    "priceEUR": 20,
+    "priceUSD": 15,
+    "priceCHF": 15,
+    "priceEUR": 15,
     "stock": 2,
     "etsyLink": "",
     "etsyLabel": "Buy on Etsy",
@@ -96,7 +96,8 @@ const PRODUCTS = [
       "fingerski_starterkit/blue_shaper_in_use.JPEG"
     ],
     "image": "COMING SOON.png",
-    "link": "soon.html"
+    "link": "soon.html",
+    "media": []
   },
   {
     "id": "fingerski-v2-blue",
@@ -356,8 +357,8 @@ const SITE_CONFIG = {
     "subtitle": "",
     "body": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park",
     "image": "uploads/fingerski_set_pro.JPEG",
-    "buttonText": "Buy Now on Ricardo.ch",
-    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-blau-1313207148/",
+    "buttonText": "Buy Now",
+    "buttonLink": "#",
     "dismissText": "Close",
     "price": "CHF 20.00"
   },
