@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 12.03.2026, 09:46:44
+// Generated: 12.03.2026, 09:47:46
 
 const PRODUCTS = [
   {
@@ -11,7 +11,7 @@ const PRODUCTS = [
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-blau-1313207148/",
+    "etsyLink": "",
     "etsyLabel": "Buy Now",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
@@ -24,8 +24,7 @@ const PRODUCTS = [
       "uploads/fingerski-set_6.jpg",
       "uploads/fingerski-set_7.jpg",
       "uploads/fingerski-set_8.jpg"
-    ],
-    "media": []
+    ]
   },
   {
     "id": "fingerski-starterset-flat-tube-rail-pink",
@@ -381,7 +380,7 @@ const SITE_CONFIG = {
     "title": "BrickJ Fingerski and FingerMTB shop ",
     "description": "3D-printed fingerskis and obstacles - made and designed in Switzerland",
     "ogImage": "https://brickj-mtb.netlify.app/v10/V10side1.JPEG",
-    "keywords": "fingermtb, fingerskis, ski, mtb, 3d print, toys"
+    "keywords": "fingermtb, fingerskis, ski, mtb, 3d print, toys, brickj"
   },
   "social": {
     "enabled": true,
@@ -401,7 +400,7 @@ const SITE_CONFIG = {
   "sizeref": {
     "enabled": false,
     "title": "How big is it?",
-    "text": "",
+    "text": "~5cm — fits on a fingertip",
     "image": ""
   }
 };
