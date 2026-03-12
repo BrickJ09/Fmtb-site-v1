@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 12.03.2026, 08:37:11
+// Generated: 12.03.2026, 09:46:44
 
 const PRODUCTS = [
   {
@@ -11,7 +11,7 @@ const PRODUCTS = [
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "",
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-blau-1313207148/",
     "etsyLabel": "Buy Now",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
@@ -24,7 +24,8 @@ const PRODUCTS = [
       "uploads/fingerski-set_6.jpg",
       "uploads/fingerski-set_7.jpg",
       "uploads/fingerski-set_8.jpg"
-    ]
+    ],
+    "media": []
   },
   {
     "id": "fingerski-starterset-flat-tube-rail-pink",
