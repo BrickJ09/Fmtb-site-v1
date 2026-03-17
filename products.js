@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 14.03.2026, 11:15:11
+// Generated: 17.03.2026, 20:55:32
 
 const PRODUCTS = [
   {
@@ -335,6 +335,35 @@ const PRODUCTS = [
     "note": "",
     "images": [
       "COMING SOON.png"
+    ]
+  },
+  {
+    "id": "brickj-fingerbike-park-yellow",
+    "name": "BrickJ Fingerbike Park Yellow",
+    "category": "mtb",
+    "status": "available",
+    "priceUSD": 19,
+    "priceCHF": 19,
+    "priceEUR": 19,
+    "stock": 0,
+    "etsyLabel": "Buy Now on Ricardo.ch",
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerbike-gelb-mit-rampe-1314254936/",
+    "description": "",
+    "specs": [
+      "Color: Pink"
+    ],
+    "note": "",
+    "images": [
+      "uploads/fingerbike-gelb-mit-rampe.jpg",
+      "uploads/fingerbike-gelb-mit-rampe_2.jpg",
+      "uploads/fingerbike-gelb-mit-rampe_1.jpg"
+    ],
+    "media": [
+      {
+        "type": "youtube",
+        "url": "https://www.youtube.com/watch?v=ppqISKCtA_Y",
+        "caption": ""
+      }
     ]
   }
 ];
