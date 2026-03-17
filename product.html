@@ -186,9 +186,9 @@
             data-index="${i}"
             data-link="${v.link||product.etsyLink||''}"
             data-label="${v.label}"
-            data-price-chf="${v.priceCHF||product.priceCHF}"
-            data-price-usd="${product.priceUSD}"
-            data-price-eur="${product.priceEUR}"
+            data-pricechf="${v.priceCHF||product.priceCHF}"
+            data-priceusd="${product.priceUSD}"
+            data-priceeur="${product.priceEUR}"
             data-status="${effectiveStatus}"
             onclick="selectVariant(this)"
             ${isSoldOut?'disabled':''}>
@@ -337,14 +337,43 @@ Date: ${new Date().toLocaleString()}`
       );
       // Opens email app silently in background via hidden iframe
       const link = `mailto:jami.brick@gmail.com?subject=${subject}&body=${body}`;
-      const iframe = document.createElement('iframe');
-      iframe.style.display='none';
-      iframe.src=link;
-      document.body.appendChild(iframe);
-      setTimeout(()=>iframe.remove(), 3000);
+    function selectVariant(btn) {
+      // deselect all
+      document.querySelectorAll('.variant-chip').forEach(b => b.classList.remove('variant-chip--active'));
+      btn.classList.add('variant-chip--active');
 
-      document.getElementById('notifySent').style.display='block';
-      document.getElementById('notifyBox').querySelector('.notify-form').style.display='none';
+      const link     = btn.dataset.link;
+      const priceCHF = btn.dataset.pricechf;
+      const priceUSD = btn.dataset.priceusd;
+      const priceEUR = btn.dataset.priceeur;
+      const status   = btn.dataset.status;
+      const buyBtn   = document.getElementById('variantBuyBtn');
+      const buyLbl   = document.getElementById('variantBuyLabel');
+
+      if (!buyBtn) return;
+
+      if (status === 'sold-out') {
+        buyBtn.classList.add('buy-btn--disabled');
+        buyBtn.removeAttribute('href');
+        if (buyLbl) buyLbl.textContent = 'Sold Out';
+      } else if (link) {
+        buyBtn.classList.remove('buy-btn--disabled');
+        buyBtn.href = link;
+        if (buyLbl) buyLbl.textContent = 'Buy Now';
+      } else {
+        buyBtn.classList.add('buy-btn--disabled');
+        buyBtn.removeAttribute('href');
+        if (buyLbl) buyLbl.textContent = 'Not available';
+      }
+
+      // Update price display
+      const priceEl = document.querySelector('.price[data-chf]');
+      if (priceEl && priceCHF) {
+        const sel = document.getElementById('currencySwitch')?.value || 'USD';
+        if (sel === 'CHF') priceEl.textContent = `CHF ${parseFloat(priceCHF).toFixed(2)}`;
+        else if (sel === 'EUR') priceEl.textContent = `€${parseFloat(priceEUR||0).toFixed(2)}`;
+        else priceEl.textContent = `$${parseFloat(priceUSD||0).toFixed(2)}`;
+      }
     }
   </script>
 </body>
