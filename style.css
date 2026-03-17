@@ -1392,3 +1392,54 @@ form.container .field { margin-bottom: 18px; }
 
 /* Remove old notify styles */
 .notify-box, .notify-form, .notify-input, .notify-btn, .notify-sent, .notify-label { display: none !important; }
+
+
+/* ══ VARIANTS ═══════════════════════════════════ */
+.variants-section {
+  margin: 4px 0 8px;
+}
+.variants-label {
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.variants-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.variant-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .18s;
+  -webkit-tap-highlight-color: transparent;
+}
+.variant-chip:hover:not([disabled]) {
+  border-color: rgba(255,255,255,.3);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+.variant-chip--active {
+  border-color: var(--accent) !important;
+  background: rgba(232,255,0,.08) !important;
+  color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232,255,0,.12);
+}
+.variant-chip--soldout {
+  opacity: .42;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}

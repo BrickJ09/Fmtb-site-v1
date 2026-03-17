@@ -135,12 +135,22 @@
         ? `<span class="trust-badge trust-badge--shipping">🚚 ${cfg.trust.shipping}</span>` : '';
 
       // Buy button OR sold-out section
+      // Buy section — updates dynamically when variant selected
       let buySection = '';
-      if(product.status==='available' && product.etsyLink) {
+      const hasVariants = product.variants?.length > 0;
+      if (hasVariants) {
+        // Show placeholder — JS fills in after variant selection
+        buySection = `
+          <a class="buy-btn buy-btn--disabled" id="variantBuyBtn" href="#" target="_blank" rel="noopener">
+            <span class="buy-btn-icon">🛒</span>
+            <span id="variantBuyLabel">Select an option above</span>
+            <span class="buy-btn-arrow">→</span>
+          </a>`;
+      } else if(product.status==='available' && product.etsyLink) {
         buySection = `
           <a class="buy-btn" href="${product.etsyLink}" target="_blank" rel="noopener">
             <span class="buy-btn-icon">🛒</span>
-            <span>${product.etsyLabel||'Buy Now'}</span>
+            <span data-etsy-label="${product.etsyLabel||'Buy Now'}">${product.etsyLabel||'Buy Now'}</span>
             <span class="buy-btn-arrow">→</span>
           </a>`;
       } else if(product.status==='sold-out') {
@@ -161,6 +171,37 @@
             </div>
           </div>
         </div>` : '';
+
+      // Build variants
+      let variantsHTML = '';
+      if (product.variants?.length) {
+        const chips = product.variants.map((v, i) => {
+          const effectiveStatus = v.status || product.status;
+          const isSoldOut = effectiveStatus === 'sold-out';
+          const colorDot = v.color
+            ? `<span style="width:12px;height:12px;border-radius:50%;background:${v.color};display:inline-block;flex-shrink:0;border:1.5px solid rgba(255,255,255,.25)"></span>`
+            : '';
+          return `<button
+            class="variant-chip${isSoldOut?' variant-chip--soldout':''}"
+            data-index="${i}"
+            data-link="${v.link||product.etsyLink||''}"
+            data-label="${v.label}"
+            data-price-chf="${v.priceCHF||product.priceCHF}"
+            data-price-usd="${product.priceUSD}"
+            data-price-eur="${product.priceEUR}"
+            data-status="${effectiveStatus}"
+            onclick="selectVariant(this)"
+            ${isSoldOut?'disabled':''}>
+            ${colorDot}
+            <span>${v.label}</span>
+            ${isSoldOut?'<span style="font-size:.6rem;opacity:.6">(sold out)</span>':''}
+          </button>`;
+        }).join('');
+        variantsHTML = `<div class="variants-section anim-fade-up" style="animation-delay:.2s">
+          <div class="variants-label">Choose option</div>
+          <div class="variants-chips">${chips}</div>
+        </div>`;
+      }
 
       // Build media section (videos, gifs, youtube)
       let mediaHTML = '';
@@ -209,6 +250,7 @@
               $${product.priceUSD.toFixed(2)}
             </p>
             <p class="product-description anim-fade-up" style="animation-delay:.15s">${product.description}</p>
+            ${variantsHTML}
             <div class="anim-fade-up" style="animation-delay:.25s">${buySection}</div>
             <div class="trust-badges anim-fade-up" style="animation-delay:.35s">${trustBadge}${shipBadge}</div>
             ${sizeHTML ? `<div class="anim-fade-up" style="animation-delay:.4s">${sizeHTML}</div>` : ''}
@@ -233,6 +275,12 @@
       });
 
       initSlider();
+
+      // Auto-select first available variant
+      if (product.variants?.length) {
+        const firstAvail = main.querySelector('.variant-chip:not([disabled])');
+        if (firstAvail) selectVariant(firstAvail);
+      }
 
       // Currency switch
       document.getElementById('currencySwitch')?.addEventListener('change', function() {

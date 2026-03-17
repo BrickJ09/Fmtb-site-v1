@@ -612,8 +612,12 @@
           <div class="fg"><label>Stock</label><input type="number" id="fStock" placeholder="0" min="0"></div>
         </div>
         <div class="fsec">Buy Link</div>
-        <div class="fg"><label>Button Text</label><input type="text" id="fLabel" placeholder='Buy on Ricardo'></div>
-        <div class="fg"><label>Button URL</label><input type="text" id="fLink" placeholder="https://www.ricardo.ch/..."><div class="fhint">Leave empty = button disabled</div></div>
+        <div class="fg"><label>Default Button Text</label><input type="text" id="fLabel" placeholder='Buy on Ricardo'></div>
+        <div class="fg"><label>Default Button URL</label><input type="text" id="fLink" placeholder="https://www.ricardo.ch/..."><div class="fhint">Used when no variant is selected. Leave empty = button disabled</div></div>
+        <div class="fsec">Variants (optional)</div>
+        <p style="font-size:.68rem;color:var(--muted);margin-bottom:10px;line-height:1.5">Add colour or size options — each with its own buy link. If empty, default link above is used.</p>
+        <div id="variantList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+        <button class="btn-s" style="width:100%" onclick="addVariant()">+ Add Variant</button>
         <div class="fsec">Content</div>
         <div class="fg"><label>Description</label><textarea id="fDesc" placeholder="Short product description…"></textarea></div>
         <div class="fg"><label>Specs (one per line)</label><textarea id="fSpecs" placeholder="Includes: 2x Fingerskis&#10;Color: Blue&#10;Material: PLA"></textarea><div class="fhint">Each line = one bullet point</div></div>
@@ -690,6 +694,7 @@
   let editingId = null;
   let pendingImgs = [];
   let _mediaItems = [];
+  let _variants = [];
   let _reviews = [];
   let _quickPopupProduct = null;
 
@@ -860,6 +865,8 @@
     renderImgPreview();
     _mediaItems = JSON.parse(JSON.stringify(p?.media||[]));
     renderMediaList();
+    _variants = JSON.parse(JSON.stringify(p?.variants||[]));
+    renderVariantList();
     document.getElementById('modalOverlay').classList.add('open');
     document.body.style.overflow='hidden';
   }
@@ -949,6 +956,7 @@
       specs,note:document.getElementById('fNote').value.trim(),
       images:pendingImgs.map(i=>i.path).length?pendingImgs.map(i=>i.path):['COMING SOON.png'],
       media: _mediaItems.filter(m=>m.url),
+      variants: _variants.filter(v=>v.label),
     };
     if(editingId){
       const idx=products.findIndex(p=>p.id===editingId);
@@ -1368,6 +1376,65 @@ Open email to notify them now?`);
   function addMediaItem() {
     _mediaItems.push({ type: 'youtube', url: '', caption: '' });
     renderMediaList();
+  }
+
+  // ═══════════════════════════════════════════════
+  // VARIANTS
+  // ═══════════════════════════════════════════════
+  function renderVariantList() {
+    const list = document.getElementById('variantList');
+    if (!list) return;
+    list.innerHTML = '';
+    _variants.forEach((v, i) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:7px;';
+      div.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end">
+          <div>
+            <label style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Label *</label>
+            <input style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.82rem;padding:7px 10px;border-radius:6px;outline:none;font-family:Inter,sans-serif"
+              placeholder="e.g. Blue" value="${v.label||''}" onchange="_variants[${i}].label=this.value">
+          </div>
+          <div>
+            <label style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Color</label>
+            <div style="display:flex;gap:6px;align-items:center">
+              <input type="color" value="${v.color||'#888888'}" onchange="_variants[${i}].color=this.value"
+                style="width:36px;height:34px;padding:2px;border-radius:6px;border:1px solid var(--border);background:var(--surface);cursor:pointer;flex-shrink:0">
+              <input style="flex:1;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.78rem;padding:7px 8px;border-radius:6px;outline:none;font-family:Inter,sans-serif"
+                placeholder="#3b82f6" value="${v.color||''}" onchange="_variants[${i}].color=this.value;this.previousElementSibling.value=this.value||'#888888'">
+            </div>
+          </div>
+          <button class="btn-d" style="padding:7px 10px;height:34px;align-self:end" onclick="_variants.splice(${i},1);renderVariantList()">✕</button>
+        </div>
+        <div>
+          <label style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Buy Link for this variant</label>
+          <input style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.82rem;padding:7px 10px;border-radius:6px;outline:none;font-family:Inter,sans-serif"
+            placeholder="https://www.ricardo.ch/..." value="${v.link||''}" onchange="_variants[${i}].link=this.value">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div>
+            <label style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Custom Price (optional)</label>
+            <input style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.82rem;padding:7px 10px;border-radius:6px;outline:none;font-family:Inter,sans-serif"
+              placeholder="Leave empty = default" value="${v.priceCHF||''}" onchange="_variants[${i}].priceCHF=this.value">
+          </div>
+          <div>
+            <label style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px">Status</label>
+            <select style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.82rem;padding:7px 10px;border-radius:6px;outline:none;font-family:Inter,sans-serif"
+              onchange="_variants[${i}].status=this.value">
+              <option value=""${!v.status?' selected':''}>Same as product</option>
+              <option value="available"${v.status==='available'?' selected':''}>In Stock</option>
+              <option value="sold-out"${v.status==='sold-out'?' selected':''}>Sold Out</option>
+              <option value="soon"${v.status==='soon'?' selected':''}>Coming Soon</option>
+            </select>
+          </div>
+        </div>`;
+      list.appendChild(div);
+    });
+  }
+
+  function addVariant() {
+    _variants.push({ label: '', color: '', link: '', priceCHF: '', status: '' });
+    renderVariantList();
   }
 
   // ═══════════════════════════════════════════════
