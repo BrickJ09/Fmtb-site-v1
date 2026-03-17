@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 17.03.2026, 20:55:32
+// Generated: 17.03.2026, 21:26:32
 
 const PRODUCTS = [
   {
@@ -339,22 +339,24 @@ const PRODUCTS = [
   },
   {
     "id": "brickj-fingerbike-park-yellow",
-    "name": "BrickJ Fingerbike Park Yellow",
+    "name": "BrickJ Fingerbike Parkbike",
     "category": "mtb",
     "status": "available",
     "priceUSD": 19,
     "priceCHF": 19,
     "priceEUR": 19,
-    "stock": 0,
+    "stock": 3,
     "etsyLabel": "Buy Now on Ricardo.ch",
-    "etsyLink": "https://www.ricardo.ch/de/a/fingerbike-gelb-mit-rampe-1314254936/",
-    "description": "",
+    "etsyLink": "",
+    "description": "Fingerbike made for fun",
     "specs": [
-      "Color: Pink"
+      "Material: PLA"
     ],
-    "note": "",
+    "note": "Ships only within Switzerland",
     "images": [
       "uploads/fingerbike-gelb-mit-rampe.jpg",
+      "uploads/fingerbike-weiss-mit-rampe.jpg",
+      "uploads/fingerbike-pink-mit-rampe.jpg",
       "uploads/fingerbike-gelb-mit-rampe_2.jpg",
       "uploads/fingerbike-gelb-mit-rampe_1.jpg"
     ],
@@ -364,11 +366,34 @@ const PRODUCTS = [
         "url": "https://www.youtube.com/watch?v=ppqISKCtA_Y",
         "caption": ""
       }
+    ],
+    "variants": [
+      {
+        "label": "Pink",
+        "color": "#f90b8a",
+        "link": "https://www.ricardo.ch/de/a/fingerbike-pink-mit-rampe-1314248534/",
+        "priceCHF": "",
+        "status": ""
+      },
+      {
+        "label": "White",
+        "color": "#ffffff",
+        "link": "https://www.ricardo.ch/de/a/fingerbike-weiss-mit-rampe-1314255806/",
+        "priceCHF": "",
+        "status": ""
+      },
+      {
+        "label": "Yellow",
+        "color": "#efff14",
+        "link": "https://www.ricardo.ch/de/a/fingerbike-gelb-mit-rampe-1314254936/",
+        "priceCHF": "",
+        "status": ""
+      }
     ]
   }
 ];
 
-const FEATURED_IDS = ["fingerski-set-pro","fingerski-starterset-flat-tube-rail-pink"];
+const FEATURED_IDS = ["brickj-fingerbike-park-yellow","fingerski-starterset-flat-tube-rail-pink","fingerski-set-pro"];
 
 const SITE_CONFIG = {
   "hero": {
@@ -383,14 +408,14 @@ const SITE_CONFIG = {
     "enabled": true,
     "page": "index",
     "delay": 2000,
-    "title": "Fingerski Set Pro Blue",
+    "title": "BrickJ Fingerbike Parkbike",
     "subtitle": "",
-    "body": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park",
-    "image": "uploads/fingerski_set_pro.JPEG",
-    "buttonText": "Buy Now",
+    "body": "Fingerbike made for fun",
+    "image": "uploads/fingerbike-gelb-mit-rampe.jpg",
+    "buttonText": "Buy Now on Ricardo.ch",
     "buttonLink": "#",
     "dismissText": "Close",
-    "price": "CHF 20.00"
+    "price": "CHF 19.00"
   },
   "shop": {
     "heroTitle": "",
