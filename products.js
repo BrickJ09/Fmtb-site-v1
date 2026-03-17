@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 05.03.2026, 12:12:04
+// Generated: 17.03.2026, 20:55:32
 
 const PRODUCTS = [
   {
@@ -11,7 +11,7 @@ const PRODUCTS = [
     "priceCHF": 20,
     "priceEUR": 20,
     "stock": 1,
-    "etsyLink": "",
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerski-set-blau-1313207148/",
     "etsyLabel": "Buy Now",
     "description": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park shaper tool",
     "note": "Product only shipping to switzerland || shipping cost 3.00 CHF",
@@ -24,7 +24,8 @@ const PRODUCTS = [
       "uploads/fingerski-set_6.jpg",
       "uploads/fingerski-set_7.jpg",
       "uploads/fingerski-set_8.jpg"
-    ]
+    ],
+    "media": []
   },
   {
     "id": "fingerski-starterset-flat-tube-rail-pink",
@@ -76,9 +77,9 @@ const PRODUCTS = [
     "name": "BrickJ Fingerski Starterkit - kinkrail",
     "category": "kit",
     "status": "sold-out",
-    "priceUSD": 20,
-    "priceCHF": 20,
-    "priceEUR": 20,
+    "priceUSD": 15,
+    "priceCHF": 15,
+    "priceEUR": 15,
     "stock": 2,
     "etsyLink": "",
     "etsyLabel": "Buy on Etsy",
@@ -96,7 +97,8 @@ const PRODUCTS = [
       "fingerski_starterkit/blue_shaper_in_use.JPEG"
     ],
     "image": "COMING SOON.png",
-    "link": "soon.html"
+    "link": "soon.html",
+    "media": []
   },
   {
     "id": "fingerski-v2-blue",
@@ -334,6 +336,35 @@ const PRODUCTS = [
     "images": [
       "COMING SOON.png"
     ]
+  },
+  {
+    "id": "brickj-fingerbike-park-yellow",
+    "name": "BrickJ Fingerbike Park Yellow",
+    "category": "mtb",
+    "status": "available",
+    "priceUSD": 19,
+    "priceCHF": 19,
+    "priceEUR": 19,
+    "stock": 0,
+    "etsyLabel": "Buy Now on Ricardo.ch",
+    "etsyLink": "https://www.ricardo.ch/de/a/fingerbike-gelb-mit-rampe-1314254936/",
+    "description": "",
+    "specs": [
+      "Color: Pink"
+    ],
+    "note": "",
+    "images": [
+      "uploads/fingerbike-gelb-mit-rampe.jpg",
+      "uploads/fingerbike-gelb-mit-rampe_2.jpg",
+      "uploads/fingerbike-gelb-mit-rampe_1.jpg"
+    ],
+    "media": [
+      {
+        "type": "youtube",
+        "url": "https://www.youtube.com/watch?v=ppqISKCtA_Y",
+        "caption": ""
+      }
+    ]
   }
 ];
 
@@ -352,14 +383,14 @@ const SITE_CONFIG = {
     "enabled": true,
     "page": "index",
     "delay": 2000,
-    "title": "Fingerski starterset - tube rail | pink",
+    "title": "Fingerski Set Pro Blue",
     "subtitle": "",
-    "body": "Starterset with 1 pair of fingerskiis + 1 park shaper tool + 1 flat tube rail",
-    "image": "uploads/fingerski-set-pink.jpg",
-    "buttonText": "Buy now on Ricardo.ch",
-    "buttonLink": "https://www.ricardo.ch/de/a/fingerski-set-pink-1312802734/",
+    "body": "Comes with everything you need - including 1 pair of Fingerskiis + 1 Rail + 1 Indoor kicker + 1 Park",
+    "image": "uploads/fingerski_set_pro.JPEG",
+    "buttonText": "Buy Now",
+    "buttonLink": "#",
     "dismissText": "Close",
-    "price": "CHF 15.00"
+    "price": "CHF 20.00"
   },
   "shop": {
     "heroTitle": "",
@@ -379,7 +410,7 @@ const SITE_CONFIG = {
     "title": "BrickJ Fingerski and FingerMTB shop ",
     "description": "3D-printed fingerskis and obstacles - made and designed in Switzerland",
     "ogImage": "https://brickj-mtb.netlify.app/v10/V10side1.JPEG",
-    "keywords": "fingermtb, fingerskis, ski, mtb, 3d print, toys"
+    "keywords": "fingermtb, fingerskis, ski, mtb, 3d print, toys, brickj"
   },
   "social": {
     "enabled": true,
@@ -399,7 +430,7 @@ const SITE_CONFIG = {
   "sizeref": {
     "enabled": false,
     "title": "How big is it?",
-    "text": "",
+    "text": "~5cm — fits on a fingertip",
     "image": ""
   }
 };
