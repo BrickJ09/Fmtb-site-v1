@@ -1443,3 +1443,18 @@ form.container .field { margin-bottom: 18px; }
   cursor: not-allowed;
   text-decoration: line-through;
 }
+
+/* Hero animations — CSS only, no observer needed */
+.anim-hero {
+  animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both;
+  animation-delay: var(--delay, 0s);
+}
+.product-hero .productimgbox {
+  animation: slideLeft 0.65s cubic-bezier(.22,1,.36,1) both;
+}
+.product-hero .pricedescription {
+  animation: slideRight 0.65s cubic-bezier(.22,1,.36,1) 0.08s both;
+}
+.product-hero {
+  animation: fadeIn 0.4s ease both;
+}

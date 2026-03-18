@@ -235,27 +235,27 @@
       }
 
       main.innerHTML = `
-        <section class="product-hero anim-fade-in">
-          <div class="productimgbox anim-slide-left">
+        <section class="product-hero">
+          <div class="productimgbox">
             <div class="slider">
               <button class="prev" aria-label="Previous">‹</button>
               <div class="slides">${slides}</div>
               <button class="next" aria-label="Next">›</button>
             </div>
           </div>
-          <div class="pricedescription anim-slide-right">
+          <div class="pricedescription">
             <span class="status-badge ${badgeClass}">${badgeLabel}</span>
             <h2 class="product-name-heading">${product.name}</h2>
             <p class="price" data-usd="${product.priceUSD}" data-chf="${product.priceCHF}" data-eur="${product.priceEUR}">
               $${product.priceUSD.toFixed(2)}
             </p>
-            <p class="product-description anim-fade-up" style="animation-delay:.15s">${product.description}</p>
-            ${variantsHTML}
-            <div class="anim-fade-up" style="animation-delay:.25s">${buySection}</div>
-            <div class="trust-badges anim-fade-up" style="animation-delay:.35s">${trustBadge}${shipBadge}</div>
-            ${sizeHTML ? `<div class="anim-fade-up" style="animation-delay:.4s">${sizeHTML}</div>` : ''}
-            <div class="details anim-fade-up" style="animation-delay:.45s">${specItems?`<h3>Specs</h3>${specItems}`:''}</div>
-            ${noteHTML ? `<div class="anim-fade-up" style="animation-delay:.5s">${noteHTML}</div>` : ''}
+            <p class="product-description anim-hero" style="animation-delay:.15s">${product.description}</p>
+            ${variantsHTML ? variantsHTML.replace(/anim-fade-up/g,"anim-hero") : ""}
+            <div class="anim-fade-up" class="anim-hero" style="animation-delay:.25s">${buySection}</div>
+            <div class="trust-badges anim-fade-up" class="anim-hero" style="animation-delay:.35s">${trustBadge}${shipBadge}</div>
+            ${sizeHTML ? `<div class="anim-hero" style="animation-delay:.4s">${sizeHTML}</div>` : ''}
+            <div class="details anim-hero" style="animation-delay:.45s">${specItems?`<h3>Specs</h3>${specItems}`:''}</div>
+            ${noteHTML ? `<div class="anim-hero" style="animation-delay:.5s">${noteHTML}</div>` : ''}
           </div>
         </section>
         ${mediaHTML}`;
@@ -269,7 +269,7 @@
           }
         });
       }, { threshold: 0.12 });
-      main.querySelectorAll('.anim-fade-up, .media-card').forEach((el,i) => {
+      main.querySelectorAll('.anim-fade-up, .media-card, .anim-hero').forEach((el,i) => {
         el.style.setProperty('--delay', `${i * 0.07}s`);
         revealObs.observe(el);
       });
