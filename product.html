@@ -62,6 +62,7 @@
 
   <div class="admin-entry" title="Admin"><a href="/dashboard-brickj.html">⚙</a></div>
 
+  
   <script src="products.js"></script>
   <script src="script.js"></script>
   <script>
@@ -90,7 +91,7 @@
       const el=document.getElementById(`${prefix}-${platform}`);
       if(el&&url){el.href=url;el.style.display='inline-flex';}
     }
-    if(cfg.social?.enabled!==false && (cfg.social?.instagram||cfg.social?.tiktok)) {
+    if(cfg.social?.enabled!==false&&(cfg.social?.instagram||cfg.social?.tiktok)){
       const pos=cfg.social?.position||'both';
       if(pos==='header'||pos==='both'){
         document.getElementById('header-social').style.display='flex';
@@ -104,65 +105,103 @@
       }
     }
 
-    // Product render
+    // ── PRODUCT RENDER ──────────────────────────────
     (function() {
-      const params = new URLSearchParams(location.search);
-      let id = params.get('id');
-      const main = document.getElementById('productMain');
-      if(!id){showNotFound();return;}
-      if(typeof LEGACY_MAP!=='undefined'&&LEGACY_MAP[id]) id=LEGACY_MAP[id];
-      const product = PRODUCTS.find(p=>p.id===id);
-      if(!product){showNotFound();return;}
+      const params  = new URLSearchParams(location.search);
+      let id        = params.get('id');
+      const main    = document.getElementById('productMain');
+
+      function showNotFound() {
+        document.title = 'Not found · FingerMTB';
+        main.innerHTML = `<div style="text-align:center;padding:80px 24px">
+          <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:12px">Product not found 🤷</h2>
+          <p style="color:var(--muted);margin-bottom:24px">This product doesn't exist or has been removed.</p>
+          <a href="shop.html" class="buy-btn">Back to Shop</a>
+        </div>`;
+      }
+
+      if (!id) { showNotFound(); return; }
+      if (typeof LEGACY_MAP !== 'undefined' && LEGACY_MAP[id]) id = LEGACY_MAP[id];
+      const product = PRODUCTS.find(p => p.id === id);
+      if (!product) { showNotFound(); return; }
 
       document.title = `${product.name} · FingerMTB`;
 
-      const badgeClass = {available:'status-available','sold-out':'status-sold-out',soon:'status-soon'}[product.status];
-      const badgeLabel = {available:'In Stock','sold-out':'Sold Out',soon:'Coming Soon'}[product.status];
+      const badgeClass = {available:'status-available','sold-out':'status-sold-out',soon:'status-soon'}[product.status] || '';
+      const badgeLabel = {available:'In Stock','sold-out':'Sold Out',soon:'Coming Soon'}[product.status] || '';
 
-      const slides = product.images.map((src,i)=>
+      // Image slides
+      const slides = (product.images||['COMING SOON.png']).map((src,i) =>
         `<img src="${src}" alt="${product.name}" class="slide${i===0?' active':''}" loading="${i===0?'eager':'lazy'}">`
       ).join('');
 
+      // Specs
       const specItems = product.specs?.length
         ? `<ul>${product.specs.map(s=>`<li>${s}</li>`).join('')}</ul>` : '';
 
+      // Note
       const noteHTML = product.note
         ? `<div class="product-note">ℹ️ ${product.note}</div>` : '';
 
+      // Trust badges
       const trustBadge = cfg.trust?.badge
         ? `<span class="trust-badge">${cfg.trust.badge}</span>` : '';
       const shipBadge = cfg.trust?.shipping
         ? `<span class="trust-badge trust-badge--shipping">🚚 ${cfg.trust.shipping}</span>` : '';
 
-      // Buy button OR sold-out section
-      // Buy section — updates dynamically when variant selected
+      // Variants
+      let variantsHTML = '';
+      if (product.variants?.length) {
+        const chips = product.variants.map((v,i) => {
+          const effectiveStatus = v.status || product.status;
+          const isSoldOut = effectiveStatus === 'sold-out';
+          const dot = v.color
+            ? `<span style="width:13px;height:13px;border-radius:50%;background:${v.color};flex-shrink:0;border:1.5px solid rgba(255,255,255,.2);display:inline-block"></span>`
+            : '';
+          return `<button
+            class="variant-chip${isSoldOut?' variant-chip--soldout':''}"
+            data-link="${v.link||product.etsyLink||''}"
+            data-pricechf="${v.priceCHF||product.priceCHF||0}"
+            data-priceusd="${product.priceUSD||0}"
+            data-priceeur="${product.priceEUR||0}"
+            data-status="${effectiveStatus}"
+            onclick="selectVariant(this)"
+            ${isSoldOut?'disabled':''}>
+            ${dot}<span>${v.label}</span>
+            ${isSoldOut?'<span style="font-size:.6rem;opacity:.5">(sold out)</span>':''}
+          </button>`;
+        }).join('');
+        variantsHTML = `
+          <div class="variants-section anim-hero" style="animation-delay:.2s">
+            <div class="variants-label">Choose option</div>
+            <div class="variants-chips">${chips}</div>
+          </div>`;
+      }
+
+      // Buy section
       let buySection = '';
-      const hasVariants = product.variants?.length > 0;
-      if (hasVariants) {
-        // Show placeholder — JS fills in after variant selection
+      if (product.variants?.length) {
         buySection = `
           <a class="buy-btn buy-btn--disabled" id="variantBuyBtn" href="#" target="_blank" rel="noopener">
             <span class="buy-btn-icon">🛒</span>
             <span id="variantBuyLabel">Select an option above</span>
             <span class="buy-btn-arrow">→</span>
           </a>`;
-      } else if(product.status==='available' && product.etsyLink) {
+      } else if (product.status==='available' && product.etsyLink) {
         buySection = `
           <a class="buy-btn" href="${product.etsyLink}" target="_blank" rel="noopener">
             <span class="buy-btn-icon">🛒</span>
-            <span data-etsy-label="${product.etsyLabel||'Buy Now'}">${product.etsyLabel||'Buy Now'}</span>
+            <span>${product.etsyLabel||'Buy Now'}</span>
             <span class="buy-btn-arrow">→</span>
           </a>`;
-      } else if(product.status==='sold-out') {
-        buySection = `<div class="buy-btn buy-btn--disabled">Sold Out</div>`;
       } else {
-        buySection = `<div class="buy-btn buy-btn--disabled">${badgeLabel}</div>`;
+        buySection = `<div class="buy-btn buy-btn--disabled">${badgeLabel||'Unavailable'}</div>`;
       }
 
       // Size reference
       const sizeHTML = (cfg.sizeref?.enabled!==false && cfg.sizeref?.title) ? `
         <div class="size-reference">
-          ${cfg.sizeref.image ? `<img src="${cfg.sizeref.image}" alt="Grössenreferenz" class="size-ref-img">` : ''}
+          ${cfg.sizeref.image?`<img src="${cfg.sizeref.image}" alt="Size reference" class="size-ref-img">`:''}
           <div class="size-ref-text">
             <span class="size-ref-icon">📏</span>
             <div>
@@ -172,68 +211,25 @@
           </div>
         </div>` : '';
 
-      // Build variants
-      let variantsHTML = '';
-      if (product.variants?.length) {
-        const chips = product.variants.map((v, i) => {
-          const effectiveStatus = v.status || product.status;
-          const isSoldOut = effectiveStatus === 'sold-out';
-          const colorDot = v.color
-            ? `<span style="width:12px;height:12px;border-radius:50%;background:${v.color};display:inline-block;flex-shrink:0;border:1.5px solid rgba(255,255,255,.25)"></span>`
-            : '';
-          return `<button
-            class="variant-chip${isSoldOut?' variant-chip--soldout':''}"
-            data-index="${i}"
-            data-link="${v.link||product.etsyLink||''}"
-            data-label="${v.label}"
-            data-pricechf="${v.priceCHF||product.priceCHF}"
-            data-priceusd="${product.priceUSD}"
-            data-priceeur="${product.priceEUR}"
-            data-status="${effectiveStatus}"
-            onclick="selectVariant(this)"
-            ${isSoldOut?'disabled':''}>
-            ${colorDot}
-            <span>${v.label}</span>
-            ${isSoldOut?'<span style="font-size:.6rem;opacity:.6">(sold out)</span>':''}
-          </button>`;
-        }).join('');
-        variantsHTML = `<div class="variants-section anim-fade-up" style="animation-delay:.2s">
-          <div class="variants-label">Choose option</div>
-          <div class="variants-chips">${chips}</div>
-        </div>`;
-      }
-
-      // Build media section (videos, gifs, youtube)
+      // Media section
       let mediaHTML = '';
-      const mediaItems = product.media || [];
-      if (mediaItems.length) {
-        const mediaCards = mediaItems.map(m => {
-          if (m.type === 'youtube') {
+      if (product.media?.length) {
+        const cards = product.media.map((m,i) => {
+          let inner = '';
+          if (m.type==='youtube') {
             const ytId = m.url.match(/(?:v=|youtu\.be\/)([^&\?]+)/)?.[1] || m.url;
-            return `<div class="media-card anim-fade-up">
-              <div class="media-youtube">
-                <iframe src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                </iframe>
-              </div>
-              ${m.caption?`<p class="media-caption">${m.caption}</p>`:''}
-            </div>`;
-          } else if (m.type === 'video') {
-            return `<div class="media-card anim-fade-up">
-              <video src="${m.url}" controls playsinline loop muted class="media-video"></video>
-              ${m.caption?`<p class="media-caption">${m.caption}</p>`:''}
-            </div>`;
-          } else if (m.type === 'gif') {
-            return `<div class="media-card anim-fade-up">
-              <img src="${m.url}" alt="${m.caption||'Animation'}" class="media-gif" loading="lazy">
-              ${m.caption?`<p class="media-caption">${m.caption}</p>`:''}
-            </div>`;
+            inner = `<div class="media-youtube"><iframe src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>`;
+          } else if (m.type==='video') {
+            inner = `<video src="${m.url}" controls playsinline loop muted class="media-video"></video>`;
+          } else if (m.type==='gif') {
+            inner = `<img src="${m.url}" alt="${m.caption||'Animation'}" class="media-gif" loading="lazy">`;
           }
-          return '';
+          return `<div class="media-card" style="--delay:${i*0.1}s">${inner}${m.caption?`<p class="media-caption">${m.caption}</p>`:''}</div>`;
         }).join('');
-        mediaHTML = `<div class="media-section"><h3 class="media-section-title anim-fade-up">In Action</h3><div class="media-grid">${mediaCards}</div></div>`;
+        mediaHTML = `<div class="media-section"><h3 class="media-section-title">In Action</h3><div class="media-grid">${cards}</div></div>`;
       }
 
+      // Render
       main.innerHTML = `
         <section class="product-hero">
           <div class="productimgbox">
@@ -246,113 +242,76 @@
           <div class="pricedescription">
             <span class="status-badge ${badgeClass}">${badgeLabel}</span>
             <h2 class="product-name-heading">${product.name}</h2>
-            <p class="price" data-usd="${product.priceUSD}" data-chf="${product.priceCHF}" data-eur="${product.priceEUR}">
-              $${product.priceUSD.toFixed(2)}
+            <p class="price anim-hero" data-usd="${product.priceUSD}" data-chf="${product.priceCHF}" data-eur="${product.priceEUR}" style="animation-delay:.1s">
+              $${(product.priceUSD||0).toFixed(2)}
             </p>
-            <p class="product-description anim-hero" style="animation-delay:.15s">${product.description}</p>
-            ${variantsHTML ? variantsHTML.replace(/anim-fade-up/g,"anim-hero") : ""}
-            <div class="anim-fade-up" class="anim-hero" style="animation-delay:.25s">${buySection}</div>
-            <div class="trust-badges anim-fade-up" class="anim-hero" style="animation-delay:.35s">${trustBadge}${shipBadge}</div>
-            ${sizeHTML ? `<div class="anim-hero" style="animation-delay:.4s">${sizeHTML}</div>` : ''}
-            <div class="details anim-hero" style="animation-delay:.45s">${specItems?`<h3>Specs</h3>${specItems}`:''}</div>
-            ${noteHTML ? `<div class="anim-hero" style="animation-delay:.5s">${noteHTML}</div>` : ''}
+            <p class="product-description anim-hero" style="animation-delay:.18s">${product.description}</p>
+            ${variantsHTML}
+            <div class="anim-hero" style="animation-delay:.28s">${buySection}</div>
+            <div class="trust-badges anim-hero" style="animation-delay:.36s">${trustBadge}${shipBadge}</div>
+            ${sizeHTML?`<div class="anim-hero" style="animation-delay:.42s">${sizeHTML}</div>`:''}
+            ${specItems?`<div class="details anim-hero" style="animation-delay:.48s"><h3>Specs</h3>${specItems}</div>`:''}
+            ${noteHTML?`<div class="anim-hero" style="animation-delay:.54s">${noteHTML}</div>`:''}
           </div>
         </section>
         ${mediaHTML}`;
 
-      // Scroll-triggered reveal for elements below the fold
-      const revealObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in-view');
-            revealObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      main.querySelectorAll('.anim-fade-up, .media-card, .anim-hero').forEach((el,i) => {
-        el.style.setProperty('--delay', `${i * 0.07}s`);
-        revealObs.observe(el);
-      });
-
-      initSlider();
+      // Media card observer
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in-view');obs.unobserve(e.target);} });
+      }, {threshold:0.1});
+      main.querySelectorAll('.media-card').forEach(el => obs.observe(el));
 
       // Auto-select first available variant
       if (product.variants?.length) {
-        const firstAvail = main.querySelector('.variant-chip:not([disabled])');
-        if (firstAvail) selectVariant(firstAvail);
+        const first = main.querySelector('.variant-chip:not([disabled])');
+        if (first) selectVariant(first);
       }
+
+      // Init slider
+      const allSlides = main.querySelectorAll('.slide');
+      const prevBtn   = main.querySelector('.prev');
+      const nextBtn   = main.querySelector('.next');
+      let cur = 0;
+      function showSlide(idx) {
+        allSlides[cur].classList.remove('active');
+        cur = (idx + allSlides.length) % allSlides.length;
+        allSlides[cur].classList.add('active');
+      }
+      if (nextBtn) nextBtn.addEventListener('click', () => showSlide(cur+1));
+      if (prevBtn) prevBtn.addEventListener('click', () => showSlide(cur-1));
+      document.addEventListener('keydown', e => {
+        if(e.key==='ArrowRight') showSlide(cur+1);
+        if(e.key==='ArrowLeft')  showSlide(cur-1);
+      });
 
       // Currency switch
       document.getElementById('currencySwitch')?.addEventListener('change', function() {
-        const priceEl = main.querySelector('.price');
-        if(!priceEl) return;
-        if(this.value==='CHF') priceEl.textContent=`CHF ${parseFloat(priceEl.dataset.chf).toFixed(2)}`;
-        else if(this.value==='EUR') priceEl.textContent=`€${parseFloat(priceEl.dataset.eur).toFixed(2)}`;
+        const priceEl = main.querySelector('.price[data-chf]');
+        if (!priceEl) return;
+        if (this.value==='CHF') priceEl.textContent=`CHF ${parseFloat(priceEl.dataset.chf).toFixed(2)}`;
+        else if (this.value==='EUR') priceEl.textContent=`€${parseFloat(priceEl.dataset.eur).toFixed(2)}`;
         else priceEl.textContent=`$${parseFloat(priceEl.dataset.usd).toFixed(2)}`;
       });
 
-      function showNotFound() {
-        document.title='Not found · FingerMTB';
-        main.innerHTML=`<div class="not-found"><h2>Product not found 🤷</h2><p>This product doesn't exist or has been removed.</p><a href="shop.html" class="btn-primary">Back to Shop</a></div>`;
-      }
-
-      function initSlider() {
-        const slides=main.querySelectorAll('.slide');
-        const prev=main.querySelector('.prev');
-        const next=main.querySelector('.next');
-        if(!slides.length||!prev) return;
-        let cur=0;
-        function show(idx){
-          slides[cur].classList.remove('active');
-          cur=(idx+slides.length)%slides.length;
-          slides[cur].classList.add('active');
-        }
-        next.addEventListener('click',()=>show(cur+1));
-        prev.addEventListener('click',()=>show(cur-1));
-        document.addEventListener('keydown',e=>{
-          if(e.key==='ArrowRight')show(cur+1);
-          if(e.key==='ArrowLeft')show(cur-1);
-        });
-      }
     })();
 
-    // Notify submit — sends to Google Forms
-    function submitNotify(productId, productName) {
-      const email = document.getElementById('notifyEmail')?.value?.trim();
-      if(!email || !email.includes('@')) { alert('Please enter a valid email address'); return; }
-
-      // Save locally so admin can see it
-      const notifications = JSON.parse(localStorage.getItem('fm_notify')||'[]');
-      notifications.push({email, productId, productName, date: new Date().toISOString()});
-      localStorage.setItem('fm_notify', JSON.stringify(notifications));
-
-      // Send notification email to shop owner via mailto
-      const subject = encodeURIComponent(`Restock request: ${productName}`);
-      const body = encodeURIComponent(
-        `Someone wants to be notified when ${productName} is back in stock.
-
-Email: ${email}
-Product: ${productName}
-Date: ${new Date().toLocaleString()}`
-      );
-      // Opens email app silently in background via hidden iframe
-      const link = `mailto:jami.brick@gmail.com?subject=${subject}&body=${body}`;
+    // Variant selection
     function selectVariant(btn) {
-      // deselect all
       document.querySelectorAll('.variant-chip').forEach(b => b.classList.remove('variant-chip--active'));
       btn.classList.add('variant-chip--active');
 
       const link     = btn.dataset.link;
+      const status   = btn.dataset.status;
       const priceCHF = btn.dataset.pricechf;
       const priceUSD = btn.dataset.priceusd;
       const priceEUR = btn.dataset.priceeur;
-      const status   = btn.dataset.status;
-      const buyBtn   = document.getElementById('variantBuyBtn');
-      const buyLbl   = document.getElementById('variantBuyLabel');
 
+      const buyBtn = document.getElementById('variantBuyBtn');
+      const buyLbl = document.getElementById('variantBuyLabel');
       if (!buyBtn) return;
 
-      if (status === 'sold-out') {
+      if (status==='sold-out') {
         buyBtn.classList.add('buy-btn--disabled');
         buyBtn.removeAttribute('href');
         if (buyLbl) buyLbl.textContent = 'Sold Out';
@@ -366,13 +325,12 @@ Date: ${new Date().toLocaleString()}`
         if (buyLbl) buyLbl.textContent = 'Not available';
       }
 
-      // Update price display
       const priceEl = document.querySelector('.price[data-chf]');
       if (priceEl && priceCHF) {
         const sel = document.getElementById('currencySwitch')?.value || 'USD';
-        if (sel === 'CHF') priceEl.textContent = `CHF ${parseFloat(priceCHF).toFixed(2)}`;
-        else if (sel === 'EUR') priceEl.textContent = `€${parseFloat(priceEUR||0).toFixed(2)}`;
-        else priceEl.textContent = `$${parseFloat(priceUSD||0).toFixed(2)}`;
+        if (sel==='CHF') priceEl.textContent=`CHF ${parseFloat(priceCHF).toFixed(2)}`;
+        else if (sel==='EUR') priceEl.textContent=`€${parseFloat(priceEUR||0).toFixed(2)}`;
+        else priceEl.textContent=`$${parseFloat(priceUSD||0).toFixed(2)}`;
       }
     }
   </script>
