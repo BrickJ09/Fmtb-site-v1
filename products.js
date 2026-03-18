@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 17.03.2026, 21:26:32
+// Generated: 18.03.2026, 19:32:14
 
 const PRODUCTS = [
   {
@@ -342,17 +342,17 @@ const PRODUCTS = [
     "name": "BrickJ Fingerbike Parkbike",
     "category": "mtb",
     "status": "available",
-    "priceUSD": 19,
-    "priceCHF": 19,
-    "priceEUR": 19,
-    "stock": 3,
+    "priceUSD": 16.6,
+    "priceCHF": 16.6,
+    "priceEUR": 16.6,
+    "stock": 2,
     "etsyLabel": "Buy Now on Ricardo.ch",
     "etsyLink": "",
     "description": "Fingerbike made for fun",
     "specs": [
       "Material: PLA"
     ],
-    "note": "Ships only within Switzerland",
+    "note": "Ships only within Switzerland || shipping cost: CHF 3.40",
     "images": [
       "uploads/fingerbike-gelb-mit-rampe.jpg",
       "uploads/fingerbike-weiss-mit-rampe.jpg",
@@ -373,7 +373,7 @@ const PRODUCTS = [
         "color": "#f90b8a",
         "link": "https://www.ricardo.ch/de/a/fingerbike-pink-mit-rampe-1314248534/",
         "priceCHF": "",
-        "status": ""
+        "status": "sold-out"
       },
       {
         "label": "White",
