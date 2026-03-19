@@ -584,6 +584,107 @@
     </div>
   </div>
 
+  <!-- ══ PAGE: SALES ══ -->
+  <div id="page-sales" class="page">
+
+    <!-- Stats -->
+    <div class="stats-row" style="grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px">
+      <div class="stat-card y"><div class="stat-lbl">Total Revenue</div><div class="stat-val" id="s-revenue">CHF 0</div></div>
+      <div class="stat-card g"><div class="stat-lbl">Total Profit</div><div class="stat-val" id="s-profit">CHF 0</div></div>
+      <div class="stat-card c"><div class="stat-lbl">Units Sold</div><div class="stat-val" id="s-units">0</div></div>
+      <div class="stat-card r"><div class="stat-lbl">Avg Margin</div><div class="stat-val" id="s-margin">0%</div></div>
+    </div>
+
+    <!-- Monthly chart -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.1em;color:var(--muted);margin-bottom:12px">MONTHLY REVENUE</div>
+      <div id="salesChart" style="height:100px;display:flex;align-items:flex-end;gap:4px"></div>
+      <div id="salesChartLabels" style="display:flex;gap:4px;margin-top:4px"></div>
+    </div>
+
+    <!-- Quick sell -->
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.1em;color:var(--muted);margin-bottom:10px">⚡ QUICK SELL</div>
+    <div class="product-list" id="quickSellList" style="margin-bottom:16px"></div>
+
+    <!-- Sale log -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.1em;color:var(--muted)">SALE LOG</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn-s" onclick="exportSalesCSV()">Export CSV</button>
+        <button class="btn-d" onclick="clearSales()">Clear All</button>
+      </div>
+    </div>
+    <div id="saleLog"></div>
+
+  </div>
+
+  <!-- SALE MODAL -->
+  <div class="modal-overlay" id="saleModalOverlay" onclick="if(event.target===this)closeSaleModal()">
+    <div class="modal">
+      <div style="padding:10px 0 0;text-align:center"><div class="modal-drag-hint"></div></div>
+      <div class="modal-hdr">
+        <div class="modal-title">LOG SALE</div>
+        <button class="modal-close" onclick="closeSaleModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="fg">
+          <label>Product</label>
+          <select id="sale-product" onchange="onSaleProductChange()">
+            <option value="">Select product…</option>
+          </select>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>Quantity</label><input type="number" id="sale-qty" value="1" min="1" oninput="calcSaleProfit()"></div>
+          <div class="fg"><label>Sale Price (CHF)</label><input type="number" id="sale-price" placeholder="0.00" min="0" step="0.01" oninput="calcSaleProfit()"></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>Material Cost / unit (CHF)</label><input type="number" id="sale-cost" placeholder="0.00" min="0" step="0.01" oninput="calcSaleProfit()"></div>
+          <div class="fg"><label>Date</label><input type="date" id="sale-date"></div>
+        </div>
+        <div class="fg"><label>Platform</label>
+          <select id="sale-platform">
+            <option value="Ricardo">Ricardo</option>
+            <option value="Etsy">Etsy</option>
+            <option value="Direct">Direct</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Note (optional)</label><input type="text" id="sale-note" placeholder="e.g. shipped to Zurich"></div>
+        <!-- Profit preview -->
+        <div id="saleProfitPreview" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:4px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+            <div><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px">Revenue</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--accent2)" id="prev-revenue">CHF 0</div></div>
+            <div><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px">Cost</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--danger)" id="prev-cost">CHF 0</div></div>
+            <div><div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px">Profit</div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--success)" id="prev-profit">CHF 0</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-ftr">
+        <button class="btn-s" onclick="closeSaleModal()">Cancel</button>
+        <button class="btn-p" onclick="saveSale()">LOG SALE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COST MODAL -->
+  <div class="modal-overlay" id="costModalOverlay" onclick="if(event.target===this)closeCostModal()">
+    <div class="modal" style="max-height:80vh">
+      <div style="padding:10px 0 0;text-align:center"><div class="modal-drag-hint"></div></div>
+      <div class="modal-hdr">
+        <div class="modal-title">PRODUCTION COSTS</div>
+        <button class="modal-close" onclick="closeCostModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:.72rem;color:var(--muted);margin-bottom:14px;line-height:1.5">Set material + production cost per product. Used to calculate profit on every sale.</p>
+        <div id="costList"></div>
+      </div>
+      <div class="modal-ftr">
+        <button class="btn-s" onclick="closeCostModal()">Cancel</button>
+        <button class="btn-p" onclick="saveCosts()">SAVE COSTS</button>
+      </div>
+    </div>
+  </div>
+
   <!-- PRODUCT MODAL -->
   <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
     <div class="modal">
@@ -645,7 +746,7 @@
   <nav class="bottom-nav">
     <button class="bn-item active" onclick="switchPage('home',this)"><span class="bn-icon">🏠</span>Home</button>
     <button class="bn-item" onclick="switchPage('products',this)"><span class="bn-icon">📦</span>Products</button>
-    <button class="bn-item" onclick="switchPage('layout',this)"><span class="bn-icon">🗂</span>Layout</button>
+    <button class="bn-item" onclick="switchPage('sales',this)"><span class="bn-icon">💰</span>Sales</button>
     <button class="bn-item" onclick="switchPage('site',this)"><span class="bn-icon">🌐</span>Website</button>
     <button class="bn-item" onclick="switchPage('publish',this)"><span class="bn-icon">🚀</span>Publish</button>
   </nav>
@@ -708,15 +809,16 @@
     if (btnEl) btnEl.classList.add('active');
     else {
       const btns = document.querySelectorAll('.bn-item');
-      const map = {home:0,products:1,layout:2,site:3,publish:4};
+      const map = {home:0,products:1,sales:2,site:3,publish:4};
       if (map[name]!==undefined) btns[map[name]].classList.add('active');
     }
-    const titles = {home:'DASHBOARD',products:'PRODUCTS',layout:'LAYOUT',site:'WEBSITE',publish:'PUBLISH'};
+    const titles = {home:'DASHBOARD',products:'PRODUCTS',layout:'LAYOUT',sales:'SALES',site:'WEBSITE',publish:'PUBLISH'};
     document.getElementById('topbarTitle').textContent = titles[name]||name.toUpperCase();
     window.scrollTo(0,0);
     if (name==='layout') renderLayout();
     if (name==='site') loadSiteForm();
     if (name==='publish') { document.getElementById('exportCode').textContent=buildJS().substring(0,2500)+'\n…'; loadNotifications(); }
+    if (name==='sales') { renderSalesPage(); }
   }
 
   function openCard(id) {
@@ -1435,6 +1537,310 @@ Open email to notify them now?`);
   function addVariant() {
     _variants.push({ label: '', color: '', link: '', priceCHF: '', status: '' });
     renderVariantList();
+  }
+
+  // ═══════════════════════════════════════════════
+  // SALES
+  // ═══════════════════════════════════════════════
+  function getSales() {
+    try { return JSON.parse(localStorage.getItem('fm_sales')||'[]'); } catch { return []; }
+  }
+  function saveSalesData(s) { localStorage.setItem('fm_sales', JSON.stringify(s)); }
+
+  function getCosts() {
+    try { return JSON.parse(localStorage.getItem('fm_costs')||'{}'); } catch { return {}; }
+  }
+  function saveCostsData(c) { localStorage.setItem('fm_costs', JSON.stringify(c)); }
+
+  // ── Render entire sales page ──
+  function renderSalesPage() {
+    renderQuickSellList();
+    renderSaleLog();
+    renderSaleStats();
+    renderSalesChart();
+  }
+
+  // ── Quick sell list ──
+  function renderQuickSellList() {
+    const list = document.getElementById('quickSellList');
+    if (!list) return;
+    list.innerHTML = '';
+    const avail = products.filter(p => p.status === 'available');
+    if (!avail.length) { list.innerHTML = '<p style="color:var(--muted);font-size:.8rem">No available products.</p>'; return; }
+    avail.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'prod-card';
+      div.style.cursor = 'pointer';
+      div.innerHTML = `
+        <img class="prod-card-img" src="${p.images?.[0]||'COMING SOON.png'}" onerror="this.src='COMING SOON.png'">
+        <div class="prod-card-info">
+          <div class="prod-card-name">${p.name}</div>
+          <div class="prod-card-meta"><span>CHF ${parseFloat(p.priceCHF||0).toFixed(2)}</span></div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn-p" style="padding:7px 14px;font-size:.75rem" onclick="quickSell('${p.id}')">⚡ Sold</button>
+          <button class="btn-s" style="padding:7px 10px" onclick="openSaleModal('${p.id}')">+ Detail</button>
+        </div>`;
+      list.appendChild(div);
+    });
+    // Costs button
+    const costBtn = document.createElement('button');
+    costBtn.className = 'btn-s';
+    costBtn.style.cssText = 'width:100%;margin-top:10px';
+    costBtn.textContent = '⚙ Edit Production Costs';
+    costBtn.onclick = openCostModal;
+    list.appendChild(costBtn);
+  }
+
+  // ── Quick sell: 1 click ──
+  function quickSell(productId) {
+    const p = products.find(x => x.id === productId);
+    if (!p) return;
+    const costs = getCosts();
+    const cost = parseFloat(costs[productId]||0);
+    const price = parseFloat(p.priceCHF||0);
+    const sale = {
+      id: Date.now(),
+      productId, productName: p.name,
+      qty: 1, price, cost,
+      profit: price - cost,
+      date: new Date().toISOString().split('T')[0],
+      platform: 'Ricardo', note: ''
+    };
+    const sales = getSales();
+    sales.unshift(sale);
+    saveSalesData(sales);
+    renderSalesPage();
+    showToast(`${p.name} sold for CHF ${price.toFixed(2)} ✓`);
+  }
+
+  // ── Sale modal ──
+  let _saleEditId = null;
+  function openSaleModal(productId) {
+    _saleEditId = null;
+    const sel = document.getElementById('sale-product');
+    sel.innerHTML = '<option value="">Select product…</option>' +
+      products.map(p => `<option value="${p.id}"${p.id===productId?' selected':''}>${p.name}</option>`).join('');
+    if (productId) {
+      onSaleProductChange(productId);
+    }
+    document.getElementById('sale-qty').value = 1;
+    document.getElementById('sale-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('sale-note').value = '';
+    calcSaleProfit();
+    document.getElementById('saleModalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSaleModal() {
+    document.getElementById('saleModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function onSaleProductChange(productId) {
+    const id = productId || document.getElementById('sale-product').value;
+    if (!id) return;
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('sale-price').value = parseFloat(p.priceCHF||0).toFixed(2);
+    const costs = getCosts();
+    document.getElementById('sale-cost').value = costs[id]||'';
+    calcSaleProfit();
+  }
+
+  function calcSaleProfit() {
+    const qty   = parseFloat(document.getElementById('sale-qty')?.value)||0;
+    const price = parseFloat(document.getElementById('sale-price')?.value)||0;
+    const cost  = parseFloat(document.getElementById('sale-cost')?.value)||0;
+    const rev   = qty * price;
+    const tot   = qty * cost;
+    const prof  = rev - tot;
+    const rEl = document.getElementById('prev-revenue');
+    const cEl = document.getElementById('prev-cost');
+    const pEl = document.getElementById('prev-profit');
+    if (rEl) rEl.textContent = `CHF ${rev.toFixed(2)}`;
+    if (cEl) cEl.textContent = `CHF ${tot.toFixed(2)}`;
+    if (pEl) { pEl.textContent = `CHF ${prof.toFixed(2)}`; pEl.style.color = prof >= 0 ? 'var(--success)' : 'var(--danger)'; }
+  }
+
+  function saveSale() {
+    const productId = document.getElementById('sale-product').value;
+    const p = products.find(x => x.id === productId);
+    if (!productId || !p) { showToast('Select a product', true); return; }
+    const qty   = parseInt(document.getElementById('sale-qty').value)||1;
+    const price = parseFloat(document.getElementById('sale-price').value)||0;
+    const cost  = parseFloat(document.getElementById('sale-cost').value)||0;
+    // Save cost for this product for next time
+    const costs = getCosts();
+    costs[productId] = cost;
+    saveCostsData(costs);
+    const sale = {
+      id: _saleEditId || Date.now(),
+      productId, productName: p.name,
+      qty, price, cost,
+      profit: (price - cost) * qty,
+      revenue: price * qty,
+      date: document.getElementById('sale-date').value || new Date().toISOString().split('T')[0],
+      platform: document.getElementById('sale-platform').value,
+      note: document.getElementById('sale-note').value.trim()
+    };
+    const sales = getSales();
+    if (_saleEditId) {
+      const idx = sales.findIndex(s => s.id === _saleEditId);
+      if (idx > -1) sales[idx] = sale;
+    } else {
+      sales.unshift(sale);
+    }
+    saveSalesData(sales);
+    closeSaleModal();
+    renderSalesPage();
+    showToast('Sale logged ✓');
+  }
+
+  // ── Sale log ──
+  function renderSaleLog() {
+    const log = document.getElementById('saleLog');
+    if (!log) return;
+    const sales = getSales();
+    if (!sales.length) {
+      log.innerHTML = '<p style="color:var(--muted);font-size:.8rem;text-align:center;padding:20px">No sales yet. Hit ⚡ Sold on a product above!</p>';
+      return;
+    }
+    log.innerHTML = sales.map(s => {
+      const profit = s.profit ?? ((s.price - s.cost) * (s.qty||1));
+      const revenue = s.revenue ?? (s.price * (s.qty||1));
+      const profitColor = profit >= 0 ? 'var(--success)' : 'var(--danger)';
+      return `<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:600;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.productName}</div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap">
+            <span>${s.date}</span>
+            <span>${s.platform||''}</span>
+            <span>×${s.qty||1}</span>
+            ${s.note?`<span style="font-style:italic">${s.note}</span>`:''}
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--accent2)">CHF ${parseFloat(revenue).toFixed(2)}</div>
+          <div style="font-size:.7rem;color:${profitColor}">+${parseFloat(profit).toFixed(2)} profit</div>
+        </div>
+        <button class="btn-d" style="padding:5px 8px;font-size:.7rem;flex-shrink:0" onclick="deleteSale(${s.id})">✕</button>
+      </div>`;
+    }).join('');
+  }
+
+  function deleteSale(id) {
+    if (!confirm('Delete this sale?')) return;
+    const sales = getSales().filter(s => s.id !== id);
+    saveSalesData(sales);
+    renderSalesPage();
+    showToast('Deleted');
+  }
+
+  // ── Stats ──
+  function renderSaleStats() {
+    const sales = getSales();
+    const totalRevenue = sales.reduce((a,s) => a + (s.revenue ?? s.price*(s.qty||1)), 0);
+    const totalProfit  = sales.reduce((a,s) => a + (s.profit ?? (s.price-s.cost)*(s.qty||1)), 0);
+    const totalUnits   = sales.reduce((a,s) => a + (s.qty||1), 0);
+    const margin       = totalRevenue > 0 ? Math.round((totalProfit/totalRevenue)*100) : 0;
+    const fmt = n => n >= 1000 ? `${(n/1000).toFixed(1)}k` : n.toFixed(0);
+    const rEl = document.getElementById('s-revenue');
+    const pEl = document.getElementById('s-profit');
+    const uEl = document.getElementById('s-units');
+    const mEl = document.getElementById('s-margin');
+    if (rEl) rEl.textContent = `CHF ${fmt(totalRevenue)}`;
+    if (pEl) { pEl.textContent = `CHF ${fmt(totalProfit)}`; pEl.style.color = totalProfit >= 0 ? 'var(--success)' : 'var(--danger)'; }
+    if (uEl) uEl.textContent = totalUnits;
+    if (mEl) mEl.textContent = `${margin}%`;
+  }
+
+  // ── Chart ──
+  function renderSalesChart() {
+    const chartEl  = document.getElementById('salesChart');
+    const labelsEl = document.getElementById('salesChartLabels');
+    if (!chartEl) return;
+    const sales = getSales();
+    // Last 6 months
+    const months = [];
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date();
+      d.setMonth(d.getMonth() - i);
+      months.push({ key: d.toISOString().substring(0,7), label: d.toLocaleString('en',{month:'short'}) });
+    }
+    const data = months.map(m => {
+      const rev = sales.filter(s => s.date?.startsWith(m.key)).reduce((a,s) => a + (s.revenue ?? s.price*(s.qty||1)), 0);
+      const prof = sales.filter(s => s.date?.startsWith(m.key)).reduce((a,s) => a + (s.profit ?? (s.price-s.cost)*(s.qty||1)), 0);
+      return { ...m, rev, prof };
+    });
+    const maxRev = Math.max(...data.map(d=>d.rev), 1);
+    chartEl.innerHTML = data.map(d => {
+      const hRev  = Math.round((d.rev/maxRev)*90);
+      const hProf = d.rev > 0 ? Math.round((d.prof/maxRev)*90) : 0;
+      return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative">
+        <div style="width:100%;background:rgba(0,255,224,.15);border-radius:4px 4px 0 0;height:${hRev}px;position:relative;min-height:${d.rev>0?4:0}px">
+          <div style="width:100%;background:rgba(0,204,136,.5);border-radius:4px 4px 0 0;height:${Math.max(hProf,0)}px;position:absolute;bottom:0"></div>
+        </div>
+        ${d.rev>0?`<span style="font-size:.55rem;color:var(--muted);position:absolute;top:-16px;left:50%;transform:translateX(-50%);white-space:nowrap">${d.rev.toFixed(0)}</span>`:''}
+      </div>`;
+    }).join('');
+    labelsEl.innerHTML = data.map(d =>
+      `<div style="flex:1;text-align:center;font-size:.6rem;color:var(--muted)">${d.label}</div>`
+    ).join('');
+  }
+
+  // ── Cost modal ──
+  function openCostModal() {
+    const costs = getCosts();
+    const list = document.getElementById('costList');
+    list.innerHTML = products.map(p => `
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:8px">
+        <img src="${p.images?.[0]||'COMING SOON.png'}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0" onerror="this.src='COMING SOON.png'">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</div>
+          <div style="font-size:.68rem;color:var(--muted)">Sale: CHF ${parseFloat(p.priceCHF||0).toFixed(2)}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0">
+          <label style="font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Cost/unit</label>
+          <input data-id="${p.id}" type="number" value="${costs[p.id]||''}" placeholder="0.00" min="0" step="0.01"
+            style="width:90px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.82rem;padding:6px 8px;border-radius:6px;outline:none;text-align:right;font-family:Inter,sans-serif">
+        </div>
+      </div>`).join('');
+    document.getElementById('costModalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCostModal() {
+    document.getElementById('costModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function saveCosts() {
+    const costs = {};
+    document.querySelectorAll('#costList input[data-id]').forEach(inp => {
+      if (inp.value) costs[inp.dataset.id] = parseFloat(inp.value)||0;
+    });
+    saveCostsData(costs);
+    closeCostModal();
+    showToast('Costs saved ✓');
+  }
+
+  function exportSalesCSV() {
+    const sales = getSales();
+    if (!sales.length) { showToast('No sales to export', true); return; }
+    const rows = ['Date,Product,Qty,Price CHF,Cost CHF,Profit CHF,Platform,Note',
+      ...sales.map(s => `${s.date},"${s.productName}",${s.qty||1},${s.price||0},${s.cost||0},${(s.profit||(s.price-s.cost)*(s.qty||1)).toFixed(2)},${s.platform||''},${s.note||''}`)
+    ].join('\n');
+    const b = new Blob([rows],{type:'text/csv'});
+    const a = document.createElement('a'); a.href=URL.createObjectURL(b); a.download='fingermtb-sales.csv'; a.click();
+    showToast('CSV downloaded ✓');
+  }
+
+  function clearSales() {
+    if (!confirm('Delete ALL sales data? This cannot be undone.')) return;
+    localStorage.removeItem('fm_sales');
+    renderSalesPage();
+    showToast('Sales cleared');
   }
 
   // ═══════════════════════════════════════════════
