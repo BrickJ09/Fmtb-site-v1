@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 18.03.2026, 19:32:14
+// Generated: 19.03.2026, 08:35:26
 
 const PRODUCTS = [
   {
@@ -70,7 +70,9 @@ const PRODUCTS = [
       "uploads/fingerski-set_2.jpg",
       "uploads/fingerski-set_3.jpg",
       "uploads/fingerski-set_4.jpg"
-    ]
+    ],
+    "media": [],
+    "variants": []
   },
   {
     "id": "fingerski-starter-set",
@@ -98,7 +100,8 @@ const PRODUCTS = [
     ],
     "image": "COMING SOON.png",
     "link": "soon.html",
-    "media": []
+    "media": [],
+    "variants": []
   },
   {
     "id": "fingerski-v2-blue",
