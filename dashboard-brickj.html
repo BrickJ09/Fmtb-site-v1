@@ -1844,6 +1844,66 @@ Open email to notify them now?`);
   }
 
   // ═══════════════════════════════════════════════
+  // BACKUP & RESTORE
+  // ═══════════════════════════════════════════════
+  function exportBackup() {
+    const backup = {
+      version: 1,
+      date: new Date().toISOString(),
+      products: getProds(),
+      sales: getSales(),
+      costs: getCosts(),
+      config: JSON.parse(localStorage.getItem('fm_cfg')||'{}'),
+    };
+    const b = new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = `fingermtb-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    showToast('Backup exported ✓');
+  }
+
+  function importBackup(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const backup = JSON.parse(e.target.result);
+        if (!backup.version || !backup.products) throw new Error('Invalid backup file');
+        if (!confirm(`Import backup from ${backup.date?.split('T')[0]||'unknown date'}?
+
+This will overwrite your current products, sales and config.`)) return;
+        if (backup.products) saveProds(backup.products);
+        if (backup.sales)    localStorage.setItem('fm_sales', JSON.stringify(backup.sales));
+        if (backup.costs)    localStorage.setItem('fm_costs', JSON.stringify(backup.costs));
+        if (backup.config)   localStorage.setItem('fm_cfg', JSON.stringify(backup.config));
+        products = getProds();
+        renderList();
+        renderQuickPopupGrid();
+        updateQuickActions();
+        showToast('Backup restored ✓');
+      } catch(err) {
+        showToast('Invalid backup file', true);
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  // Also add CHF default to all currency switches on all pages
+  (function() {
+    try {
+      const saved = localStorage.getItem('fm_currency');
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const lang = navigator.language || '';
+      const isSwiss = tz.includes('Zurich') || lang.startsWith('de-CH') || lang.startsWith('fr-CH');
+      const def = saved || (isSwiss ? 'CHF' : 'USD');
+      document.querySelectorAll('#currencySwitch, .currency-switch').forEach(sel => { sel.value = def; });
+    } catch(e) {}
+  })();
+
+  // ═══════════════════════════════════════════════
   // INIT
   // ═══════════════════════════════════════════════
   renderList();
