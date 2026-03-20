@@ -4,548 +4,467 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product · FingerMTB</title>
+  <meta name="description" id="meta-desc" content="Handmade 3D-printed mini bikes from Switzerland.">
+  <meta property="og:title" id="og-title" content="FingerMTB">
+  <meta property="og:description" id="og-desc" content="Handmade 3D-printed mini bikes from Switzerland.">
+  <meta property="og:image" id="og-image" content="https://brickj-mtb.netlify.app/v10/V10side1.JPEG">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "70a7302f8a694fa897ff479afcb93500"}'></script>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container flex-between">
-      <div class="brand"><h1>FingerMTB</h1><p class="tagline">Mini Bikes · Big Tricks</p></div>
-      <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-      <nav class="main-nav">
-        <a href="index.html">Home</a><a href="shop.html">Shop</a>
-        <a href="projects.html">Projects</a><a href="about.html">About</a>
-        <a href="index.html#entryform">Contact</a>
-      </nav>
-      <div class="header-right">
-        <div class="social-links" id="header-social" style="display:none">
-          <a id="header-instagram" href="#" target="_blank" rel="noopener" style="display:none" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a id="header-tiktok" href="#" target="_blank" rel="noopener" style="display:none" aria-label="TikTok">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-          </a>
-        </div>
-        <select id="currencySwitch">
-          <option value="USD">$ USD</option>
-          <option value="CHF">CHF</option>
-          <option value="EUR">€ EUR</option>
-        </select>
+<header class="site-header">
+  <div class="container flex-between">
+    <div class="brand"><h1>FingerMTB</h1><p class="tagline">Mini Bikes · Big Tricks</p></div>
+    <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="index.html#entryform">Contact</a>
+    </nav>
+    <div class="header-right">
+      <div class="social-links" id="header-social" style="display:none">
+        <a id="header-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram" style="display:none">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a id="header-tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok" style="display:none">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        </a>
       </div>
+      <select id="currencySwitch">
+        <option value="USD">$ USD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR">€ EUR</option>
+      </select>
     </div>
-  </header>
-
-  <main id="productMain"></main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">FingerMTB</div>
-      <div class="footer-center">
-        <div class="social-links" id="footer-social" style="display:none">
-          <a id="footer-instagram" href="#" target="_blank" rel="noopener" style="display:none" aria-label="Instagram">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a id="footer-tiktok" href="#" target="_blank" rel="noopener" style="display:none" aria-label="TikTok">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-          </a>
-        </div>
-        <a href="privacy.html" style="font-size:.75rem;color:rgba(255,255,255,.4)">Privacy Policy</a>
-      </div>
-      <div class="footer-copy">
-        <p id="footer-line1">BrickJ_mtb · Handmade in Switzerland 🇨🇭</p>
-        <p id="footer-line2">No cookies 🍪</p>
-      </div>
-    </div>
-  </footer>
-
-  <div class="admin-entry" title="Admin"><a href="/dashboard-brickj.html">⚙</a></div>
-
-  
-  <!-- Zoom overlay -->
-  <div id="zoomOverlay" onclick="closeZoom()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;align-items:center;justify-content:center;cursor:zoom-out;padding:20px">
-    <img id="zoomImg" src="" style="max-width:100%;max-height:90vh;object-fit:contain;border-radius:8px;user-select:none" onclick="event.stopPropagation()">
-    <button onclick="closeZoom()" style="position:absolute;top:16px;right:20px;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
   </div>
+</header>
 
-  <script src="products.js"></script>
-  <script src="script.js"></script>
-  <script>
-    function deepMerge(base, over) {
-      const r={...base};
-      for(const k in over){
-        if(over[k]&&typeof over[k]==='object'&&!Array.isArray(over[k])) r[k]=deepMerge(base[k]||{},over[k]);
-        else r[k]=over[k];
-      }
-      return r;
+<!-- Zoom overlay -->
+<div id="zoomOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;align-items:center;justify-content:center;cursor:zoom-out;padding:20px">
+  <img id="zoomImg" src="" style="max-width:100%;max-height:90vh;object-fit:contain;border-radius:8px">
+  <button id="zoomClose" style="position:absolute;top:16px;right:20px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.4rem;width:40px;height:40px;border-radius:50%;cursor:pointer">✕</button>
+</div>
+
+<main id="productMain" style="min-height:60vh"></main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">FingerMTB</div>
+    <div class="footer-center">
+      <div class="social-links" id="footer-social" style="display:none">
+        <a id="footer-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a id="footer-tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        </a>
+      </div>
+      <a href="privacy.html" style="font-size:.75rem;color:rgba(255,255,255,.4)">Privacy Policy</a>
+    </div>
+    <div class="footer-copy">
+      <p id="footer-line1">BrickJ_mtb · Handmade in Switzerland 🇨🇭</p>
+      <p id="footer-line2">No cookies 🍪</p>
+    </div>
+  </div>
+</footer>
+
+<div class="admin-entry" title="Admin"><a href="/dashboard-brickj.html">⚙</a></div>
+
+<script src="products.js"></script>
+<script src="script.js"></script>
+<script>
+(function () {
+  // ── helpers ──────────────────────────────────────────
+  function deepMerge(b, o) {
+    var r = Object.assign({}, b);
+    for (var k in o) {
+      if (o[k] && typeof o[k] === 'object' && !Array.isArray(o[k])) r[k] = deepMerge(b[k] || {}, o[k]);
+      else r[k] = o[k];
     }
-    function getCfg() {
-      try {
-        const s=JSON.parse(localStorage.getItem('fm_cfg')||'{}');
-        return deepMerge(typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{},s.siteConfig||{});
-      } catch { return typeof SITE_CONFIG!=='undefined'?SITE_CONFIG:{}; }
+    return r;
+  }
+  function getCfg() {
+    try {
+      var s = JSON.parse(localStorage.getItem('fm_cfg') || '{}');
+      var base = typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : {};
+      return deepMerge(base, s.siteConfig || {});
+    } catch (e) { return typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : {}; }
+  }
+
+  var cfg = getCfg();
+
+  // ── currency default ─────────────────────────────────
+  (function () {
+    try {
+      var saved = localStorage.getItem('fm_currency');
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      var lang = navigator.language || '';
+      var isSwiss = tz.indexOf('Zurich') !== -1 || lang.indexOf('de-CH') === 0 || lang.indexOf('fr-CH') === 0;
+      var def = saved || (isSwiss ? 'CHF' : 'USD');
+      var sel = document.getElementById('currencySwitch');
+      if (sel) sel.value = def;
+    } catch (e) {}
+  })();
+
+  // ── footer ───────────────────────────────────────────
+  if (cfg.footer && cfg.footer.line1) document.getElementById('footer-line1').textContent = cfg.footer.line1;
+  if (cfg.footer && cfg.footer.line2) document.getElementById('footer-line2').textContent = cfg.footer.line2;
+
+  // ── social links ─────────────────────────────────────
+  if (cfg.social && cfg.social.enabled !== false) {
+    function setLink(prefix, platform, url) {
+      var el = document.getElementById(prefix + '-' + platform);
+      if (el && url) { el.href = url; el.style.display = 'inline-flex'; }
     }
-    const cfg = getCfg();
-
-    // Auto-set CHF for Swiss visitors
-    (function() {
-      try {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const lang = navigator.language || '';
-        if (tz.includes('Zurich') || tz.includes('Europe/Zurich') || lang.startsWith('de-CH') || lang.startsWith('fr-CH')) {
-          const sel = document.getElementById('currencySwitch');
-          if (sel) sel.value = 'CHF';
-          // Store preference
-          localStorage.setItem('fm_currency', 'CHF');
-        } else {
-          const saved = localStorage.getItem('fm_currency');
-          if (saved) { const sel = document.getElementById('currencySwitch'); if (sel) sel.value = saved; }
-        }
-      } catch(e) {}
-    })();
-
-    // Footer
-    if(cfg.footer?.line1) document.getElementById('footer-line1').textContent=cfg.footer.line1;
-    if(cfg.footer?.line2) document.getElementById('footer-line2').textContent=cfg.footer.line2;
-
-    // Social links
-    function setSocialLink(prefix, platform, url) {
-      const el=document.getElementById(`${prefix}-${platform}`);
-      if(el&&url){el.href=url;el.style.display='inline-flex';}
+    var pos = (cfg.social.position) || 'both';
+    if (pos === 'header' || pos === 'both') {
+      document.getElementById('header-social').style.display = 'flex';
+      setLink('header', 'instagram', cfg.social.instagram);
+      setLink('header', 'tiktok', cfg.social.tiktok);
     }
-    if(cfg.social?.enabled!==false&&(cfg.social?.instagram||cfg.social?.tiktok)){
-      const pos=cfg.social?.position||'both';
-      if(pos==='header'||pos==='both'){
-        document.getElementById('header-social').style.display='flex';
-        setSocialLink('header','instagram',cfg.social.instagram);
-        setSocialLink('header','tiktok',cfg.social.tiktok);
-      }
-      if(pos==='footer'||pos==='both'){
-        document.getElementById('footer-social').style.display='flex';
-        setSocialLink('footer','instagram',cfg.social.instagram);
-        setSocialLink('footer','tiktok',cfg.social.tiktok);
-      }
+    if (pos === 'footer' || pos === 'both') {
+      document.getElementById('footer-social').style.display = 'flex';
+      setLink('footer', 'instagram', cfg.social.instagram);
+      setLink('footer', 'tiktok', cfg.social.tiktok);
     }
+  }
 
-    // ── PRODUCT RENDER ──────────────────────────────
-    (function() {
-      const params  = new URLSearchParams(location.search);
-      let id        = params.get('id');
-      const main    = document.getElementById('productMain');
+  // ── zoom ─────────────────────────────────────────────
+  document.getElementById('zoomOverlay').addEventListener('click', closeZoom);
+  document.getElementById('zoomClose').addEventListener('click', closeZoom);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeZoom(); });
+  function closeZoom() {
+    document.getElementById('zoomOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function openZoom(src) {
+    document.getElementById('zoomImg').src = src;
+    document.getElementById('zoomOverlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
 
-      function showNotFound() {
-        document.title = '404 — FingerMTB';
-        // Pick 3 random available products to suggest
-        const suggestions = (typeof PRODUCTS !== 'undefined')
-          ? PRODUCTS.filter(p=>p.status==='available').sort(()=>Math.random()-.5).slice(0,3)
-          : [];
-        const suggHTML = suggestions.length ? `
-          <div style="margin-top:40px;text-align:left;max-width:600px;margin-left:auto;margin-right:auto">
-            <p style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;color:var(--muted);margin-bottom:14px">MAYBE YOU WERE LOOKING FOR</p>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-              ${suggestions.map(p=>`
-                <a href="product.html?id=${p.id}" style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--text);transition:transform .2s" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-                  <img src="${p.images?.[0]||'COMING SOON.png'}" style="width:100%;aspect-ratio:1;object-fit:cover">
-                  <div style="padding:10px 12px">
-                    <div style="font-size:.8rem;font-weight:600;margin-bottom:3px">${p.name}</div>
-                    <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--accent2)">CHF ${parseFloat(p.priceCHF||0).toFixed(2)}</div>
-                  </div>
-                </a>`).join('')}
-            </div>
-          </div>` : '';
-        main.innerHTML = `
-          <div style="text-align:center;padding:80px 24px 40px">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:8rem;color:var(--border);line-height:1;margin-bottom:8px">404</div>
-            <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:12px">Product not found</h2>
-            <p style="color:var(--muted);margin-bottom:28px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.6">
-              This product doesn't exist or may have been removed. Check out the shop for what's available.
-            </p>
-            <a href="shop.html" class="buy-btn" style="display:inline-flex">
-              <span>Browse the Shop</span>
-              <span class="buy-btn-arrow">→</span>
-            </a>
-            ${suggHTML}
-          </div>`;
+  // ── product lookup ───────────────────────────────────
+  var main = document.getElementById('productMain');
+  var params = new URLSearchParams(location.search);
+  var id = params.get('id') || '';
+
+  if (!id) { show404(); return; }
+  if (typeof LEGACY_MAP !== 'undefined' && LEGACY_MAP[id]) id = LEGACY_MAP[id];
+  if (typeof PRODUCTS === 'undefined') { main.innerHTML = '<p style="padding:60px 24px;color:#888">Loading error — products.js not found.</p>'; return; }
+
+  var product = null;
+  for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === id) { product = PRODUCTS[i]; break; } }
+  if (!product) { show404(); return; }
+
+  // ── meta ─────────────────────────────────────────────
+  document.title = product.name + ' · FingerMTB';
+  var autoDesc = product.name + ' — ' + ((product.description || '').substring(0, 120)) + ' | FingerMTB';
+  document.getElementById('meta-desc').content = autoDesc;
+  document.getElementById('og-title').content  = product.name + ' · FingerMTB';
+  document.getElementById('og-desc').content   = autoDesc;
+  if (product.images && product.images[0]) {
+    var imgUrl = product.images[0].indexOf('http') === 0 ? product.images[0] : 'https://brickj-mtb.netlify.app/' + product.images[0];
+    document.getElementById('og-image').content = imgUrl;
+  }
+
+  // ── render ───────────────────────────────────────────
+  var statusClass = { available: 'status-available', 'sold-out': 'status-sold-out', soon: 'status-soon' }[product.status] || '';
+  var statusLabel = { available: 'In Stock', 'sold-out': 'Sold Out', soon: 'Coming Soon' }[product.status] || '';
+  var stock = parseInt(product.stock) || 0;
+  var lowStock = (product.status === 'available' && stock > 0 && stock <= 3)
+    ? '<span class="low-stock-badge">🔥 Only ' + stock + ' left!</span>' : '';
+
+  // images
+  var images = (product.images && product.images.length) ? product.images : ['COMING SOON.png'];
+  var slidesHTML = '';
+  for (var s = 0; s < images.length; s++) {
+    slidesHTML += '<img src="' + images[s] + '" alt="' + product.name + '" class="slide' + (s === 0 ? ' active' : '') + '" loading="' + (s === 0 ? 'eager' : 'lazy') + '" onerror="this.src=\'COMING SOON.png\'">';
+  }
+
+  // specs
+  var specsHTML = '';
+  if (product.specs && product.specs.length) {
+    specsHTML = '<ul>';
+    for (var sp = 0; sp < product.specs.length; sp++) specsHTML += '<li>' + product.specs[sp] + '</li>';
+    specsHTML += '</ul>';
+  }
+
+  // trust badges
+  var trustHTML = '';
+  if (cfg.trust && cfg.trust.badge)    trustHTML += '<span class="trust-badge">' + cfg.trust.badge + '</span>';
+  if (cfg.trust && cfg.trust.shipping) trustHTML += '<span class="trust-badge trust-badge--shipping">🚚 ' + cfg.trust.shipping + '</span>';
+
+  // size ref
+  var sizeHTML = '';
+  if (cfg.sizeref && cfg.sizeref.enabled !== false && cfg.sizeref.title) {
+    sizeHTML = '<div class="size-reference">'
+      + (cfg.sizeref.image ? '<img src="' + cfg.sizeref.image + '" alt="Size reference" class="size-ref-img">' : '')
+      + '<div class="size-ref-text"><span class="size-ref-icon">📏</span><div>'
+      + '<strong>' + cfg.sizeref.title + '</strong>'
+      + (cfg.sizeref.text ? '<p>' + cfg.sizeref.text + '</p>' : '')
+      + '</div></div></div>';
+  }
+
+  // variants
+  var variantsHTML = '';
+  if (product.variants && product.variants.length) {
+    var chipsHTML = '';
+    for (var v = 0; v < product.variants.length; v++) {
+      var vr = product.variants[v];
+      var vStatus = vr.status || product.status;
+      var soldOut = vStatus === 'sold-out';
+      var dot = vr.color ? '<span style="width:13px;height:13px;border-radius:50%;background:' + vr.color + ';flex-shrink:0;border:1.5px solid rgba(255,255,255,.2);display:inline-block"></span>' : '';
+      chipsHTML += '<button class="variant-chip' + (soldOut ? ' variant-chip--soldout' : '') + '"'
+        + ' data-link="' + (vr.link || product.etsyLink || '') + '"'
+        + ' data-pricechf="' + (vr.priceCHF || product.priceCHF || 0) + '"'
+        + ' data-priceusd="' + (product.priceUSD || 0) + '"'
+        + ' data-priceeur="' + (product.priceEUR || 0) + '"'
+        + ' data-status="' + vStatus + '"'
+        + (soldOut ? ' disabled' : '')
+        + '>' + dot + '<span>' + vr.label + '</span>'
+        + (soldOut ? '<span style="font-size:.6rem;opacity:.5">(sold out)</span>' : '')
+        + '</button>';
+    }
+    variantsHTML = '<div class="variants-section"><div class="variants-label">Choose option</div><div class="variants-chips">' + chipsHTML + '</div></div>';
+  }
+
+  // buy button
+  var buyHTML = '';
+  if (product.variants && product.variants.length) {
+    buyHTML = '<a class="buy-btn buy-btn--disabled" id="variantBuyBtn" href="#" target="_blank" rel="noopener">'
+      + '<span class="buy-btn-icon">🛒</span><span id="variantBuyLabel">Select an option above</span>'
+      + '<span class="buy-btn-arrow">→</span></a>';
+  } else if (product.status === 'available' && product.etsyLink) {
+    buyHTML = '<a class="buy-btn" href="' + product.etsyLink + '" target="_blank" rel="noopener">'
+      + '<span class="buy-btn-icon">🛒</span><span>' + (product.etsyLabel || 'Buy Now') + '</span>'
+      + '<span class="buy-btn-arrow">→</span></a>';
+  } else {
+    buyHTML = '<div class="buy-btn buy-btn--disabled">' + statusLabel + '</div>';
+  }
+
+  // share buttons
+  var shareHTML = '<div class="share-row">'
+    + '<button class="share-btn" id="shareCopyBtn">&#128279; Share</button>'
+    + '<button class="share-btn share-btn--wa" id="shareWaBtn">'
+    + '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'
+    + ' WhatsApp</button></div>';
+
+  // media
+  var mediaHTML = '';
+  if (product.media && product.media.length) {
+    var cards = '';
+    for (var m = 0; m < product.media.length; m++) {
+      var med = product.media[m];
+      var inner = '';
+      if (med.type === 'youtube') {
+        var ytMatch = med.url.match(/(?:v=|youtu\.be\/)([^&?]+)/);
+        var ytId = ytMatch ? ytMatch[1] : med.url;
+        inner = '<div class="media-youtube"><iframe src="https://www.youtube.com/embed/' + ytId + '" frameborder="0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>';
+      } else if (med.type === 'video') {
+        inner = '<video src="' + med.url + '" controls playsinline loop muted class="media-video"></video>';
+      } else if (med.type === 'gif') {
+        inner = '<img src="' + med.url + '" alt="' + (med.caption || 'Animation') + '" class="media-gif" loading="lazy">';
       }
+      if (inner) cards += '<div class="media-card" style="--delay:' + (m * 0.1) + 's">' + inner + (med.caption ? '<p class="media-caption">' + med.caption + '</p>' : '') + '</div>';
+    }
+    if (cards) mediaHTML = '<div class="media-section"><h3 class="media-section-title">In Action</h3><div class="media-grid">' + cards + '</div></div>';
+  }
 
-      if (!id) { showNotFound(); return; }
-      if (typeof LEGACY_MAP !== 'undefined' && LEGACY_MAP[id]) id = LEGACY_MAP[id];
-      const product = PRODUCTS.find(p => p.id === id);
-      if (!product) { showNotFound(); return; }
-
-      document.title = `${product.name} · FingerMTB`;
-
-      const badgeClass = {available:'status-available','sold-out':'status-sold-out',soon:'status-soon'}[product.status] || '';
-      const badgeLabel = {available:'In Stock','sold-out':'Sold Out',soon:'Coming Soon'}[product.status] || '';
-
-      // Auto meta description per product
-      const autoDesc = `${product.name} — ${product.description?.substring(0,120)||'Handmade 3D-printed mini bike from Switzerland.'} | FingerMTB`;
-      document.getElementById('meta-desc').content = autoDesc;
-      document.getElementById('og-desc').content  = autoDesc;
-      document.getElementById('og-title').content = `${product.name} · FingerMTB`;
-      if (product.images?.[0]) document.getElementById('og-image').content = product.images[0].startsWith('http') ? product.images[0] : `https://brickj-mtb.netlify.app/${product.images[0]}`;
-
-      // Low stock badge
-      const stock = parseInt(product.stock)||0;
-      const lowStockHTML = (product.status==='available' && stock > 0 && stock <= 3)
-        ? `<span class="low-stock-badge">🔥 Only ${stock} left!</span>` : '';
-
-      // Image slides
-      const slides = (product.images||['COMING SOON.png']).map((src,i) => {
-        // tiny 1x1 grey placeholder encoded inline — swapped out on load
-        const placeholder = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 400\'%3E%3Crect width=\'400\' height=\'400\' fill=\'%23161818\'/%3E%3C/svg%3E';
-        return `<img
-          src="${i===0?src:placeholder}"
-          data-src="${src}"
-          alt="${product.name}"
-          class="slide${i===0?' active':''} img-blur"
-          loading="${i===0?'eager':'lazy'}"
-          onload="this.classList.add('img-loaded')"
-          onerror="this.src='COMING SOON.png';this.classList.add('img-loaded')">`;
-      }).join('');
-
-      // Specs
-      const specItems = product.specs?.length
-        ? `<ul>${product.specs.map(s=>`<li>${s}</li>`).join('')}</ul>` : '';
-
-      // Note
-      const noteHTML = product.note
-        ? `<div class="product-note">ℹ️ ${product.note}</div>` : '';
-
-      // Trust badges
-      const trustBadge = cfg.trust?.badge
-        ? `<span class="trust-badge">${cfg.trust.badge}</span>` : '';
-      const shipBadge = cfg.trust?.shipping
-        ? `<span class="trust-badge trust-badge--shipping">🚚 ${cfg.trust.shipping}</span>` : '';
-
-      // Variants
-      let variantsHTML = '';
-      if (product.variants?.length) {
-        const chips = product.variants.map((v,i) => {
-          const effectiveStatus = v.status || product.status;
-          const isSoldOut = effectiveStatus === 'sold-out';
-          const dot = v.color
-            ? `<span style="width:13px;height:13px;border-radius:50%;background:${v.color};flex-shrink:0;border:1.5px solid rgba(255,255,255,.2);display:inline-block"></span>`
-            : '';
-          return `<button
-            class="variant-chip${isSoldOut?' variant-chip--soldout':''}"
-            data-link="${v.link||product.etsyLink||''}"
-            data-pricechf="${v.priceCHF||product.priceCHF||0}"
-            data-priceusd="${product.priceUSD||0}"
-            data-priceeur="${product.priceEUR||0}"
-            data-status="${effectiveStatus}"
-            onclick="selectVariant(this)"
-            ${isSoldOut?'disabled':''}>
-            ${dot}<span>${v.label}</span>
-            ${isSoldOut?'<span style="font-size:.6rem;opacity:.5">(sold out)</span>':''}
-          </button>`;
-        }).join('');
-        variantsHTML = `
-          <div class="variants-section anim-hero" style="animation-delay:.2s">
-            <div class="variants-label">Choose option</div>
-            <div class="variants-chips">${chips}</div>
-          </div>`;
-      }
-
-      // Buy section
-      let buySection = '';
-      if (product.variants?.length) {
-        buySection = `
-          <a class="buy-btn buy-btn--disabled" id="variantBuyBtn" href="#" target="_blank" rel="noopener">
-            <span class="buy-btn-icon">🛒</span>
-            <span id="variantBuyLabel">Select an option above</span>
-            <span class="buy-btn-arrow">→</span>
-          </a>`;
-      } else if (product.status==='available' && product.etsyLink) {
-        buySection = `
-          <a class="buy-btn" href="${product.etsyLink}" target="_blank" rel="noopener">
-            <span class="buy-btn-icon">🛒</span>
-            <span>${product.etsyLabel||'Buy Now'}</span>
-            <span class="buy-btn-arrow">→</span>
-          </a>`;
-      } else {
-        buySection = `<div class="buy-btn buy-btn--disabled">${badgeLabel||'Unavailable'}</div>`;
-      }
-
-      // Size reference
-      const sizeHTML = (cfg.sizeref?.enabled!==false && cfg.sizeref?.title) ? `
-        <div class="size-reference">
-          ${cfg.sizeref.image?`<img src="${cfg.sizeref.image}" alt="Size reference" class="size-ref-img">`:''}
-          <div class="size-ref-text">
-            <span class="size-ref-icon">📏</span>
-            <div>
-              <strong>${cfg.sizeref.title}</strong>
-              ${cfg.sizeref.text?`<p>${cfg.sizeref.text}</p>`:''}
-            </div>
-          </div>
-        </div>` : '';
-
-      // Media section
-      let mediaHTML = '';
-      if (product.media?.length) {
-        const cards = product.media.map((m,i) => {
-          let inner = '';
-          if (m.type==='youtube') {
-            const ytId = m.url.match(/(?:v=|youtu\.be\/)([^&\?]+)/)?.[1] || m.url;
-            inner = `<div class="media-youtube"><iframe src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>`;
-          } else if (m.type==='video') {
-            inner = `<video src="${m.url}" controls playsinline loop muted class="media-video"></video>`;
-          } else if (m.type==='gif') {
-            inner = `<img src="${m.url}" alt="${m.caption||'Animation'}" class="media-gif" loading="lazy">`;
-          }
-          return `<div class="media-card" style="--delay:${i*0.1}s">${inner}${m.caption?`<p class="media-caption">${m.caption}</p>`:''}</div>`;
-        }).join('');
-        mediaHTML = `<div class="media-section"><h3 class="media-section-title">In Action</h3><div class="media-grid">${cards}</div></div>`;
-      }
-
-      // Render
-      main.innerHTML = `
-        <section class="product-hero">
-          <div class="productimgbox">
-            <div class="slider">
-              <button class="prev" aria-label="Previous">‹</button>
-              <div class="slides" id="mainSlides">${slides}</div>
-              <button class="next" aria-label="Next">›</button>
-            </div>
-            <div class="zoom-hint">🔍 Tap image to zoom</div>
-          </div>
-          <div class="pricedescription">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-              <span class="status-badge ${badgeClass}">${badgeLabel}</span>
-              ${lowStockHTML}
-            </div>
-            <h2 class="product-name-heading">${product.name}</h2>
-            <p class="price anim-hero" data-usd="${product.priceUSD}" data-chf="${product.priceCHF}" data-eur="${product.priceEUR}" style="animation-delay:.1s">
-              $${(product.priceUSD||0).toFixed(2)}
-            </p>
-            <p class="product-description anim-hero" style="animation-delay:.18s">${product.description}</p>
-            ${variantsHTML}
-            <div class="anim-hero" style="animation-delay:.28s">
-              ${buySection}
-              <div class="share-row">
-                <button class="share-btn" onclick="shareProduct('${product.name}','${product.id}')" title="Share this product">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                  Share
-                </button>
-                <button class="share-btn share-btn--wa" onclick="shareWhatsApp('${product.name}','${product.id}')" title="Share on WhatsApp">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  WhatsApp
-                </button>
-              </div>
-            </div>
-            <div class="trust-badges anim-hero" style="animation-delay:.36s">${trustBadge}${shipBadge}</div>
-            <div class="share-row anim-hero" style="animation-delay:.42s">
-              <span class="share-label">Share</span>
-              <button class="share-btn share-btn--copy" onclick="shareProduct('copy','${product.name}')" title="Copy link">🔗</button>
-              <button class="share-btn share-btn--wa" onclick="shareProduct('whatsapp','${product.name}')" title="WhatsApp">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              </button>
-              <button class="share-btn share-btn--ig" onclick="shareProduct('instagram','${product.name}')" title="Instagram (copy link)">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              </button>
-            </div>
-            ${sizeHTML?`<div class="anim-hero" style="animation-delay:.42s">${sizeHTML}</div>`:''}
-            ${specItems?`<div class="details anim-hero" style="animation-delay:.48s"><h3>Specs</h3>${specItems}</div>`:''}
-            ${noteHTML?`<div class="anim-hero" style="animation-delay:.54s">${noteHTML}</div>`:''}
-          </div>
-        </section>
-        ${mediaHTML}
-        <div id="relatedSection"></div>`;
-
-      // Media card observer
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in-view');obs.unobserve(e.target);} });
-      }, {threshold:0.1});
-      main.querySelectorAll('.media-card').forEach(el => obs.observe(el));
-
-      // Image zoom
-      main.querySelectorAll('.slide.img-blur, .slide').forEach(img => {
-        img.style.cursor = 'zoom-in';
-        img.addEventListener('click', () => {
-          const overlay = document.getElementById('zoomOverlay');
-          const zoomImg = document.getElementById('zoomImg');
-          zoomImg.src = img.src;
-          overlay.style.display = 'flex';
-          document.body.style.overflow = 'hidden';
-        });
-      });
-
-      // Related products
-      (function() {
-        const related = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id && p.status !== 'soon').slice(0, 3);
-        const sec = document.getElementById('relatedSection');
-        if (!related.length || !sec) return;
-        sec.innerHTML = `
-          <div class="related-section">
-            <h3 class="related-title">You might also like</h3>
-            <div class="related-grid">
-              ${related.map(p => {
-                const priceHTML = p.status === 'available'
-                  ? `<p class="related-price">CHF ${parseFloat(p.priceCHF||0).toFixed(2)}</p>`
-                  : `<p class="related-price" style="color:var(--muted);font-size:.75rem">${p.status==='sold-out'?'Sold Out':'Coming Soon'}</p>`;
-                return `<a href="product.html?id=${p.id}" class="related-card">
-                  <div class="related-img-wrap"><img src="${p.images?.[0]||'COMING SOON.png'}" alt="${p.name}" loading="lazy"></div>
-                  <div class="related-info">
-                    <div class="related-name">${p.name}</div>
-                    ${priceHTML}
-                  </div>
-                </a>`;
-              }).join('')}
-            </div>
-          </div>`;
-      })();
-
-      // Auto-select first available variant
-      if (product.variants?.length) {
-        const first = main.querySelector('.variant-chip:not([disabled])');
-        if (first) selectVariant(first);
-      }
-
-      // Init slider
-      const allSlides = main.querySelectorAll('.slide');
-      const prevBtn   = main.querySelector('.prev');
-      const nextBtn   = main.querySelector('.next');
-      let cur = 0;
-      function showSlide(idx) {
-        allSlides[cur].classList.remove('active');
-        cur = (idx + allSlides.length) % allSlides.length;
-        const next = allSlides[cur];
-        // Lazy load on reveal
-        if (next.dataset.src && next.src !== next.dataset.src) {
-          next.src = next.dataset.src;
-        }
-        next.classList.add('active');
-      }
-      if (nextBtn) nextBtn.addEventListener('click', () => showSlide(cur+1));
-      if (prevBtn) prevBtn.addEventListener('click', () => showSlide(cur-1));
-      document.addEventListener('keydown', e => {
-        if(e.key==='ArrowRight') showSlide(cur+1);
-        if(e.key==='ArrowLeft')  showSlide(cur-1);
-      });
-
-      // Currency switch
-      document.getElementById('currencySwitch')?.addEventListener('change', function() {
-        localStorage.setItem('fm_currency', this.value);
-        const priceEl = main.querySelector('.price[data-chf]');
-        if (!priceEl) return;
-        if (this.value==='CHF') priceEl.textContent=`CHF ${parseFloat(priceEl.dataset.chf).toFixed(2)}`;
-        else if (this.value==='EUR') priceEl.textContent=`€${parseFloat(priceEl.dataset.eur).toFixed(2)}`;
-        else priceEl.textContent=`$${parseFloat(priceEl.dataset.usd).toFixed(2)}`;
-        // Update variant price if active
-        const activeChip = main.querySelector('.variant-chip--active');
-        if (activeChip) selectVariant(activeChip);
-      });
-      // Apply saved/default currency to price on load
-      setTimeout(() => {
-        const sel = document.getElementById('currencySwitch');
-        const priceEl = main.querySelector('.price[data-chf]');
-        if (!sel || !priceEl) return;
-        if (sel.value==='CHF') priceEl.textContent=`CHF ${parseFloat(priceEl.dataset.chf).toFixed(2)}`;
-        else if (sel.value==='EUR') priceEl.textContent=`€${parseFloat(priceEl.dataset.eur).toFixed(2)}`;
-      }, 50);
-
-    })();
-
-    // Variant selection
-    function shareProduct(platform, name) {
-      const url = window.location.href;
-      const text = `Check out ${name} on FingerMTB! ${url}`;
-      if (platform === 'copy') {
-        navigator.clipboard.writeText(url).then(() => {
-          const btn = document.querySelector('.share-btn--copy');
-          if (btn) { const orig = btn.textContent; btn.textContent = '✓'; setTimeout(() => btn.textContent = orig, 2000); }
-        }).catch(() => prompt('Copy this link:', url));
-      } else if (platform === 'whatsapp') {
-        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-      } else if (platform === 'instagram') {
-        // Instagram doesn't support direct URL share — copy link instead
-        navigator.clipboard.writeText(url).then(() => {
-          const btn = document.querySelector('.share-btn--ig');
-          if (btn) { const orig = btn.innerHTML; btn.textContent = '✓ Copied'; setTimeout(() => btn.innerHTML = orig, 2000); }
-          alert('Link copied! Paste it in your Instagram story or DM.');
-        });
+  // related products
+  var relatedHTML = '';
+  if (typeof PRODUCTS !== 'undefined') {
+    var related = [];
+    for (var r = 0; r < PRODUCTS.length; r++) {
+      if (PRODUCTS[r].category === product.category && PRODUCTS[r].id !== product.id && PRODUCTS[r].status !== 'soon') {
+        related.push(PRODUCTS[r]);
+        if (related.length >= 3) break;
       }
     }
+    if (related.length) {
+      var relCards = '';
+      for (var rc = 0; rc < related.length; rc++) {
+        var rp = related[rc];
+        var rpPrice = rp.status === 'available' ? '<p class="related-price">CHF ' + parseFloat(rp.priceCHF || 0).toFixed(2) + '</p>' : '<p class="related-price" style="color:var(--muted);font-size:.75rem">' + (rp.status === 'sold-out' ? 'Sold Out' : 'Coming Soon') + '</p>';
+        relCards += '<a href="product.html?id=' + rp.id + '" class="related-card"><div class="related-img-wrap"><img src="' + (rp.images && rp.images[0] ? rp.images[0] : 'COMING SOON.png') + '" alt="' + rp.name + '" loading="lazy"></div><div class="related-info"><div class="related-name">' + rp.name + '</div>' + rpPrice + '</div></a>';
+      }
+      relatedHTML = '<div class="related-section"><h3 class="related-title">You might also like</h3><div class="related-grid">' + relCards + '</div></div>';
+    }
+  }
 
-    async function shareProduct(name, id) {
-      const url = `${location.origin}/product.html?id=${id}`;
+  // ── assemble page ────────────────────────────────────
+  main.innerHTML =
+    '<section class="product-hero">'
+    + '<div class="productimgbox">'
+    + '<div class="slider">'
+    + '<button class="prev" aria-label="Previous">&#8249;</button>'
+    + '<div class="slides">' + slidesHTML + '</div>'
+    + '<button class="next" aria-label="Next">&#8250;</button>'
+    + '</div>'
+    + '<p class="zoom-hint">🔍 Tap image to zoom</p>'
+    + '</div>'
+    + '<div class="pricedescription">'
+    + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">'
+    + '<span class="status-badge ' + statusClass + '">' + statusLabel + '</span>'
+    + lowStock
+    + '</div>'
+    + '<h2 class="product-name-heading">' + product.name + '</h2>'
+    + '<p class="price" id="mainPrice" data-usd="' + (product.priceUSD || 0) + '" data-chf="' + (product.priceCHF || 0) + '" data-eur="' + (product.priceEUR || 0) + '">$' + parseFloat(product.priceUSD || 0).toFixed(2) + '</p>'
+    + '<p class="product-description">' + (product.description || '') + '</p>'
+    + variantsHTML
+    + buyHTML
+    + shareHTML
+    + '<div class="trust-badges">' + trustHTML + '</div>'
+    + sizeHTML
+    + (specsHTML ? '<div class="details"><h3>Specs</h3>' + specsHTML + '</div>' : '')
+    + (product.note ? '<div class="product-note">&#8505;&#65039; ' + product.note + '</div>' : '')
+    + '</div>'
+    + '</section>'
+    + mediaHTML
+    + relatedHTML;
+
+  // ── slider ───────────────────────────────────────────
+  var allSlides = main.querySelectorAll('.slide');
+  var cur = 0;
+  function showSlide(idx) {
+    allSlides[cur].classList.remove('active');
+    cur = (idx + allSlides.length) % allSlides.length;
+    allSlides[cur].classList.add('active');
+  }
+  var prevBtn = main.querySelector('.prev');
+  var nextBtn = main.querySelector('.next');
+  if (prevBtn) prevBtn.addEventListener('click', function () { showSlide(cur - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { showSlide(cur + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') showSlide(cur + 1);
+    if (e.key === 'ArrowLeft')  showSlide(cur - 1);
+  });
+
+  // ── image zoom ───────────────────────────────────────
+  main.querySelectorAll('.slide').forEach(function (img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function () { openZoom(img.src); });
+  });
+
+  // ── currency ─────────────────────────────────────────
+  function updatePrice() {
+    var sel = document.getElementById('currencySwitch');
+    var priceEl = document.getElementById('mainPrice');
+    if (!sel || !priceEl) return;
+    var v = sel.value;
+    if (v === 'CHF') priceEl.textContent = 'CHF ' + parseFloat(priceEl.dataset.chf).toFixed(2);
+    else if (v === 'EUR') priceEl.textContent = '€' + parseFloat(priceEl.dataset.eur).toFixed(2);
+    else priceEl.textContent = '$' + parseFloat(priceEl.dataset.usd).toFixed(2);
+  }
+  var curSel = document.getElementById('currencySwitch');
+  if (curSel) {
+    curSel.addEventListener('change', function () {
+      localStorage.setItem('fm_currency', this.value);
+      updatePrice();
+      var active = main.querySelector('.variant-chip--active');
+      if (active) selectVariant(active);
+    });
+    updatePrice();
+  }
+
+  // ── variants ─────────────────────────────────────────
+  main.querySelectorAll('.variant-chip').forEach(function (btn) {
+    btn.addEventListener('click', function () { selectVariant(btn); });
+  });
+  // auto-select first available
+  var firstChip = main.querySelector('.variant-chip:not([disabled])');
+  if (firstChip) selectVariant(firstChip);
+
+  // ── share ────────────────────────────────────────────
+  var shareBtn = document.getElementById('shareCopyBtn');
+  var waBtn    = document.getElementById('shareWaBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function () {
+      var url = location.href;
       if (navigator.share) {
-        try {
-          await navigator.share({ title: name + ' · FingerMTB', text: 'Check this out: ' + name, url });
-          return;
-        } catch(e) {}
-      }
-      // Fallback: copy to clipboard
-      try {
-        await navigator.clipboard.writeText(url);
-        showShareToast('Link copied! 📋');
-      } catch(e) {
-        prompt('Copy this link:', url);
-      }
-    }
-
-    function shareWhatsApp(name, id) {
-      const url = `${location.origin}/product.html?id=${id}`;
-      const text = encodeURIComponent(`Check out ${name} on FingerMTB: ${url}`);
-      window.open(`https://wa.me/?text=${text}`, '_blank');
-    }
-
-    function showShareToast(msg) {
-      let t = document.getElementById('shareToast');
-      if (!t) {
-        t = document.createElement('div');
-        t.id = 'shareToast';
-        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);color:var(--success);border-color:var(--success);border-radius:100px;padding:9px 20px;font-size:.78rem;z-index:9999;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap';
-        document.body.appendChild(t);
-      }
-      t.textContent = msg;
-      requestAnimationFrame(() => { t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)'; });
-      setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; }, 2500);
-    }
-
-    function closeZoom() {
-      document.getElementById('zoomOverlay').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-    document.addEventListener('keydown', e => { if(e.key==='Escape') closeZoom(); });
-
-    function selectVariant(btn) {
-      document.querySelectorAll('.variant-chip').forEach(b => b.classList.remove('variant-chip--active'));
-      btn.classList.add('variant-chip--active');
-
-      const link     = btn.dataset.link;
-      const status   = btn.dataset.status;
-      const priceCHF = btn.dataset.pricechf;
-      const priceUSD = btn.dataset.priceusd;
-      const priceEUR = btn.dataset.priceeur;
-
-      const buyBtn = document.getElementById('variantBuyBtn');
-      const buyLbl = document.getElementById('variantBuyLabel');
-      if (!buyBtn) return;
-
-      if (status==='sold-out') {
-        buyBtn.classList.add('buy-btn--disabled');
-        buyBtn.removeAttribute('href');
-        if (buyLbl) buyLbl.textContent = 'Sold Out';
-      } else if (link) {
-        buyBtn.classList.remove('buy-btn--disabled');
-        buyBtn.href = link;
-        if (buyLbl) buyLbl.textContent = 'Buy Now';
+        navigator.share({ title: product.name + ' · FingerMTB', url: url }).catch(function(){});
       } else {
-        buyBtn.classList.add('buy-btn--disabled');
-        buyBtn.removeAttribute('href');
-        if (buyLbl) buyLbl.textContent = 'Not available';
+        navigator.clipboard.writeText(url).then(function () {
+          shareBtn.textContent = '✓ Copied!';
+          setTimeout(function () { shareBtn.innerHTML = '&#128279; Share'; }, 2000);
+        }).catch(function () { prompt('Copy link:', url); });
       }
+    });
+  }
+  if (waBtn) {
+    waBtn.addEventListener('click', function () {
+      var text = encodeURIComponent('Check out ' + product.name + ' on FingerMTB: ' + location.href);
+      window.open('https://wa.me/?text=' + text, '_blank');
+    });
+  }
 
-      const priceEl = document.querySelector('.price[data-chf]');
-      if (priceEl && priceCHF) {
-        const sel = document.getElementById('currencySwitch')?.value || 'USD';
-        if (sel==='CHF') priceEl.textContent=`CHF ${parseFloat(priceCHF).toFixed(2)}`;
-        else if (sel==='EUR') priceEl.textContent=`€${parseFloat(priceEUR||0).toFixed(2)}`;
-        else priceEl.textContent=`$${parseFloat(priceUSD||0).toFixed(2)}`;
+  // ── media card reveal ────────────────────────────────
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  main.querySelectorAll('.media-card').forEach(function (el) { obs.observe(el); });
+
+  // ── 404 ──────────────────────────────────────────────
+  function show404() {
+    document.title = '404 · FingerMTB';
+    var sugg = '';
+    if (typeof PRODUCTS !== 'undefined') {
+      var avail = PRODUCTS.filter(function (p) { return p.status === 'available'; }).slice(0, 3);
+      if (avail.length) {
+        var cards = avail.map(function (p) {
+          return '<a href="product.html?id=' + p.id + '" style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--text);display:block">'
+            + '<img src="' + (p.images && p.images[0] ? p.images[0] : 'COMING SOON.png') + '" style="width:100%;aspect-ratio:1;object-fit:cover">'
+            + '<div style="padding:10px 12px"><div style="font-size:.8rem;font-weight:600">' + p.name + '</div>'
+            + '<div style="font-family:Bebas Neue,sans-serif;color:var(--accent2)">CHF ' + parseFloat(p.priceCHF || 0).toFixed(2) + '</div></div></a>';
+        }).join('');
+        sugg = '<div style="margin-top:32px"><p style="font-family:Bebas Neue,sans-serif;letter-spacing:.1em;color:var(--muted);margin-bottom:12px">YOU MIGHT LIKE</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">' + cards + '</div></div>';
       }
     }
-  </script>
+    main.innerHTML = '<div style="text-align:center;padding:80px 24px 40px;max-width:600px;margin:0 auto">'
+      + '<div style="font-family:Bebas Neue,sans-serif;font-size:7rem;color:var(--border);line-height:1">404</div>'
+      + '<h2 style="font-family:Bebas Neue,sans-serif;font-size:2rem;margin-bottom:12px">Product not found</h2>'
+      + '<p style="color:var(--muted);margin-bottom:28px">This product no longer exists or has been removed.</p>'
+      + '<a href="shop.html" class="buy-btn" style="display:inline-flex">Browse the Shop <span class="buy-btn-arrow">→</span></a>'
+      + sugg + '</div>';
+  }
+
+  // ── selectVariant (global) ───────────────────────────
+  window.selectVariant = function (btn) {
+    main.querySelectorAll('.variant-chip').forEach(function (b) { b.classList.remove('variant-chip--active'); });
+    btn.classList.add('variant-chip--active');
+    var link     = btn.dataset.link;
+    var status   = btn.dataset.status;
+    var priceCHF = btn.dataset.pricechf;
+    var priceUSD = btn.dataset.priceusd;
+    var priceEUR = btn.dataset.priceeur;
+    var buyBtn   = document.getElementById('variantBuyBtn');
+    var buyLbl   = document.getElementById('variantBuyLabel');
+    if (!buyBtn) return;
+    if (status === 'sold-out') {
+      buyBtn.className = 'buy-btn buy-btn--disabled';
+      buyBtn.removeAttribute('href');
+      if (buyLbl) buyLbl.textContent = 'Sold Out';
+    } else if (link) {
+      buyBtn.className = 'buy-btn';
+      buyBtn.href = link;
+      if (buyLbl) buyLbl.textContent = 'Buy Now';
+    } else {
+      buyBtn.className = 'buy-btn buy-btn--disabled';
+      buyBtn.removeAttribute('href');
+      if (buyLbl) buyLbl.textContent = 'Not available';
+    }
+    var priceEl = document.getElementById('mainPrice');
+    if (priceEl && priceCHF) {
+      priceEl.dataset.chf = priceCHF;
+      priceEl.dataset.usd = priceUSD;
+      priceEl.dataset.eur = priceEUR;
+      updatePrice();
+    }
+  };
+
+})();
+</script>
 </body>
 </html>
