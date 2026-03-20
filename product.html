@@ -78,6 +78,14 @@
 <script>
 (function () {
   // ── helpers ──────────────────────────────────────────
+  // ── escape helpers ──────────────────────────────────
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function escAttr(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
   function deepMerge(b, o) {
     var r = Object.assign({}, b);
     for (var k in o) {
@@ -181,14 +189,14 @@
   var images = (product.images && product.images.length) ? product.images : ['COMING SOON.png'];
   var slidesHTML = '';
   for (var s = 0; s < images.length; s++) {
-    slidesHTML += '<img src="' + images[s] + '" alt="' + product.name + '" class="slide' + (s === 0 ? ' active' : '') + '" loading="' + (s === 0 ? 'eager' : 'lazy') + '" onerror="this.src=\'COMING SOON.png\'">';
+    slidesHTML += '<img src="' + images[s] + '" alt="' + escAttr(product.name) + '" class="slide' + (s === 0 ? ' active' : '') + '" loading="' + (s === 0 ? 'eager' : 'lazy') + '" onerror="this.src=\'COMING SOON.png\'">';
   }
 
   // specs
   var specsHTML = '';
   if (product.specs && product.specs.length) {
     specsHTML = '<ul>';
-    for (var sp = 0; sp < product.specs.length; sp++) specsHTML += '<li>' + product.specs[sp] + '</li>';
+    for (var sp = 0; sp < product.specs.length; sp++) specsHTML += '<li>' + escHtml(product.specs[sp]) + '</li>';
     specsHTML += '</ul>';
   }
 
@@ -218,7 +226,7 @@
       var soldOut = vStatus === 'sold-out';
       var dot = vr.color ? '<span style="width:13px;height:13px;border-radius:50%;background:' + vr.color + ';flex-shrink:0;border:1.5px solid rgba(255,255,255,.2);display:inline-block"></span>' : '';
       chipsHTML += '<button class="variant-chip' + (soldOut ? ' variant-chip--soldout' : '') + '"'
-        + ' data-link="' + (vr.link || product.etsyLink || '') + '"'
+        + ' data-link="' + escAttr(vr.link || product.etsyLink || '') + '"'
         + ' data-pricechf="' + (vr.priceCHF || product.priceCHF || 0) + '"'
         + ' data-priceusd="' + (product.priceUSD || 0) + '"'
         + ' data-priceeur="' + (product.priceEUR || 0) + '"'
@@ -384,7 +392,7 @@
     shareBtn.addEventListener('click', function () {
       var url = location.href;
       if (navigator.share) {
-        navigator.share({ title: product.name + ' · FingerMTB', url: url }).catch(function(){});
+        navigator.share({ title: escHtml(product.name) + ' · FingerMTB', url: url }).catch(function(){});
       } else {
         navigator.clipboard.writeText(url).then(function () {
           shareBtn.textContent = '✓ Copied!';
@@ -395,7 +403,7 @@
   }
   if (waBtn) {
     waBtn.addEventListener('click', function () {
-      var text = encodeURIComponent('Check out ' + product.name + ' on FingerMTB: ' + location.href);
+      var text = encodeURIComponent('Check out ' + encodeURIComponent(product.name) + ' on FingerMTB: ' + location.href);
       window.open('https://wa.me/?text=' + text, '_blank');
     });
   }
@@ -414,7 +422,7 @@
       var avail = PRODUCTS.filter(function (p) { return p.status === 'available'; }).slice(0, 3);
       if (avail.length) {
         var cards = avail.map(function (p) {
-          return '<a href="product.html?id=' + p.id + '" style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--text);display:block">'
+          return '<a href="product.html?id=' + escAttr(p.id) + '" style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--text);display:block">'
             + '<img src="' + (p.images && p.images[0] ? p.images[0] : 'COMING SOON.png') + '" style="width:100%;aspect-ratio:1;object-fit:cover">'
             + '<div style="padding:10px 12px"><div style="font-size:.8rem;font-weight:600">' + p.name + '</div>'
             + '<div style="font-family:Bebas Neue,sans-serif;color:var(--accent2)">CHF ' + parseFloat(p.priceCHF || 0).toFixed(2) + '</div></div></a>';
