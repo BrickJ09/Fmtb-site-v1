@@ -104,6 +104,41 @@
 
   var cfg = getCfg();
 
+  // ── selectVariant — defined early so onclick handlers can call it ──
+  function selectVariant(btn) {
+    var chips = document.querySelectorAll('.variant-chip');
+    for (var i = 0; i < chips.length; i++) chips[i].classList.remove('variant-chip--active');
+    btn.classList.add('variant-chip--active');
+    var link     = btn.dataset.link;
+    var status   = btn.dataset.status;
+    var priceCHF = btn.dataset.pricechf;
+    var priceUSD = btn.dataset.priceusd;
+    var priceEUR = btn.dataset.priceeur;
+    var buyBtn   = document.getElementById('variantBuyBtn');
+    var buyLbl   = document.getElementById('variantBuyLabel');
+    if (!buyBtn) return;
+    if (status === 'sold-out') {
+      buyBtn.className = 'buy-btn buy-btn--disabled';
+      buyBtn.removeAttribute('href');
+      if (buyLbl) buyLbl.textContent = 'Sold Out';
+    } else if (link) {
+      buyBtn.className = 'buy-btn';
+      buyBtn.href = link;
+      if (buyLbl) buyLbl.textContent = 'Buy Now';
+    } else {
+      buyBtn.className = 'buy-btn buy-btn--disabled';
+      buyBtn.removeAttribute('href');
+      if (buyLbl) buyLbl.textContent = 'Not available';
+    }
+    var priceEl = document.getElementById('mainPrice');
+    if (priceEl && priceCHF) {
+      priceEl.dataset.chf = priceCHF;
+      priceEl.dataset.usd = priceUSD;
+      priceEl.dataset.eur = priceEUR;
+      updatePrice();
+    }
+  }
+
   // ── currency default ─────────────────────────────────
   (function () {
     try {
@@ -379,7 +414,7 @@
 
   // ── variants ─────────────────────────────────────────
   main.querySelectorAll('.variant-chip').forEach(function (btn) {
-    btn.addEventListener('click', function () { selectVariant(btn); });
+    btn.addEventListener('click', function () { selectVariant(this); });
   });
   // auto-select first available
   var firstChip = main.querySelector('.variant-chip:not([disabled])');
@@ -438,39 +473,6 @@
       + sugg + '</div>';
   }
 
-  // ── selectVariant (global) ───────────────────────────
-  window.selectVariant = function (btn) {
-    main.querySelectorAll('.variant-chip').forEach(function (b) { b.classList.remove('variant-chip--active'); });
-    btn.classList.add('variant-chip--active');
-    var link     = btn.dataset.link;
-    var status   = btn.dataset.status;
-    var priceCHF = btn.dataset.pricechf;
-    var priceUSD = btn.dataset.priceusd;
-    var priceEUR = btn.dataset.priceeur;
-    var buyBtn   = document.getElementById('variantBuyBtn');
-    var buyLbl   = document.getElementById('variantBuyLabel');
-    if (!buyBtn) return;
-    if (status === 'sold-out') {
-      buyBtn.className = 'buy-btn buy-btn--disabled';
-      buyBtn.removeAttribute('href');
-      if (buyLbl) buyLbl.textContent = 'Sold Out';
-    } else if (link) {
-      buyBtn.className = 'buy-btn';
-      buyBtn.href = link;
-      if (buyLbl) buyLbl.textContent = 'Buy Now';
-    } else {
-      buyBtn.className = 'buy-btn buy-btn--disabled';
-      buyBtn.removeAttribute('href');
-      if (buyLbl) buyLbl.textContent = 'Not available';
-    }
-    var priceEl = document.getElementById('mainPrice');
-    if (priceEl && priceCHF) {
-      priceEl.dataset.chf = priceCHF;
-      priceEl.dataset.usd = priceUSD;
-      priceEl.dataset.eur = priceEUR;
-      updatePrice();
-    }
-  };
 
 })();
 </script>
