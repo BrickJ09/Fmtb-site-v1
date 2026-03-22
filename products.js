@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 19.03.2026, 08:35:26
+// Generated: 22.03.2026, 19:41:52
 
 const PRODUCTS = [
   {
@@ -416,9 +416,9 @@ const SITE_CONFIG = {
     "body": "Fingerbike made for fun",
     "image": "uploads/fingerbike-gelb-mit-rampe.jpg",
     "buttonText": "Buy Now on Ricardo.ch",
-    "buttonLink": "#",
+    "buttonLink": "https://www.ricardo.ch/de/a/fingerbike-gelb-mit-rampe-1314254936/",
     "dismissText": "Close",
-    "price": "CHF 19.00"
+    "price": "CHF 16.60"
   },
   "shop": {
     "heroTitle": "",
