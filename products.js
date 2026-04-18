@@ -1,5 +1,5 @@
 // products.js — FingerMTB Admin
-// Generated: 09.04.2026, 20:57:17
+// Generated: 18.04.2026, 22:42:07
 
 const PRODUCTS = [
   {
@@ -165,7 +165,7 @@ const PRODUCTS = [
     "priceUSD": 16.6,
     "priceCHF": 16.6,
     "priceEUR": 16.6,
-    "stock": 2,
+    "stock": 1,
     "etsyLabel": "Buy Now on Ricardo.ch",
     "etsyLink": "",
     "description": "Fingerbike made for fun",
@@ -200,7 +200,7 @@ const PRODUCTS = [
         "color": "#ffffff",
         "link": "https://www.ricardo.ch/de/a/fingerbike-weiss-mit-rampe-1314255806/",
         "priceCHF": "",
-        "status": ""
+        "status": "sold-out"
       },
       {
         "label": "Yellow",
